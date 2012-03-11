@@ -20,7 +20,9 @@ namespace SpellWork
             DBC.DBC.SpellDuration = DBCReader.ReadDBC<SpellDurationEntry>(null);
             DBC.DBC.SpellRadius = DBCReader.ReadDBC<SpellRadiusEntry>(null);
             DBC.DBC.SpellRange = DBCReader.ReadDBC<SpellRangeEntry>(DBC.DBC.SpellRangeStrings);
-
+            DBC.DBC.SpellMissile = DBCReader.ReadDBC<SpellMissileEntry>(null);
+            DBC.DBC.SpellMissileMotion = DBCReader.ReadDBC<SpellMissileMotionEntry>(DBC.DBC.SpellMissileMotionStrings);
+            DBC.DBC.SpellVisual = DBCReader.ReadDBC<SpellVisualEntry>(null);
 
             DBC.DBC.Locale = DetectedLocale;
         }

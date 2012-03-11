@@ -17,6 +17,9 @@ namespace SpellWork.DBC
         public static Dictionary<uint, AreaTableEntry>              AreaTable;
         public static Dictionary<uint, OverrideSpellDataEntry>      OverrideSpellData;
         public static Dictionary<uint, ScreenEffectEntry>           ScreenEffect;
+        public static Dictionary<uint, SpellMissileMotionEntry>     SpellMissileMotion;
+        public static Dictionary<uint, SpellMissileEntry>           SpellMissile;
+        public static Dictionary<uint, SpellVisualEntry>            SpellVisual;
         public static Dictionary<uint, SkillLineAbilityEntry>       SkillLineAbility;
         public static Dictionary<uint, SkillLineEntry>              SkillLine;
         public static Dictionary<uint, SpellEntry>                  Spell;
@@ -31,6 +34,7 @@ namespace SpellWork.DBC
         public static Dictionary<uint, string> SkillLineStrings        = new Dictionary<uint, string>();
         public static Dictionary<uint, string> SpellRangeStrings       = new Dictionary<uint, string>();
         public static Dictionary<uint, string> ScreenEffectStrings     = new Dictionary<uint, string>();
+        public static Dictionary<uint, string> SpellMissileMotionStrings = new Dictionary<uint, string>();
 
         // DB
         public static List<Item> ItemTemplate = new List<Item>();
