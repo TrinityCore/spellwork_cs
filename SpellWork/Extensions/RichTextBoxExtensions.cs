@@ -93,7 +93,7 @@ namespace SpellWork.Extensions
 
         public static void ColorizeCode(this RichTextBox rtb)
         {
-            string[] keywords = { "INSERT", "INTO", "DELETE", "FROM", "IN", "VALUES", "WHERE" };
+            string[] keywords = { "INSERT", "INTO", "DELETE", "FROM", "IN", "VALUES", "WHERE", "UPDATE", "SET" };
             var text = rtb.Text;
 
             rtb.SelectAll();

@@ -11,6 +11,9 @@ namespace SpellWork.Extensions
         [FullName("x == y")]
         Equal,
 
+        [FullName("x != 0")]
+        NotEmpty,
+
         [FullName("x > y")]
         GreaterThan,
         [FullName("x >= y")]
@@ -101,8 +104,12 @@ namespace SpellWork.Extensions
                 case CompareType.Contains:
                     return baseValue.ContainsText(value);
 
+                case CompareType.NotEmpty:
+                    return !"0".Equals(baseValue, StringComparison.CurrentCultureIgnoreCase);
+
                 case CompareType.NotEqual:
                     return !baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
+                case CompareType.Equal:
                 default:
                     return baseValue.Equals(value, StringComparison.CurrentCultureIgnoreCase);
             }
@@ -121,8 +128,12 @@ namespace SpellWork.Extensions
                 case CompareType.LowerThan:
                     return baseValue < value;
 
+                case CompareType.NotEmpty:
+                    return baseValue != 0;
+
                 case CompareType.NotEqual:
                     return baseValue != value;
+                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -141,6 +152,9 @@ namespace SpellWork.Extensions
                 case CompareType.LowerThan:
                     return baseValue < value;
 
+                case CompareType.NotEmpty:
+                    return baseValue != 0;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
@@ -150,6 +164,7 @@ namespace SpellWork.Extensions
 
                 case CompareType.NotEqual:
                     return baseValue != value;
+                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -168,6 +183,9 @@ namespace SpellWork.Extensions
                 case CompareType.LowerThan:
                     return baseValue < value;
 
+                case CompareType.NotEmpty:
+                    return baseValue != 0;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
@@ -177,6 +195,7 @@ namespace SpellWork.Extensions
 
                 case CompareType.NotEqual:
                     return baseValue != value;
+                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }
@@ -195,6 +214,9 @@ namespace SpellWork.Extensions
                 case CompareType.LowerThan:
                     return baseValue < value;
 
+                case CompareType.NotEmpty:
+                    return baseValue != 0;
+
                 case CompareType.AndStrict:
                     return (baseValue & value) == value;
                 case CompareType.And:
@@ -204,6 +226,7 @@ namespace SpellWork.Extensions
 
                 case CompareType.NotEqual:
                     return baseValue != value;
+                case CompareType.Equal:
                 default:
                     return baseValue == value;
             }

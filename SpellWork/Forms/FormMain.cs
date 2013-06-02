@@ -10,6 +10,7 @@ using SpellWork.Database;
 using SpellWork.DBC.Structures;
 using SpellWork.Extensions;
 using SpellWork.Spell;
+using System.Diagnostics;
 
 namespace SpellWork.Forms
 {
@@ -54,12 +55,12 @@ namespace SpellWork.Forms
 
         #region FORM
 
-        private static void ExitClick(object sender, EventArgs e)
+        private void ExitClick(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private static void AboutClick(object sender, EventArgs e)
+        private void AboutClick(object sender, EventArgs e)
         {
             var ab = new FormAboutBox();
             ab.ShowDialog();
@@ -67,7 +68,8 @@ namespace SpellWork.Forms
 
         private void TabControl1SelectedIndexChanged(object sender, EventArgs e)
         {
-            _cbProcFlag.Visible = _bWrite.Visible = ((TabControl)sender).SelectedIndex == 1;
+            _cbProcFlag.Visible = _bWriteInsert.Visible = _bWriteUpdate.Visible = ((TabControl)sender).SelectedIndex == 1;
+            _bLevelScaling.Visible = ((TabControl)sender).SelectedIndex != 3;
         }
 
         private void SettingsClick(object sender, EventArgs e)
@@ -122,7 +124,7 @@ namespace SpellWork.Forms
             ConnStatus();
         }
 
-        private static void TextBoxKeyPress(object sender, KeyPressEventArgs e)
+        private void TextBoxKeyPress(object sender, KeyPressEventArgs e)
         {
             if (!((Char.IsDigit(e.KeyChar) || e.KeyChar == (char)Keys.Back)))
                 e.Handled = true;
@@ -134,7 +136,8 @@ namespace SpellWork.Forms
             var ret = scalingForm.ShowDialog(this);
             if (ret == DialogResult.OK)
             {
-                DBC.DBC.SelectedLevel = scalingForm.SelectedLevel;
+                if (scalingForm.SelectedLevel > 0 && scalingForm.SelectedLevel <= 100)
+                    DBC.DBC.SelectedLevel = scalingForm.SelectedLevel;
                 switch (tabControl1.SelectedIndex)
                 {
                     case 0:
@@ -198,7 +201,8 @@ namespace SpellWork.Forms
                                (at == 0 || (spell.Attributes & at) != 0 || (spell.AttributesEx & at) != 0 ||
                                 (spell.AttributesEx2 & at) != 0 || (spell.AttributesEx3 & at) != 0 ||
                                 (spell.AttributesEx4 & at) != 0 || (spell.AttributesEx5 & at) != 0 ||
-                                (spell.AttributesEx6 & at) != 0 || (spell.AttributesEx7 & at) != 0)) &&
+                                (spell.AttributesEx6 & at) != 0 || (spell.AttributesEx7 & at) != 0) ||
+                                (spell.AttributesEx8 & at) != 0 || (spell.AttributesEx9 & at) != 0) &&
                               ((id != 0 || ic != 0 && at != 0) || spell.SpellName.ContainsText(name))
                           select spell).ToList();
 
@@ -291,9 +295,10 @@ namespace SpellWork.Forms
 
         private void ClbSchoolsSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (ProcInfo.SpellProc.ID == 0)
+            if (ProcInfo.SpellProc == null || ProcInfo.SpellProc.ID == 0)
                 return;
-            _bWrite.Enabled = true;
+            _bWriteInsert.Enabled = true;
+            _bWriteUpdate.Enabled = true;
             GetProcAttribute(ProcInfo.SpellProc);
         }
 
@@ -301,7 +306,8 @@ namespace SpellWork.Forms
         {
             if (ProcInfo.SpellProc.ID == 0)
                 return;
-            _bWrite.Enabled = true;
+            _bWriteInsert.Enabled = true;
+            _bWriteUpdate.Enabled = true;
             GetProcAttribute(ProcInfo.SpellProc);
         }
 
@@ -403,33 +409,40 @@ namespace SpellWork.Forms
             if (!ProcInfo.Update)
                 return;
 
-            _bWrite.Enabled = true;
+            _bWriteInsert.Enabled = true;
+            _bWriteUpdate.Enabled = true;
             _lvProcAdditionalInfo.Items.Clear();
 
             var mask = ((TreeView)sender).GetMask();
 
-            var query = from spell in DBC.DBC.SpellInfoStore.Values
-                        where
-                            spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName &&
-                            spell.SpellFamilyFlags.ContainsElement(mask)
-                        join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
-                        from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
-                        //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
-                        //from SkillLine in temp2.DefaultIfEmpty()
-                        orderby skill.Id descending
-                        select
-                            new
-                            {
-                                SpellID = spell.ID,
-                                SpellName = spell.SpellNameRank + " " + spell.Description,
-                                skill.SkillId
-                            };
+            try
+            {
+                var query = from spell in DBC.DBC.SpellInfoStore.Values
+                            where
+                                spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName &&
+                                spell.SpellFamilyFlags.ContainsElement(mask)
+                            join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellId into temp1
+                            from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
+                            //join skl in DBC.SkillLine on Skill.Value.SkillId equals skl.Value.ID into temp2
+                            //from SkillLine in temp2.DefaultIfEmpty()
+                            orderby skill.Id descending
+                            select
+                                new
+                                {
+                                    SpellID = spell.ID,
+                                    SpellName = spell.SpellNameRank + " " + spell.Description,
+                                    skill.SkillId
+                                };
 
-            foreach (var lvi in
-                query.Select(str => new ListViewItem(new[] {str.SpellID.ToString(), str.SpellName}) {ImageKey = str.SkillId != 0 ? "plus.ico" : "munus.ico"}))
-                _lvProcAdditionalInfo.Items.Add(lvi);
+                _lvProcAdditionalInfo.BeginUpdate();
+                foreach (var lvi in
+                    query.Select(str => new ListViewItem(new[] {str.SpellID.ToString(), str.SpellName}) {ImageKey = str.SkillId != 0 ? "plus.ico" : "munus.ico"}))
+                    _lvProcAdditionalInfo.Items.Add(lvi);
+                _lvProcAdditionalInfo.EndUpdate();
 
-            GetProcAttribute(ProcInfo.SpellProc);
+                GetProcAttribute(ProcInfo.SpellProc);
+            }
+            catch (System.NullReferenceException) { }
         }
 
         #endregion
@@ -545,9 +558,14 @@ namespace SpellWork.Forms
             if (_cbSqlSpellFamily.SelectedValue.ToInt32() != -1)
                 sb.AppendFormat(" SpellFamilyName = {0} &&", _cbSqlSpellFamily.SelectedValue.ToInt32());
 
-            sb.AppendFormatIfNotNull(" SchoolMask {1} {0} &&", _tbSqlSchool.Text.ToInt32(), compare);
-            sb.AppendFormatIfNotNull(" procFlags {1} {0} &&", _tbSqlProc.Text.ToInt32(), compare);
-            sb.AppendFormatIfNotNull(" procEx {1} {0} &&", _tbSqlProcEx.Text.ToInt32(), compare);
+            if (textBox1.Text != "")
+                sb.AppendFormatIfNotNull(" Entry = {0} &&", textBox1.Text.ToInt32());
+            if (_tbSqlSchool.Text != "")
+                sb.AppendFormatIfNotNull(" SchoolMask {1} {0} &&", _tbSqlSchool.Text.ToInt32(), compare);
+            if (_tbSqlProc.Text != "")
+                sb.AppendFormatIfNotNull(" procFlags {1} {0} &&", _tbSqlProc.Text.ToInt32(), compare);
+            if (_tbSqlProcEx.Text != "")
+                sb.AppendFormatIfNotNull(" procEx {1} {0} &&", _tbSqlProcEx.Text.ToInt32(), compare);
 
             var subquery = sb.ToString().Remove(sb.Length - 2, 2);
             subquery = subquery == "WHERE" ? string.Empty : subquery;
@@ -564,6 +582,27 @@ namespace SpellWork.Forms
                 _rtbSqlLog.AppendText(str);
         }
 
+        private void WriteClickUpdate(object sender, EventArgs e)
+        {
+            var spellFamilyFlags = _tvFamilyTree.GetMask();
+            // spell comment
+            var comment = String.Format("-- ({0}) {1}", ProcInfo.SpellProc.ID, ProcInfo.SpellProc.SpellNameRank);
+            // update query
+            var update =
+                String.Format(
+                    "UPDATE `spell_proc_event` SET `SchoolMask` = 0x{1:X2}, `SpellFamilyName` = 0x{2:X2}, `SpellFamilyMask0` = 0x{3:X8}, `SpellFamilyMask1` = 0x{4:X8}, `SpellFamilyMask2` = 0x{5:X8}, `procFlags` = 0x{6:X8}, `procEx` = 0x{7:X8}, `ppmRate` = {8}, `CustomChance` = {9}, `Cooldown` = {10} WHERE `entry` = {0}",
+                    ProcInfo.SpellProc.ID, _clbSchools.GetFlagsValue(), _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
+                    spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], _clbProcFlags.GetFlagsValue(),
+                    _clbProcFlagEx.GetFlagsValue(), _tbPPM.Text.Replace(',', '.').ToFloat(), _tbChance.Text.Replace(',', '.').ToFloat(),
+                    _tbCooldown.Text.Replace(',', '.').ToFloat());
+
+            _rtbSqlLog.AppendText(comment + "\r\n" + update + "\r\n\r\n");
+            _rtbSqlLog.ColorizeCode();
+            if (MySqlConnection.Connected)
+                MySqlConnection.Insert(update);
+            ((Button)sender).Enabled = false;
+        }
+
         private void WriteClick(object sender, EventArgs e)
         {
             var spellFamilyFlags = _tvFamilyTree.GetMask();
@@ -574,13 +613,13 @@ namespace SpellWork.Forms
             // insert query
             var insert =
                 String.Format(
-                    "INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
+                    "({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
                     ProcInfo.SpellProc.ID, _clbSchools.GetFlagsValue(), _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
                     spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], _clbProcFlags.GetFlagsValue(),
-                    _clbProcFlagEx.GetFlagsValue(), _tbPPM.Text.Replace(',', '.'), _tbChance.Text.Replace(',', '.'),
-                    _tbCooldown.Text.Replace(',', '.'));
+                    _clbProcFlagEx.GetFlagsValue(), _tbPPM.Text.Replace(',', '.').ToFloat(), _tbChance.Text.Replace(',', '.').ToFloat(),
+                    _tbCooldown.Text.Replace(',', '.').ToFloat());
 
-            _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\n" + insert + "\r\n\r\n");
+            _rtbSqlLog.AppendText(comment + "\r\n" + drop + "\r\nINSERT INTO `spell_proc_event` (`entry`, `SchoolMask`, `SpellFamilyName`, `SpellFamilyMask0`, `SpellFamilyMask1`, `SpellFamilyMask2`, `procFlags`, `procEx`, `ppmRate`, `CustomChance`, `Cooldown`) VALUES \r\n" + insert + "\r\n\r\n");
             _rtbSqlLog.ColorizeCode();
             if (MySqlConnection.Connected)
                 MySqlConnection.Insert(drop + insert);
@@ -633,11 +672,112 @@ namespace SpellWork.Forms
                                  {_spellProcList[e.ItemIndex].ID.ToString(), _spellProcList[e.ItemIndex].SpellNameRank});
         }
 
-        private static void LvSqlDataRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
+        private void LvSqlDataRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
             e.Item = new ListViewItem(MySqlConnection.SpellProcEvent[e.ItemIndex].ToArray());
         }
 
+        ///
+        /// Proc list tab ColumnClick event handler.
+        /// 
+        private void _lvDataListColumnClick(object o, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == m_procColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (m_procColumnSorter.Order == SortOrder.Ascending)
+                {
+                    m_procColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    m_procColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                m_procColumnSorter.SortColumn = e.Column;
+                m_procColumnSorter.Order = SortOrder.Ascending;
+            }
+            //Sort LitViewItem list depend upon column
+            MySqlConnection.SpellProcEvent.Sort(m_procColumnSorter);
+            this._lvDataList.VirtualListSize = 0;
+            this._lvDataList.Update();
+            this._lvDataList.VirtualListSize = MySqlConnection.SpellProcEvent.Count;
+            this._lvDataList.Update();
+        }
+
+        ///
+        /// Spell Proc list ColumnClick event handler.
+        /// 
+        private void _lvProcSpellListColumnClick(object o, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == m_spellProcListColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (m_spellProcListColumnSorter.Order == SortOrder.Ascending)
+                {
+                    m_spellProcListColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    m_spellProcListColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                m_spellProcListColumnSorter.SortColumn = e.Column;
+                m_spellProcListColumnSorter.Order = SortOrder.Ascending;
+            }
+            //Sort LitViewItem list depend upon column
+            _spellProcList.Sort(m_spellProcListColumnSorter);
+            this._lvProcSpellList.VirtualListSize = 0;
+            this._lvProcSpellList.Update();
+            this._lvProcSpellList.VirtualListSize = _spellProcList.Count;
+            this._lvProcSpellList.Update();
+        }
+
+        ///
+        /// Spell list ColumnClick event handler.
+        /// 
+        private void _lvSpellListColumnClick(object o, ColumnClickEventArgs e)
+        {
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == m_spellColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (m_spellColumnSorter.Order == SortOrder.Ascending)
+                {
+                    m_spellColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    m_spellColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                m_spellColumnSorter.SortColumn = e.Column;
+                m_spellColumnSorter.Order = SortOrder.Ascending;
+            }
+            //Sort LitViewItem list depend upon column
+            _spellList.Sort(m_spellColumnSorter);
+            this._lvSpellList.VirtualListSize = 0;
+            this._lvSpellList.Update();
+            this._lvSpellList.VirtualListSize = _spellList.Count;
+            this._lvSpellList.Update();
+        }
+
         #endregion
+
+        private void _rtSpellInfo_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
+        }
     }
 }

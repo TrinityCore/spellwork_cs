@@ -45,30 +45,35 @@ namespace SpellWork.Database
                 _command = new MySqlCommand(query, _conn);
                 _conn.Open();
                 SpellProcEvent.Clear();
-
                 using (var reader = _command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    try
                     {
-                        uint spellId = reader.GetUInt32(0);
-                        SpellProcEvent.Add(new SpellProcEventEntry
+                        while (reader.Read())
                         {
-                            Id                  = spellId,
-                            SpellName           = GetSpellName(spellId),
-                            SchoolMask          = reader.GetByte(1),
-                            SpellFamilyName     = reader.GetUInt16(2),
-                            SpellFamilyMask     = new[]
+                            uint spellId = reader.GetUInt32(0);
+                            SpellProcEvent.Add(new SpellProcEventEntry
                             {
-                                reader.GetUInt32(3),
-                                reader.GetUInt32(4),
-                                reader.GetUInt32(5)
-                            },
-                            ProcFlags           = reader.GetUInt32(6),
-                            ProcEx              = reader.GetUInt32(7),
-                            PpmRate             = reader.GetFloat(8),
-                            CustomChance        = reader.GetFloat(9),
-                            Cooldown            = reader.GetUInt32(10)
-                        });
+                                Id = spellId,
+                                SpellName = GetSpellName(spellId),
+                                SchoolMask = reader.GetByte(1),
+                                SpellFamilyName = reader.GetUInt16(2),
+                                SpellFamilyMask = new[]
+                                    {
+                                        reader.GetUInt32(3),
+                                        reader.GetUInt32(4),
+                                        reader.GetUInt32(5)
+                                    },
+                                ProcFlags = reader.GetUInt32(6),
+                                ProcEx = reader.GetUInt32(7),
+                                PpmRate = reader.GetFloat(8),
+                                CustomChance = reader.GetFloat(9),
+                                Cooldown = reader.GetUInt32(10)
+                            });
+                        }
+                    }
+                    catch (System.Data.SqlTypes.SqlNullValueException)
+                    {
                     }
                 }
             }
