@@ -30,6 +30,8 @@ namespace SpellWork.Spell
             _rtb.Clear();
             _rtb.SetBold();
             _rtb.AppendFormatLine("ID - {0} {1}{2}", _spell.ID, _spell.SpellNameRank, _spell.ScalingText);
+            _rtb.AppendFormatLine("http://old.wowhead.com/spell={0}", _spell.ID);
+            _rtb.AppendFormatLine("http://cata.openwow.com/spells={0}", _spell.ID);
             _rtb.SetDefaultStyle();
 
             _rtb.AppendFormatLine(_line);
@@ -165,6 +167,7 @@ namespace SpellWork.Spell
             {
                 _rtb.AppendFormatLine("RecoveryTime: {0} ms, CategoryRecoveryTime: {1} ms", _spell.RecoveryTime, _spell.CategoryRecoveryTime);
                 _rtb.AppendFormatLine("StartRecoveryCategory = {0}, StartRecoveryTime = {1:F} ms", _spell.StartRecoveryCategory, _spell.StartRecoveryTime);
+                _rtb.AppendLine();
             }
 
             _rtb.AppendLine(_spell.Duration);
@@ -216,9 +219,10 @@ namespace SpellWork.Spell
                 _rtb.AppendFormatLine("Chance = {0}, charges - {1}", _spell.ProcChance, _spell.ProcCharges);
             }
 
+            AppendDifficultyInfo();
+
             AppendSpellEffectInfo();
             AppendItemInfo();
-            AppendDifficultyInfo();
 
             AppendSpellVisualInfo();
         }
@@ -384,7 +388,7 @@ namespace SpellWork.Spell
                         if (row.SkillId > 0)
                         {
                             _rtb.SelectionColor = Color.Blue;
-                            _rtb.AppendFormatLine("\t+ {0} - {1}",  row.SpellID, row.SpellName);
+                            _rtb.AppendFormatLine("\t+ {0} - {1}", row.SpellID, row.SpellName);
                         }
                         else
                         {
@@ -421,6 +425,8 @@ namespace SpellWork.Spell
                     else
                         _rtb.AppendFormatLine("Trigger spell ({0}) Not found, Chance = {1}", trigger, _spell.ProcChance);
                 }
+                else
+                    _rtb.AppendFormatLine("Trigger spell {0} ({1}) Not found, Chance = {2}", trigger, (uint)trigger, _spell.ProcChance);
 
                 _rtb.AppendFormatLineIfNotNull("EffectChainTarget = {0}", effect.ChainTarget);
                 _rtb.AppendFormatLineIfNotNull("EffectItemType = {0}", effect.ItemType);

@@ -123,6 +123,8 @@
     <Compile Include="DBC\Structures\SpellTotemsEntry.cs" />
     <Compile Include="DBC\Structures\SpellVisualEntry.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
+    <Compile Include="Extensions\ProcColumnSorter.cs" />
+    <Compile Include="Extensions\SpellColumnSorter.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />
     <Compile Include="Forms\FormAboutBox.cs">
       <SubType>Form</SubType>
@@ -179,6 +181,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormSearch.resx">
       <DependentUpon>FormSearch.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -215,11 +218,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="New Icon.ico" />
+    <None Include="Resources\%24this.Icon.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>
-      <ProductName>Профиль клиента .NET Framework</ProductName>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

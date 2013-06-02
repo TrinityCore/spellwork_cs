@@ -254,6 +254,13 @@ namespace SpellWork.Extensions
             return array.Length == value.Length && array.Where((t, i) => (t & value[i]) != 0).Any();
         }
 
+        public static bool Match(this DBC.Structures.SpellClassOptionsEntry opt, DBC.Structures.SpellClassOptionsEntry arg, uint[] mask)
+        {
+            if (opt.SpellFamilyName == arg.SpellFamilyName && opt.SpellFamilyFlags != null && opt.SpellFamilyFlags.ContainsElement(mask))
+                return true;
+            return false;
+        }
+
         /// <summary>
         /// Checks if the specified value in a given array
         /// </summary>
@@ -294,6 +301,22 @@ namespace SpellWork.Extensions
             }
 
             return @enum.ToString();
+        }
+
+        public static string FlagToString<T>(this int val)
+        {
+            string result = string.Empty;
+            foreach (var elem in Enum.GetValues(typeof(T)))
+            {
+                if ((val & (1 << ((int)elem) - 1)) != 0)
+                    result = String.Format("{0}{1}, ", result, (T)elem);
+            }
+            return result.Trim(new char[] { ' ', ',' });
+        }
+
+        public static string ToHex(this uint val)
+        {
+            return String.Format("0x{0:X}", val);
         }
     }
 

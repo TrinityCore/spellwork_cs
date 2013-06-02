@@ -25,11 +25,13 @@ namespace SpellWork.Spell
         // unused               = 14,
         SPELLFAMILY_DEATHKNIGHT = 15,
         // unused               = 16,
-        SPELLFAMILY_PET         = 17
+        SPELLFAMILY_PET         = 17,
+        
+        SPELLFAMILY_WARGAME     = 50,
     };
 
     /// <summary>
-    ///
+    /// Spell classification
     /// </summary>
     public enum SpellSpecific
     {
