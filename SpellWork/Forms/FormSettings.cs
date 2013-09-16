@@ -30,8 +30,7 @@ namespace SpellWork.Forms
 
             if (((Button)sender).Text != @"Save")
                 if (MySqlConnection.Connected)
-                    MessageBox.Show(@"Connection successful!", @"MySQL Connections!",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(@"Connection successful!", @"MySQL Connections!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
             if (((Button)sender).Text != @"Save")
                 return;
@@ -48,6 +47,12 @@ namespace SpellWork.Forms
             _tbPass.Text = Settings.Default.Pass;
             _tbBase.Text = Settings.Default.WorldDbName;
             _gbDbSetting.Enabled = _cbUseDBConnect.Checked = Settings.Default.UseDbConnect;
+        }
+
+        private void FormSettings_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+                Close();
         }
     }
 }

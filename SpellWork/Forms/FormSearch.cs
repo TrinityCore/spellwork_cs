@@ -27,9 +27,12 @@ namespace SpellWork.Forms
 
         private void IdNameKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode != Keys.Enter)
-                return;
+            if (e.KeyCode == Keys.Enter)
+                AdvancedSearch();
+        }
 
+        private void AdvancedSearch()
+        {
             var name = _tbIdName.Text;
             var id = name.ToUInt32();
             var ic = _tbIcon.Text.ToUInt32();
@@ -104,15 +107,19 @@ namespace SpellWork.Forms
             Close();
         }
 
-        private void CencelClick(object sender, EventArgs e)
+        private void CancelClick(object sender, EventArgs e)
         {
             Close();
         }
 
         private void SpellListRetrieveVirtualItem(object sender, RetrieveVirtualItemEventArgs e)
         {
-            e.Item =
-                new ListViewItem(new[] {_spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank});
+            e.Item = new ListViewItem(new[] {_spellList[e.ItemIndex].ID.ToString(), _spellList[e.ItemIndex].SpellNameRank});
+        }
+
+        private void buttonSearch_Click(object sender, EventArgs e)
+        {
+            AdvancedSearch();
         }
     }
 }
