@@ -1333,7 +1333,7 @@ namespace SpellWork.Spell
         SPELL_ATTR4_UNK4                             = 0x00000010, //  4 This will no longer cause guards to attack on use??
         SPELL_ATTR4_UNK5                             = 0x00000020, //  5
         SPELL_ATTR4_NOT_STEALABLE                    = 0x00000040, //  6 although such auras might be dispellable, they cannot be stolen
-        SPELL_ATTR4_TRIGGERED                        = 0x00000080, //  7 spells forced to be triggered
+        SPELL_ATTR4_CAN_CAST_WHILE_CASTING           = 0x00000080, //  7 spells forced to be triggered
         SPELL_ATTR4_FIXED_DAMAGE                     = 0x00000100, //  8 ignores taken percent damage mods?
         SPELL_ATTR4_TRIGGER_ACTIVATE                 = 0x00000200, //  9 initially disabled / trigger activate from event (Execute, Riposte, Deep Freeze end other)
         SPELL_ATTR4_SPELL_VS_EXTEND_COST             = 0x00000400, // 10 Rogue Shiv have this flag
@@ -1365,7 +1365,7 @@ namespace SpellWork.Spell
     {
         SPELL_ATTR5_ALL                              = 0xFFFFFFFF,
         SPELL_ATTR5_NONE                             = 0x00000000,
-        SPELL_ATTR5_UNK0                             = 0x00000001, //  0
+        SPELL_ATTR5_CAN_CHANNEL_WHEN_MOVING          = 0x00000001, //  0 available casting channel spell when moving
         SPELL_ATTR5_NO_REAGENT_WHILE_PREP            = 0x00000002, //  1 not need reagents if UNIT_FLAG_PREPARATION
         SPELL_ATTR5_UNK2                             = 0x00000004, //  2
         SPELL_ATTR5_USABLE_WHILE_STUNNED             = 0x00000008, //  3 usable while stunned
@@ -1444,7 +1444,7 @@ namespace SpellWork.Spell
         SPELL_ATTR7_ALL                              = 0xFFFFFFFF,
         SPELL_ATTR7_NONE                             = 0x00000000,
         SPELL_ATTR7_UNK0                             = 0x00000001, //  0 Shaman's new spells (Call of the ...), Feign Death.
-        SPELL_ATTR7_UNK1                             = 0x00000002, //  1 Not set in 3.2.2a.
+        SPELL_ATTR7_IGNORE_DURATION_MODS             = 0x00000002, //  1 Duration is not affected by duration modifiers
         SPELL_ATTR7_REACTIVATE_AT_RESURRECT          = 0x00000004, //  2 Paladin's auras and 65607 only.
         SPELL_ATTR7_IS_CHEAT_SPELL                   = 0x00000008, //  3 Cannot cast if caster doesn't have UnitFlag2 & UNIT_FLAG2_ALLOW_CHEAT_SPELLS
         SPELL_ATTR7_UNK4                             = 0x00000010, //  4 Only 47883 (Soulstone Resurrection) and test spell.
@@ -1480,31 +1480,31 @@ namespace SpellWork.Spell
     [Flags]
     public enum CombatRating
     {
-        CR_WEAPON_SKILL             =      0x00,
-        CR_DEFENSE_SKILL            = 1 << 0x00,
-        CR_DODGE                    = 1 << 0x01,
-        CR_PARRY                    = 1 << 0x02,
-        CR_BLOCK                    = 1 << 0x03,
-        CR_HIT_MELEE                = 1 << 0x04,
-        CR_HIT_RANGED               = 1 << 0x05,
-        CR_HIT_SPELL                = 1 << 0x06,
-        CR_CRIT_MELEE               = 1 << 0x07,
-        CR_CRIT_RANGED              = 1 << 0x08,
-        CR_CRIT_SPELL               = 1 << 0x09,
-        CR_HIT_TAKEN_MELEE          = 1 << 0x0A,
-        CR_HIT_TAKEN_RANGED         = 1 << 0x0B,
-        CR_HIT_TAKEN_SPELL          = 1 << 0x0C,
-        CR_CRIT_TAKEN_MELEE         = 1 << 0x0D,
-        CR_CRIT_TAKEN_RANGED        = 1 << 0x0E,
-        CR_CRIT_TAKEN_SPELL         = 1 << 0x0F,
-        CR_HASTE_MELEE              = 1 << 0x10,
-        CR_HASTE_RANGED             = 1 << 0x11,
-        CR_HASTE_SPELL              = 1 << 0x12,
-        CR_WEAPON_SKILL_MAINHAND    = 1 << 0x13,
-        CR_WEAPON_SKILL_OFFHAND     = 1 << 0x14,
-        CR_WEAPON_SKILL_RANGED      = 1 << 0x15,
-        CR_EXPERTISE                = 1 << 0x16,
-        CR_ARMOR_PENETRATION        = 1 << 0x17,
+        CR_WEAPON_SKILL             = 1 << 0x00,
+        CR_DEFENSE_SKILL            = 1 << 0x01,
+        CR_DODGE                    = 1 << 0x02,
+        CR_PARRY                    = 1 << 0x03,
+        CR_BLOCK                    = 1 << 0x04,
+        CR_HIT_MELEE                = 1 << 0x05,
+        CR_HIT_RANGED               = 1 << 0x06,
+        CR_HIT_SPELL                = 1 << 0x07,
+        CR_CRIT_MELEE               = 1 << 0x08,
+        CR_CRIT_RANGED              = 1 << 0x09,
+        CR_CRIT_SPELL               = 1 << 0x0A,
+        CR_HIT_TAKEN_MELEE          = 1 << 0x0B,
+        CR_HIT_TAKEN_RANGED         = 1 << 0x0C,
+        CR_HIT_TAKEN_SPELL          = 1 << 0x0D,
+        CR_CRIT_TAKEN_MELEE         = 1 << 0x0E,
+        CR_CRIT_TAKEN_RANGED        = 1 << 0x0F,
+        CR_CRIT_TAKEN_SPELL         = 1 << 0x10,
+        CR_HASTE_MELEE              = 1 << 0x11,
+        CR_HASTE_RANGED             = 1 << 0x12,
+        CR_HASTE_SPELL              = 1 << 0x13,
+        CR_WEAPON_SKILL_MAINHAND    = 1 << 0x14,
+        CR_WEAPON_SKILL_OFFHAND     = 1 << 0x15,
+        CR_WEAPON_SKILL_RANGED      = 1 << 0x16,
+        CR_EXPERTISE                = 1 << 0x17,
+        CR_ARMOR_PENETRATION        = 1 << 0x18,
     };
 
     public enum UnitMods
