@@ -106,5 +106,20 @@ namespace SpellWork.Properties {
                 this["DbcPath"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("gt")]
+        public string GtPath
+        {
+            get
+            {
+                return ((string)(this["GtPath"]));
+            }
+            set
+            {
+                this["GtPath"] = value;
+            }
+        }
     }
 }
