@@ -4,8 +4,8 @@
     {
         public uint ID;
         public int SpellID;
-        public int ShapeshiftExclude[2];
-        public int ShapeshiftMask[2];
+        public int[] ShapeshiftExclude;
+        public int[] ShapeshiftMask;
         public sbyte StanceBarOrder;
     }
 }
