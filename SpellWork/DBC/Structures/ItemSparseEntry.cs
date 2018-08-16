@@ -9,7 +9,7 @@
         public string Display2;
         public string Display3;
         public string Description;
-        public int Flags[MAX_ITEM_PROTO_FLAGS];
+        public int[] Flags;
         public float PriceRandomValue;
         public float PriceVariance;
         public uint VendorStackCount;
@@ -18,8 +18,8 @@
         public uint RequiredAbility;
         public int MaxCount;
         public int Stackable;
-        public int StatPercentEditor[MAX_ITEM_PROTO_STATS];
-        public float StatPercentageOfSocket[MAX_ITEM_PROTO_STATS];
+        public int[] StatPercentEditor;
+        public float[] StatPercentageOfSocket;
         public float ItemRange;
         public uint BagFamily;
         public float QualityModifier;
@@ -30,7 +30,7 @@
         public ushort RequiredSkill;
         public ushort RequiredSkillRank;
         public ushort MinFactionID;
-        public short ItemStatValue[MAX_ITEM_PROTO_STATS];
+        public short[] ItemStatValue;
         public ushort ScalingStatDistributionID;
         public ushort ItemDelay;
         public ushort PageID;
@@ -55,14 +55,14 @@
         public byte RequiredPVPMedal;
         public byte MinReputation;
         public byte ContainerSlots;
-        public sbyte StatModifierBonusStat[MAX_ITEM_PROTO_STATS];
+        public sbyte[] StatModifierBonusStat;
         public byte DamageDamageType;
         public byte Bonding;
         public byte LanguageID;
         public byte PageMaterialID;
         public byte Material;
         public byte SheatheType;
-        public byte SocketType[MAX_ITEM_PROTO_SOCKETS];
+        public byte[] SocketType;
         public byte SpellWeightCategory;
         public byte SpellWeight;
         public byte ArtifactID;
