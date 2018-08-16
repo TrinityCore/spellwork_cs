@@ -13,7 +13,7 @@
         public ushort AmbienceID;
         public ushort ZoneMusic;
         public ushort IntroSound;
-        public ushort LiquidTypeID[4];
+        public ushort[] LiquidTypeID;
         public ushort UwZoneMusic;
         public ushort UwAmbience;
         public short PvpCombatWorldStateID;
