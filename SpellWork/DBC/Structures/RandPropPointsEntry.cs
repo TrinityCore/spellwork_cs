@@ -3,8 +3,8 @@
     public sealed class RandPropPointsEntry
     {
         public uint ID;
-        public uint Epic[5];
-        public uint Superior[5];
-        public uint Good[5];
+        public uint[] Epic;
+        public uint[] Superior;
+        public uint[] Good;
     }
 }
