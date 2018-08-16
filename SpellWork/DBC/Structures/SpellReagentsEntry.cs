@@ -6,7 +6,7 @@ namespace SpellWork.DBC.Structures
     {
         public uint ID;
         public int SpellID;
-        public int Reagent[MAX_SPELL_REAGENTS];
-        public short ReagentCount[MAX_SPELL_REAGENTS];
+        public int[] Reagent;
+        public short[] ReagentCount;
     }
 }
