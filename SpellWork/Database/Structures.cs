@@ -4,33 +4,40 @@ namespace SpellWork.Database
 {
     public sealed class SpellProcEventEntry
     {
-        public uint Id;
-        public string SpellName;
+        public int SpellID;
         public byte SchoolMask;
-        public ushort SpellFamilyName;
-        public uint[] SpellFamilyMask;
-        public uint ProcFlags;
-        public uint ProcEx;
-        public float PpmRate;
-        public float CustomChance;
-        public uint Cooldown;
+        public short SpellFamilyName;
+        public int[] SpellFamilyMask;
+        public int ProcFlags;
+        public int SpellTypeMask;
+        public int SpellPhaseMask;
+        public int HitMask;
+        public int AttributesMask;
+        public float ProcsPerMinute;
+        public float Chance;
+        public int Cooldown;
+        public byte Charges;
 
         public string[] ToArray()
         {
             return new[]
             {
-                Id.ToString(),
-                SpellName,
+                SpellID.ToString(),
                 SchoolMask.ToString(),
                 SpellFamilyName.ToString(),
                 SpellFamilyMask[0].ToString(),
                 SpellFamilyMask[1].ToString(),
                 SpellFamilyMask[2].ToString(),
+                SpellFamilyMask[3].ToString(),
                 ProcFlags.ToString(),
-                ProcEx.ToString(),
-                PpmRate.ToString(CultureInfo.InvariantCulture),
-                CustomChance.ToString(CultureInfo.InvariantCulture),
-                Cooldown.ToString()
+                SpellTypeMask.ToString(),
+                SpellPhaseMask.ToString(),
+                HitMask.ToString(),
+                AttributesMask.ToString(),
+                ProcsPerMinute.ToString(CultureInfo.InvariantCulture),
+                Chance.ToString(CultureInfo.InvariantCulture),
+                Cooldown.ToString(),
+                Charges.ToString()
             };
         }
     }
