@@ -2,13 +2,14 @@
 {
     public class SpellAuraOptionsEntry
     {
-        public int SpellID;
-        public uint ProcCharges;
-        public uint ProcTypeMask;
-        public uint ProcCategoryRecovery;
+        public uint ID;
+        public int ProcCharges;
+        public int ProcTypeMask;
+        public int ProcCategoryRecovery;
         public ushort CumulativeAura;
+        public ushort SpellProcsPerMinuteID;
         public byte DifficultyID;
         public byte ProcChance;
-        public byte SpellProcsPerMinuteID;
+        public int SpellID;
     }
 }

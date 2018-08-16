@@ -2,10 +2,11 @@
 {
     public class SpellCooldownsEntry
     {
-        public int SpellID;
-        public uint CategoryRecoveryTime;
-        public uint RecoveryTime;
-        public uint StartRecoveryTime;
+        public uint ID;
+        public int CategoryRecoveryTime;
+        public int RecoveryTime;
+        public int StartRecoveryTime;
         public byte DifficultyID;
+        public int SpellID;
     }
 }

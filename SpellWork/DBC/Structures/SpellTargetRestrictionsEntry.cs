@@ -2,13 +2,14 @@
 {
     public sealed class SpellTargetRestrictionsEntry
     {
-        public int SpellID;
-        public float ConeAngle;
+        public uint ID;
+        public float ConeDegrees;
         public float Width;
-        public uint Targets;
-        public ushort TargetCreatureType;
+        public int Targets;
+        public short TargetCreatureType;
         public byte DifficultyID;
-        public byte MaxAffectedTargets;
+        public byte MaxTargets;
         public uint MaxTargetLevel;
+        public int SpellID;
     }
 }

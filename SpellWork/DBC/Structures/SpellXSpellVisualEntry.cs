@@ -2,18 +2,18 @@
 {
     public sealed class SpellXSpellVisualEntry
     {
-        public int SpellID;
         public uint SpellVisualID;
         public uint ID;
-        public float Chance;
+        public float Probability;
         public ushort CasterPlayerConditionID;
         public ushort CasterUnitConditionID;
-        public ushort PlayerConditionID;
-        public ushort UnitConditionID;
-        public uint IconFileDataID;
-        public uint ActiveIconFileDataID;
+        public ushort ViewerPlayerConditionID;
+        public ushort ViewerUnitConditionID;
+        public int SpellIconFileID;
+        public int ActiveIconFileID;
         public byte Flags;
         public byte DifficultyID;
         public byte Priority;
+        public int SpellID;
     }
 }

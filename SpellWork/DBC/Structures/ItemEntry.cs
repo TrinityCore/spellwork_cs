@@ -2,13 +2,14 @@
 {
     public sealed class ItemEntry
     {
-        public uint FileDataID;
-        public byte Class;
-        public byte SubClass;
-        public sbyte SoundOverrideSubclass;
-        public sbyte Material;
+        public uint ID;
+        public int IconFileDataID;
+        public byte ClassID;
+        public byte SubclassID;
+        public sbyte SoundOverrideSubclassID;
+        public byte Material;
         public byte InventoryType;
-        public byte Sheath;
-        public byte GroupSoundsID;
+        public byte SheatheType;
+        public byte ItemGroupSoundsID;
     }
 }

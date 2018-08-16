@@ -2,13 +2,14 @@
 {
     public sealed class SkillLineEntry
     {
+        public uint ID;
         public string DisplayName;
         public string Description;
         public string AlternateVerb;
         public ushort Flags;
-        public byte CategoryID;
-        public byte CanLink;
-        public uint IconFileDataID;
+        public sbyte CategoryID;
+        public sbyte CanLink;
+        public int SpellIconFileID;
         public uint ParentSkillLineID;
     }
 }

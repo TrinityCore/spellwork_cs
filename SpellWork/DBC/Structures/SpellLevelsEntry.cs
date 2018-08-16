@@ -2,11 +2,12 @@
 {
     public class SpellLevelsEntry
     {
+        public uint ID;
+        public short BaseLevel;
+        public short MaxLevel;
+        public short SpellLevel;
+        public byte DifficultyID;
+        public byte MaxPassiveAuraLevel;
         public int SpellID;
-        public ushort BaseLevel;
-        public ushort MaxLevel;
-        public ushort SpellLevel;
-        public byte Difficulty;
-        public byte MaxUsableLevel;
     }
 }

@@ -2,8 +2,9 @@
 {
     public sealed class SpellDurationEntry
     {
+        public uint ID;
         public int Duration;
         public int MaxDuration;
-        public int DurationPerLevel;
+        public uint DurationPerLevel;
     }
 }

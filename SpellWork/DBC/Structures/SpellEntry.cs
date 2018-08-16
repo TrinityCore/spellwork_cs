@@ -2,13 +2,10 @@
 {
     public sealed class SpellEntry
     {
-        public string Name;
-        public string NameSubtext;
-        public string Description;
-        public string AuraDescription;
-        public int MiscID;
-        public int ID;
-        public int DescriptionVariablesID;
+        public uint ID;
+        public int SpellID;
+        public int LearnSpellID;
+        public int OverridesSpellID;
 
         /*public List<SpellPowerEntry> SpellPowerList
         {

@@ -2,14 +2,15 @@
 {
     public sealed class ItemEffectEntry
     {
-        public uint ItemID;
-        public uint SpellID;
-        public int Cooldown;
-        public int CategoryCooldown;
+        public uint ID;
+        public int SpellID;
+        public int CoolDownMSec;
+        public int CategoryCoolDownMSec;
         public short Charges;
-        public ushort Category;
+        public ushort SpellCategoryID;
         public ushort ChrSpecializationID;
-        public byte OrderIndex;
-        public byte Trigger;
+        public byte LegacySlotIndex;
+        public sbyte TriggerType;
+        public int ParentItemID;
     }
 }

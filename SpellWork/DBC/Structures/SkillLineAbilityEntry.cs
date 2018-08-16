@@ -2,18 +2,19 @@
 {
     public sealed class SkillLineAbilityEntry
     {
-        public int SpellID;
-        public uint RaceMask;
-        public uint SupercedesSpell;
-        public ushort SkillLine;
-        public ushort MinSkillLineRank;
-        public ushort TrivialSkillLineRankHigh;
-        public ushort TrivialSkillLineRankLow;
-        public ushort UniqueBit;
-        public ushort TradeSkillCategoryID;
-        public byte AquireMethod;
-        public byte NumSkillUps;
-        public byte Unknown703;
-        public uint ClassMask;
+        public long RaceMask;
+        public uint ID;
+        public int Spell;
+        public int SupercedesSpell;
+        public short SkillLine;
+        public short TrivialSkillLineRankHigh;
+        public short TrivialSkillLineRankLow;
+        public short UniqueBit;
+        public short TradeSkillCategoryID;
+        public sbyte NumSkillUps;
+        public int ClassMask;
+        public short MinSkillLineRank;
+        public sbyte AcquireMethod;
+        public sbyte Flags;
     }
 }

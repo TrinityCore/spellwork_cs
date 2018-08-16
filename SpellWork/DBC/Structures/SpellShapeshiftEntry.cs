@@ -2,9 +2,10 @@
 {
     public class SpellShapeshiftEntry
     {
+        public uint ID;
         public int SpellID;
-        public uint[] ShapeshiftExclude;
-        public uint[] ShapeshiftMask;
-        public int StanceBarOrder;
+        public int ShapeshiftExclude[2];
+        public int ShapeshiftMask[2];
+        public sbyte StanceBarOrder;
     }
 }

@@ -2,14 +2,17 @@
 {
     public class SpellMiscEntry
     {
-        public uint[] Attributes;
-        public float Speed;
-        public float MultistrikeSpeedMod;
+        public uint ID;
         public ushort CastingTimeIndex;
         public ushort DurationIndex;
         public ushort RangeIndex;
         public byte SchoolMask;
-        public uint IconFileDataID;
-        public uint ActiveIconFileDataID;
+        public int SpellIconFileDataID;
+        public float Speed;
+        public int ActiveIconFileDataID;
+        public float LaunchDelay;
+        public byte DifficultyID;
+        public int Attributes[14];
+        public int SpellID;
     }
 }

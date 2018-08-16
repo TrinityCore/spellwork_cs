@@ -2,9 +2,10 @@
 {
     public class SpellEquippedItemsEntry
     {
+        public uint ID;
         public int SpellID;
-        public uint EquippedItemInventoryTypeMask;
-        public uint EquippedItemSubClassMask;
-        public byte EquippedItemClass;
+        public int EquippedItemInvTypes;
+        public int EquippedItemSubclass;
+        public sbyte EquippedItemClass;
     }
 }
