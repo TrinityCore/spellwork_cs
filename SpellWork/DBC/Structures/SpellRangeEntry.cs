@@ -5,8 +5,8 @@
         public uint ID;
         public string DisplayName;
         public string DisplayNameShort;
-        public float RangeMin[2];
-        public float RangeMax[2];
+        public float[] RangeMin;
+        public float[] RangeMax;
         public byte Flags;
     }
 }
