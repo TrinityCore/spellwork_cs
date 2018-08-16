@@ -5,7 +5,7 @@
         public uint ID;
         public string ZoneName;
         public string AreaName;
-        public int Flags[2];
+        public int[] Flags;
         public float AmbientMultiplier;
         public ushort ContinentID;
         public ushort ParentAreaID;
