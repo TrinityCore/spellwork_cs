@@ -67,11 +67,13 @@ namespace SpellWork.DBC
         // ReSharper restore MemberCanBePrivate.Global
         // ReSharper restore CollectionNeverUpdated.Global
 
-        // public static Storage<SpellMissileMotionEntry>         SpellMissileMotion { get; public set; }
-        // public static Storage<SpellVisualEntry>                SpellVisual { get; public set; }
+        public static Storage<SpellMissileMotionEntry>          SpellMissileMotion { get; set; }
+        public static Storage<SpellVisualEntry>                 SpellVisual { get; set; }
+        public static Storage<SpellVisualMissileEntry>          SpellVisualMissile { get; set; }
 
         public static readonly IDictionary<int, SpellInfo> SpellInfoStore = new ConcurrentDictionary<int, SpellInfo>();
         public static readonly IDictionary<int, ISet<int>> SpellTriggerStore = new Dictionary<int, ISet<int>>();
+        public static readonly IDictionary<int, ISet<SpellVisualMissileEntry>> SpellVisualMissileStore = new Dictionary<int, ISet<SpellVisualMissileEntry>>();
 
         public static async void Load()
         {
@@ -176,6 +178,37 @@ namespace SpellWork.DBC
                     }
 
                     SpellInfoStore[effect.Value.SpellID].SpellXSpellVisual = effect.Value;
+
+                    if (!SpellVisual.ContainsKey(effect.Value.SpellVisualID))
+                    {
+                        Console.WriteLine(
+                            $"SpellXSpellVisual: Unknown SpellVisual {effect.Value.SpellVisualID} referenced, ignoring!");
+                        continue;
+                    }
+
+                    SpellInfoStore[effect.Value.SpellID].SpellVisual = SpellVisual[effect.Value.SpellVisualID];
+                }
+            }), Task.Run(() =>
+            {
+                foreach (var spellVisualMissile in SpellVisualMissile)
+                {
+                    if (SpellVisualMissileStore.ContainsKey(spellVisualMissile.Value.SpellVisualMissileSetID))
+                        SpellVisualMissileStore[spellVisualMissile.Value.SpellVisualMissileSetID].Add(spellVisualMissile.Value);
+                    else
+                        SpellVisualMissileStore.Add(spellVisualMissile.Value.SpellVisualMissileSetID, new HashSet<SpellVisualMissileEntry> { spellVisualMissile.Value });
+                }
+            }), Task.Run(() =>
+            {
+                foreach (var spellMissile in SpellMissile)
+                {
+                    if (!SpellInfoStore.ContainsKey(spellMissile.Value.SpellID))
+                    {
+                        Console.WriteLine(
+                            $"SpellMissile: Unknown spell {spellMissile.Value.SpellID} referenced, ignoring!");
+                        continue;
+                    }
+
+                    SpellInfoStore[spellMissile.Value.SpellID].SpellMissile = spellMissile.Value;
                 }
             }), Task.Run(() =>
             {

@@ -1,13 +1,13 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using System.Runtime.InteropServices;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellVisualEntry
     {
-        public float MissileCastOffsetX;
-        public float MissileCastOffsetY;
-        public float MissileCastOffsetZ;
-        public float MissileImpactOffsetX;
-        public float MissileImpactOffsetY;
-        public float MissileImpactOffsetZ;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] MissileCastOffset;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        public float[] MissileImpactOffset;
         public uint AnimEventSoundID;
         public int Flags;
         public sbyte MissileAttachment;

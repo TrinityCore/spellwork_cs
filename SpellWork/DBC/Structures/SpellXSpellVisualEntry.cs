@@ -4,7 +4,7 @@
     {
         public int ID;
         public byte DifficultyID;
-        public uint SpellVisualID;
+        public int SpellVisualID;
         public float Probability;
         public byte Flags;
         public byte Priority;

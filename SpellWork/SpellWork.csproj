@@ -124,6 +124,7 @@
     <Compile Include="DBC\Structures\SpellTargetRestrictionsEntry.cs" />
     <Compile Include="DBC\Structures\SpellTotemsEntry.cs" />
     <Compile Include="DBC\Structures\SpellVisualEntry.cs" />
+    <Compile Include="DBC\Structures\SpellVisualMissileEntry.cs" />
     <Compile Include="DBC\Structures\SpellXDescriptionVariablesEntry.cs" />
     <Compile Include="DBC\Structures\SpellXSpellVisualEntry.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />

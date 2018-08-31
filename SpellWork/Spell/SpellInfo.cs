@@ -40,6 +40,8 @@ namespace SpellWork.Spell
         public SpellDescriptionVariablesEntry DescriptionVariables { get; set; }
         public SpellDurationEntry DurationEntry { get; set; }
         public SpellRangeEntry Range { get; set; }
+        public SpellVisualEntry SpellVisual { get; set; }
+        public SpellMissileEntry SpellMissile { get; set; }
         // Helper
         public readonly IDictionary<int, SpellEffectInfo> SpellEffectInfoStore = new ConcurrentDictionary<int, SpellEffectInfo>();
 
@@ -148,7 +150,35 @@ namespace SpellWork.Spell
         #endregion
 
         #region SpellXSpellVisual
-        public uint SpellVisualID => SpellXSpellVisual?.SpellVisualID ?? 0;
+        public int SpellVisualID => SpellXSpellVisual?.SpellVisualID ?? 0;
+        #endregion
+
+        #region SpellVisual
+        public ushort SpellVisualMissileSetID => SpellVisual?.SpellVisualMissileSetID ?? 0;
+        public sbyte MissileAttachment => SpellVisual?.MissileAttachment ?? 0;
+        public float MissileCastOffsetX => SpellVisual?.MissileCastOffset[0] ?? 0;
+        public float MissileCastOffsetY => SpellVisual?.MissileCastOffset[1] ?? 0;
+        public float MissileCastOffsetZ => SpellVisual?.MissileCastOffset[2] ?? 0;
+        public float MissileImpactOffsetX => SpellVisual?.MissileImpactOffset[0] ?? 0;
+        public float MissileImpactOffsetY => SpellVisual?.MissileImpactOffset[1] ?? 0;
+        public float MissileImpactOffsetZ => SpellVisual?.MissileImpactOffset[2] ?? 0;
+        #endregion
+
+        #region SpellMissile
+        public int MissileID => SpellMissile?.ID ?? 0;
+        public float DefaultPitchMin => SpellMissile?.DefaultPitchMin ?? 0;
+        public float DefaultPitchMax => SpellMissile?.DefaultPitchMax ?? 0;
+        public float DefaultSpeedMin => SpellMissile?.DefaultSpeedMin ?? 0;
+        public float DefaultSpeedMax => SpellMissile?.DefaultSpeedMax ?? 0;
+        public float RandomizeFacingMin => SpellMissile?.RandomizeFacingMin ?? 0;
+        public float RandomizeFacingMax => SpellMissile?.RandomizeFacingMax ?? 0;
+        public float RandomizePitchMin => SpellMissile?.RandomizePitchMin ?? 0;
+        public float RandomizePitchMax => SpellMissile?.RandomizePitchMax ?? 0;
+        public float RandomizeSpeedMin => SpellMissile?.RandomizeSpeedMin ?? 0;
+        public float RandomizeSpeedMax => SpellMissile?.RandomizeSpeedMax ?? 0;
+        public float Gravity => SpellMissile?.Gravity ?? 0;
+        public float MaximumDuration => SpellMissile?.MaxDuration ?? 0;
+        public float CollisionRadius => SpellMissile?.CollisionRadius ?? 0;
         #endregion
 
         #region CastingRequirements
@@ -629,7 +659,7 @@ namespace SpellWork.Spell
 
             AppendItemInfo(rtb);
 
-            AppendSpellVisualInfo();
+            AppendSpellVisualInfo(rtb);
         }
 
         private void AppendEffectInfo(RichTextBox rtb, SpellEffectEntry effect)
@@ -935,51 +965,61 @@ namespace SpellWork.Spell
             }
         }
 
-        private void AppendSpellVisualInfo()
+        private void AppendSpellVisualInfo(RichTextBox rtb)
         {
-            /*SpellVisualEntry visualData;
-            if (!DBC.DBC.SpellVisual.TryGetValue(_spell.SpellVisual[0], out visualData))
-                return;
-
-            SpellMissileEntry missileEntry;
-            SpellMissileMotionEntry missileMotionEntry;
-            var hasMissileEntry = DBC.DBC.SpellMissile.TryGetValue(visualData.MissileModel, out missileEntry);
-            var hasMissileMotion = DBC.DBC.SpellMissileMotion.TryGetValue(visualData.MissileMotionId, out missileMotionEntry);
-
-            if (!hasMissileEntry && !hasMissileMotion)
-                return;
-
-            _rtb.AppendLine(_line);
-            _rtb.SetBold();
-            _rtb.AppendLine("Missile data");
-            _rtb.SetDefaultStyle();
-
-            // Missile Model Data.
-            if (hasMissileEntry)
+            if (SpellVisual != null && SpellMissile != null || SpellVisualMissileSetID != 0)
             {
-                _rtb.AppendFormatLine("Missile Model ID: {0}", visualData.MissileModel);
-                _rtb.AppendFormatLine("Missile attachment: {0}", visualData.MissileAttachment);
-                _rtb.AppendFormatLine("Missile cast offset: X:{0} Y:{1} Z:{2}", visualData.MissileCastOffsetX, visualData.MissileCastOffsetY, visualData.MissileCastOffsetZ);
-                _rtb.AppendFormatLine("Missile impact offset: X:{0} Y:{1} Z:{2}", visualData.MissileImpactOffsetX, visualData.MissileImpactOffsetY, visualData.MissileImpactOffsetZ);
-                _rtb.AppendFormatLine("MissileEntry ID: {0}", missileEntry.Id);
-                _rtb.AppendFormatLine("Collision Radius: {0}", missileEntry.CollisionRadius);
-                _rtb.AppendFormatLine("Default Pitch: {0} - {1}", missileEntry.DefaultPitchMin, missileEntry.DefaultPitchMax);
-                _rtb.AppendFormatLine("Random Pitch: {0} - {1}", missileEntry.RandomizePitchMax, missileEntry.RandomizePitchMax);
-                _rtb.AppendFormatLine("Default Speed: {0} - {1}", missileEntry.DefaultSpeedMin, missileEntry.DefaultSpeedMax);
-                _rtb.AppendFormatLine("Randomize Speed: {0} - {1}", missileEntry.RandomizeSpeedMin, missileEntry.RandomizeSpeedMax);
-                _rtb.AppendFormatLine("Gravity: {0}", missileEntry.Gravity);
-                _rtb.AppendFormatLine("Maximum duration:", missileEntry.MaxDuration);
-                _rtb.AppendLine("");
+                rtb.AppendLine(Separator);
+                rtb.SetBold();
+                rtb.AppendLine("Missile data");
+                rtb.SetDefaultStyle();
             }
 
-            // Missile Motion Data.
-            if (hasMissileMotion)
+            // Missile Model Data.
+            if (SpellVisual != null && SpellMissile != null)
             {
-                _rtb.AppendFormatLine("Missile motion: {0}", missileMotionEntry.Name);
-                _rtb.AppendFormatLine("Missile count: {0}", missileMotionEntry.MissileCount);
-                _rtb.AppendLine("Missile Script body:");
-                _rtb.AppendText(missileMotionEntry.Script);
-            }*/
+                //rtb.AppendFormatLine("Missile Model ID: {0}", visualData.MissileModel);
+                rtb.AppendFormatLine("(SpellVisual) SpellVisualID: {0}", SpellXSpellVisual.SpellVisualID);
+                rtb.AppendFormatLine("(SpellVisual) Missile attachment: {0}", MissileAttachment);
+                rtb.AppendFormatLine("(SpellVisual) Missile cast offset: X:{0} Y:{1} Z:{2}", MissileCastOffsetX, MissileCastOffsetY, MissileCastOffsetZ);
+                rtb.AppendFormatLine("(SpellVisual) Missile impact offset: X:{0} Y:{1} Z:{2}", MissileImpactOffsetX, MissileImpactOffsetY, MissileImpactOffsetZ);
+                rtb.AppendLine();
+                rtb.AppendFormatLine("(SpellMissile) MissileEntry ID: {0}", MissileID);
+                rtb.AppendFormatLine("(SpellMissile) Default Pitch: {0} - {1}", DefaultPitchMin, DefaultPitchMax);
+                rtb.AppendFormatLine("(SpellMissile) Random Pitch: {0} - {1}", RandomizePitchMax, RandomizePitchMax);
+                rtb.AppendFormatLine("(SpellMissile) Default Speed: {0} - {1}", DefaultSpeedMin, DefaultSpeedMax);
+                rtb.AppendFormatLine("(SpellMissile) Randomize Speed: {0} - {1}", RandomizeSpeedMin, RandomizeSpeedMax);
+                rtb.AppendFormatLine("(SpellMissile) Gravity: {0}", Gravity);
+                rtb.AppendFormatLine("(SpellMissile) Maximum duration: {0}", MaximumDuration);
+                rtb.AppendFormatLine("(SpellMissile) Collision Radius: {0}", CollisionRadius);
+                rtb.AppendLine();
+            }
+
+            ushort MotionID = 0;
+            ushort count = 0;
+
+            if (SpellVisualMissileSetID != 0)
+                foreach (var spellVisualMissile in DBC.DBC.SpellVisualMissileStore[SpellVisualMissileSetID])
+                {
+                    MotionID = spellVisualMissile.SpellMissileMotionID;
+
+                    rtb.AppendFormatLine("(SpellVisualMissile)[{0}] SpellVisualMissileID: {1}", count, spellVisualMissile.ID);
+                    rtb.AppendFormatLine("(SpellVisualMissile)[{0}] Attachment: {1}", count, spellVisualMissile.Attachment);
+                    rtb.AppendFormatLine("(SpellVisualMissile)[{0}] Cast offset: X:{1} Y:{2} Z:{3}", count, spellVisualMissile.CastOffset[0], spellVisualMissile.CastOffset[1], spellVisualMissile.CastOffset[2]);
+                    rtb.AppendFormatLine("(SpellVisualMissile)[{0}] Impact offset: X:{1} Y:{2} Z:{3}", count, spellVisualMissile.ImpactOffset[0], spellVisualMissile.ImpactOffset[1], spellVisualMissile.ImpactOffset[2]);
+                    rtb.AppendLine();
+                    count++;
+                }
+
+            //Missile Motion Data.
+            if (DBC.DBC.SpellMissileMotion.ContainsKey(MotionID))
+            {
+                rtb.AppendFormatLine("(SpellMissileMotion) MissileMotionID: {0}", MotionID);
+                rtb.AppendFormatLine("(SpellMissileMotion) Missile motion: {0}", DBC.DBC.SpellMissileMotion[MotionID].Name);
+                rtb.AppendFormatLine("(SpellMissileMotion) Missile count: {0}", DBC.DBC.SpellMissileMotion[MotionID].MissileCount);
+                rtb.AppendLine("(SpellMissileMotion) Missile Script body:");
+                rtb.AppendText(DBC.DBC.SpellMissileMotion[MotionID].ScriptBody);
+            }
         }
 
         public bool HasEffect(SpellEffects effect)

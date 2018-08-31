@@ -1,7 +1,11 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using WDCReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellMissileEntry
     {
+        [Index]
+        public int ID;
         public int SpellID;
         public byte Flags;
         public float DefaultPitchMin;
