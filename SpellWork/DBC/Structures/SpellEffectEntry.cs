@@ -1,42 +1,45 @@
 ﻿using System.Runtime.InteropServices;
+using WDCReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
     [StructLayout(LayoutKind.Sequential)]
     public class SpellEffectEntry
     {
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
-        public uint[] EffectSpellClassMask;
+        [Index]
         public uint ID;
-        public int SpellID;
+        public int DifficultyID;
+        public int EffectIndex;
         public uint Effect;
-        public uint EffectAura;
-        public int EffectBasePoints;
-        public uint EffectIndex;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public int[] EffectMiscValues;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public uint[] EffectRadiusIndex;
-        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public uint[] ImplicitTarget;
-        public uint DifficultyID;
         public float EffectAmplitude;
-        public uint EffectAuraPeriod;
+        public int EffectAttributes;
+        public short EffectAura;
+        public int EffectAuraPeriod;
         public float EffectBonusCoefficient;
         public float EffectChainAmplitude;
-        public uint EffectChainTargets;
-        public int EffectDieSides;
-        public uint EffectItemType;
-        public uint EffectMechanic;
+        public int EffectChainTargets;
+        public int EffectItemType;
+        public int EffectMechanic;
         public float EffectPointsPerResource;
-        public float EffectRealPointsPerLevel;
-        public uint EffectTriggerSpell;
         public float EffectPosFacing;
-        public uint EffectAttributes;
+        public float EffectRealPointsPerLevel;
+        public int EffectTriggerSpell;
         public float BonusCoefficientFromAP;
-        public float PvPMultiplier;
-
-        public SpellEffectScalingEntry SpellEffectScalingEntry { get; set; }
+        public float PvpMultiplier;
+        public float Coefficient;
+        public float Variance;
+        public float ResourceCoefficient;
+        public float GroupSizeBasePointsCoefficient;
+        public float EffectBasePoints;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public int[] EffectMiscValue;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public uint[] EffectRadiusIndex;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint[] EffectSpellClassMask;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public ushort[] ImplicitTarget;
+        public int SpellID;
 
         public string MaxRadius
         {

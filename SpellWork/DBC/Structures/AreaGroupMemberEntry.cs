@@ -2,7 +2,7 @@
 {
     public sealed class AreaGroupMemberEntry
     {
-        public ushort AreaGroupId;
         public short AreaId;
+        public ushort AreaGroupId;
     }
 }

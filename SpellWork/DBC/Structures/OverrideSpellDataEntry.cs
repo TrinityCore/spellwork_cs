@@ -1,9 +1,12 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using System.Runtime.InteropServices;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class OverrideSpellDataEntry
     {
-        public uint[] Spells;
-        public uint PlayerActionbarFileDataID;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public int[] Spells;
+        public int PlayerActionbarFileDataID;
         public byte Flags;
     }
 }

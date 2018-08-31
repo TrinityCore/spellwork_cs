@@ -10,15 +10,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using DBFilesClient.NET;
+using WDCReaderLib;
 using System.Threading.Tasks;
 
 namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string Version = "SpellWork 7.2.5 (24330)";
-        public const uint MaxLevel = 110;
+        public const string Version = "SpellWork 8.0.1 (27481)";
+        public const uint MaxLevel = 120;
 
         // ReSharper disable MemberCanBePrivate.Global
         // ReSharper disable CollectionNeverUpdated.Global
@@ -37,7 +37,6 @@ namespace SpellWork.DBC
         public static Storage<SpellDescriptionVariablesEntry>   SpellDescriptionVariables { get; set; }
         public static Storage<SpellDurationEntry>               SpellDuration { get; set; }
         public static Storage<SpellEffectEntry>                 SpellEffect { get; set; }
-        public static Storage<SpellEffectScalingEntry>          SpellEffectScaling { get; set; }
         public static Storage<SpellMiscEntry>                   SpellMisc { get; set; }
         public static Storage<SpellEquippedItemsEntry>          SpellEquippedItems { get; set; }
         public static Storage<SpellInterruptsEntry>             SpellInterrupts { get; set; }
@@ -63,6 +62,8 @@ namespace SpellWork.DBC
         public static Storage<SpellReagentsEntry>               SpellReagents { get; set; }
         public static Storage<SpellReagentsCurrencyEntry>       SpellReagentsCurrency { get; set; }
         public static Storage<SpellMissileEntry>                SpellMissile { get; set; }
+        public static Storage<SpellNameEntry>                   SpellName { get; set; }
+        public static Storage<SpellXDescriptionVariablesEntry>  SpellXDescriptionVariables { get; set; }
         // ReSharper restore MemberCanBePrivate.Global
         // ReSharper restore CollectionNeverUpdated.Global
 
@@ -86,7 +87,7 @@ namespace SpellWork.DBC
                     try
                     {
                         dbc.SetValue(dbc.GetValue(null),
-                            Activator.CreateInstance(dbc.PropertyType, $@"{ Settings.Default.DbcPath }\{ Settings.Default.Locale }\{ name }.db2", true));
+                            Activator.CreateInstance(dbc.PropertyType, $@"{ Settings.Default.DbcPath }\{ Settings.Default.Locale }\{ name }.db2"));
                     }
                     catch (DirectoryNotFoundException)
                     {
@@ -99,20 +100,32 @@ namespace SpellWork.DBC
                     }
                 });
 
-            foreach (var spell in Spell)
-                SpellInfoStore[spell.Value.ID] = new SpellInfo(spell.Value);
+            foreach (var spellName in SpellName)
+                SpellInfoStore[spellName.Key] = new SpellInfo(spellName.Value);
 
             await Task.WhenAll(Task.Run(() =>
             {
-                foreach (var effect in SpellInfoStore.Where(effect => SpellMisc.ContainsKey(effect.Value.Spell.MiscID)))
+                foreach (var spellMisc in SpellMisc)
                 {
-                    effect.Value.Misc = SpellMisc[effect.Value.Spell.MiscID];
+                    if (SpellInfoStore.ContainsKey(spellMisc.Value.SpellID))
+                        SpellInfoStore[spellMisc.Value.SpellID].Misc = spellMisc.Value;
+                    else
+                        continue;
 
-                    if (SpellDuration.ContainsKey(effect.Value.Misc.DurationIndex))
-                        effect.Value.DurationEntry = SpellDuration[effect.Value.Misc.DurationIndex];
+                    if (SpellDuration.ContainsKey(SpellInfoStore[spellMisc.Value.SpellID].Misc.DurationIndex))
+                        SpellInfoStore[spellMisc.Value.SpellID].DurationEntry = SpellDuration[SpellInfoStore[spellMisc.Value.SpellID].Misc.DurationIndex];
 
-                    if (SpellRange.ContainsKey(effect.Value.Misc.RangeIndex))
-                        effect.Value.Range = SpellRange[effect.Value.Misc.RangeIndex];
+                    if (SpellRange.ContainsKey(SpellInfoStore[spellMisc.Value.SpellID].Misc.RangeIndex))
+                        SpellInfoStore[spellMisc.Value.SpellID].Range = SpellRange[SpellInfoStore[spellMisc.Value.SpellID].Misc.RangeIndex];
+                }
+            }), Task.Run(() =>
+            {
+                foreach (var spell in Spell)
+                {
+                    if (SpellInfoStore.ContainsKey(spell.Value.ID))
+                        SpellInfoStore[spell.Value.ID].Spell = spell.Value;
+                    else
+                        continue;
                 }
             }), Task.Run(() =>
             {
@@ -153,7 +166,7 @@ namespace SpellWork.DBC
             }), Task.Run(() =>
             {
                 foreach (var effect in SpellXSpellVisual.Where(effect =>
-                    effect.Value.DifficultyID == 0 && effect.Value.PlayerConditionID == 0))
+                    effect.Value.DifficultyID == 0 && effect.Value.ViewerPlayerConditionID == 0))
                 {
                     if (!SpellInfoStore.ContainsKey(effect.Value.SpellID))
                     {
@@ -259,19 +272,6 @@ namespace SpellWork.DBC
                 }
             }), Task.Run(() =>
             {
-                foreach (var effect in SpellEffectScaling)
-                {
-                    if (!SpellEffect.ContainsKey(effect.Value.SpellEffectId))
-                    {
-                        Console.WriteLine(
-                            $"SpellEffectScaling: Unknown spell effect {effect.Value.SpellEffectId} referenced, ignoring!");
-                        continue;
-                    }
-
-                    SpellEffect[effect.Value.SpellEffectId].SpellEffectScalingEntry = effect.Value;
-                }
-            }), Task.Run(() =>
-            {
                 foreach (var effect in SpellInterrupts)
                 {
                     if (!SpellInfoStore.ContainsKey(effect.Value.SpellID))
@@ -365,6 +365,6 @@ namespace SpellWork.DBC
         }
 
         public static uint SelectedLevel = MaxLevel;
-        public static uint SelectedItemLevel = 890;
+        public static uint SelectedItemLevel = 285;
     }
 }

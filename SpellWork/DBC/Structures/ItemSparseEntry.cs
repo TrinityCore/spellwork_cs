@@ -1,70 +1,77 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using System.Runtime.InteropServices;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class ItemSparseEntry
     {
-        public uint[] Flags;
-        public float Unk1;
-        public float Unk2;
-        public uint BuyCount;
-        public uint BuyPrice;
-        public uint SellPrice;
-        public int AllowableRace;
-        public uint RequiredSpell;
-        public uint MaxCount;
-        public uint Stackable;
-        public int[] ItemStatAllocation;
-        public float[] ItemStatSocketCostMultiplier;
-        public float RangedModRange;
-        public string Name;
-        public string Name2;
-        public string Name3;
-        public string Name4;
+        public long AllowableRace;
         public string Description;
+        public string Display3;
+        public string Display2;
+        public string Display1;
+        public string Display;
+        public float DmgVariance;
+        public uint DurationInInventory;
+        public float QualityModifier;
         public uint BagFamily;
-        public float ArmorDamageModifier;
-        public uint Duration;
-        public float StatScalingFactor;
-        public ushort AllowableClass;
-        public ushort ItemLevel;
-        public ushort RequiredSkill;
-        public ushort RequiredSkillRank;
-        public ushort RequiredReputationFaction;
-        public short[] ItemStatValue;
-        public ushort ScalingStatDistribution;
-        public ushort Delay;
-        public ushort PageText;
-        public ushort StartQuest;
-        public ushort LockID;
-        public ushort RandomProperty;
-        public ushort RandomSuffix;
-        public ushort ItemSet;
-        public ushort Area;
-        public ushort Map;
-        public ushort TotemCategory;
-        public ushort SocketBonus;
-        public ushort GemProperties;
-        public ushort ItemLimitCategory;
-        public ushort HolidayID;
-        public ushort RequiredTransmogHolidayID;
+        public float ItemRange;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public float StatPercentageOfSocket;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public int StatPercentEditor;
+        public int Stackable;
+        public int MaxCount;
+        public uint RequiredAbility;
+        public uint SellPrice;
+        public uint BuyPrice;
+        public uint VendorStackCount;
+        public float PriceVariance;
+        public float PriceRandomValue;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
+        public uint Flags;
+        public int OppositeFactionItemID;
         public ushort ItemNameDescriptionID;
-        public byte Quality;
-        public byte InventoryType;
-        public sbyte RequiredLevel;
-        public byte RequiredHonorRank;
-        public byte RequiredCityRank;
-        public byte RequiredReputationRank;
-        public byte ContainerSlots;
-        public sbyte[] ItemStatType;
-        public byte DamageType;
-        public byte Bonding;
-        public byte LanguageID;
-        public byte PageMaterial;
-        public sbyte Material;
-        public byte Sheath;
-        public byte[] SocketColor;
-        public byte CurrencySubstitutionID;
-        public byte CurrencySubstitutionCount;
+        public ushort RequiredTransmogHoliday;
+        public ushort RequiredHoliday;
+        public ushort LimitCategory;
+        public ushort GemProperties;
+        public ushort SocketMatchEnchantmentID;
+        public ushort TotemCategoryID;
+        public ushort InstanceBound;
+        public ushort ZoneBound;
+        public ushort ItemSet;
+        public ushort ItemRandomSuffixGroupID;
+        public ushort RandomSelect;
+        public ushort LockID;
+        public ushort StartQuestID;
+        public ushort PageID;
+        public ushort ItemDelay;
+        public ushort ScalingStatDistributionID;
+        public ushort MinFactionID;
+        public ushort RequiredSkillRank;
+        public ushort RequiredSkill;
+        public ushort ItemLevel;
+        public short AllowableClass;
+        public byte ExpansionID;
         public byte ArtifactID;
-        public byte RequiredExpansion;
+        public byte SpellWeight;
+        public byte SpellWeightCategory;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 3)]
+        public byte SocketType;
+        public byte SheatheType;
+        public byte Material;
+        public byte PageMaterialID;
+        public byte LanguageID;
+        public byte Bonding;
+        public byte DamageDamageType;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 10)]
+        public byte StatModifierBonusStat;
+        public byte ContainerSlots;
+        public byte MinReputation;
+        public byte RequiredPVPMedal;
+        public byte RequiredPVPRank;
+        public sbyte RequiredLevel;
+        public byte InventoryType;
+        public byte OverallQualityID;
     }
 }

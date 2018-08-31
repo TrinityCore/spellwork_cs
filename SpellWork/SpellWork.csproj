@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SpellWork</RootNamespace>
     <AssemblyName>SpellWork</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ApplicationIcon>New Icon.ico</ApplicationIcon>
     <SignAssembly>false</SignAssembly>
@@ -62,9 +62,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DBFilesClient.NET, Version=1.1.4.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\DBFilesClient.NET.1.1.4\lib\net452\DBFilesClient.NET.dll</HintPath>
-    </Reference>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.9\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -79,6 +76,9 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WDCReaderLib">
+      <HintPath>..\libs\WDCReaderLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\MySQLConnect.cs">
@@ -105,7 +105,6 @@
     <Compile Include="DBC\Structures\SpellDescriptionVariablesEntry.cs" />
     <Compile Include="DBC\Structures\SpellDurationEntry.cs" />
     <Compile Include="DBC\Structures\SpellEffectEntry.cs" />
-    <Compile Include="DBC\Structures\SpellEffectScalingEntry.cs" />
     <Compile Include="DBC\Structures\SpellEntry.cs" />
     <Compile Include="DBC\Structures\SpellEquippedItemsEntry.cs" />
     <Compile Include="DBC\Structures\SpellInterruptsEntry.cs" />
@@ -113,6 +112,7 @@
     <Compile Include="DBC\Structures\SpellMiscEntry.cs" />
     <Compile Include="DBC\Structures\SpellMissileEntry.cs" />
     <Compile Include="DBC\Structures\SpellMissileMotionEntry.cs" />
+    <Compile Include="DBC\Structures\SpellNameEntry.cs" />
     <Compile Include="DBC\Structures\SpellPowerEntry.cs" />
     <Compile Include="DBC\Structures\SpellProcsPerMinuteEntry.cs" />
     <Compile Include="DBC\Structures\SpellRadiusEntry.cs" />
@@ -124,6 +124,7 @@
     <Compile Include="DBC\Structures\SpellTargetRestrictionsEntry.cs" />
     <Compile Include="DBC\Structures\SpellTotemsEntry.cs" />
     <Compile Include="DBC\Structures\SpellVisualEntry.cs" />
+    <Compile Include="DBC\Structures\SpellXDescriptionVariablesEntry.cs" />
     <Compile Include="DBC\Structures\SpellXSpellVisualEntry.cs" />
     <Compile Include="Extensions\LinqExtensions.cs" />
     <Compile Include="Extensions\TreeViewExtensions.cs" />

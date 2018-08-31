@@ -1,15 +1,19 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using WDCReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class ItemEffectEntry
     {
-        public uint ItemID;
-        public uint SpellID;
-        public int Cooldown;
-        public int CategoryCooldown;
+        [Index]
+        public int ID;
+        public byte LegacySlotIndex;
+        public byte TriggerType;
         public short Charges;
-        public ushort Category;
+        public int CoolDownMSec;
+        public int CategoryCoolDownMSec;
+        public ushort SpellCategoryID;
+        public int SpellID;
         public ushort ChrSpecializationID;
-        public byte OrderIndex;
-        public byte Trigger;
+        public int ParentItemID;
     }
 }

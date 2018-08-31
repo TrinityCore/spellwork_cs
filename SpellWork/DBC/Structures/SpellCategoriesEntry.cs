@@ -2,14 +2,14 @@
 {
     public class SpellCategoriesEntry
     {
-        public int SpellID;
-        public ushort Category;
-        public ushort StartRecoveryCategory;
-        public ushort ChargeCategory;
         public byte DifficultyID;
-        public byte DefenseType;
-        public byte DispelType;
-        public byte Mechanic;
-        public byte PreventionType;
+        public ushort Category;
+        public sbyte DefenseType;
+        public sbyte DispelType;
+        public sbyte Mechanic;
+        public sbyte PreventionType;
+        public short StartRecoveryCategory;
+        public short ChargeCategory;
+        public int SpellID;
     }
 }

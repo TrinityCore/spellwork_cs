@@ -1,14 +1,17 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using System.Runtime.InteropServices;
+
+namespace SpellWork.DBC.Structures
 {
     public class SpellAuraOptionsEntry
     {
-        public int SpellID;
-        public uint ProcCharges;
-        public uint ProcTypeMask;
-        public uint ProcCategoryRecovery;
-        public ushort CumulativeAura;
         public byte DifficultyID;
+        public ushort CumulativeAura;
+        public int ProcCategoryRecovery;
         public byte ProcChance;
-        public byte SpellProcsPerMinuteID;
+        public int ProcCharges;
+        public ushort SpellProcsPerMinuteID;
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public uint[] ProcTypeMask;
+        public int SpellID;
     }
 }

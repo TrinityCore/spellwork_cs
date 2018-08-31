@@ -2,8 +2,8 @@
 {
     public class SpellCastTimesEntry
     {
-        public int CastTime;
-        public int MinCastTime;
-        public short CastTimePerLevel;
+        public int Base;
+        public short PerLevel;
+        public int Minimum;
     }
 }

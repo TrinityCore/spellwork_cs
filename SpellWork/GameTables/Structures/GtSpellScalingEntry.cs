@@ -23,6 +23,7 @@
         public float Gem2;
         public float Gem3;
         public float Health;
+        public float DamageReplaceStat;
         // ReSharper restore MemberCanBePrivate.Global
 
         public float GetColumnForClass(int scalingClass)
@@ -48,6 +49,7 @@
                 case -4: return Gem2;
                 case -5: return Gem3;
                 case -6: return Health;
+                case -7: return DamageReplaceStat;
                 default:
                     break;
             }

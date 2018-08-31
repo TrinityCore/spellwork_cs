@@ -3,12 +3,17 @@
     public sealed class SkillLineEntry
     {
         public string DisplayName;
-        public string Description;
         public string AlternateVerb;
-        public ushort Flags;
-        public byte CategoryID;
-        public byte CanLink;
-        public uint IconFileDataID;
+        public string Description;
+        public string HordeDisplayName;
+        public string NeutralDisplayName;
+        public int ID;
+        public sbyte CategoryID;
+        public int SpellIconFileID;
+        public sbyte CanLink;
         public uint ParentSkillLineID;
+        public int ParentTierIndex;
+        public ushort Flags;
+        public int Field_1863254740;
     }
 }

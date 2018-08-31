@@ -3,9 +3,9 @@
     public class SpellScalingEntry
     {
         public int SpellID;
-        public ushort ScalesFromItemLevel;
-        public int ScalingClass;
+        public int Class;
         public uint MinScalingLevel;
         public uint MaxScalingLevel;
+        public short ScalesFromItemLevel;
     }
 }

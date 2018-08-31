@@ -39,8 +39,8 @@ namespace SpellWork.Forms
             }
 
             var val = int.Parse(tb.Text);
-            if (val > 110)
-                tb.Text = "110";
+            if (val > 120)
+                tb.Text = "120";
             else if (val <= 0)
                 tb.Text = "1";
 

@@ -2,7 +2,8 @@
 {
     public sealed class SpellMissileEntry
     {
-        public uint Flags;
+        public int SpellID;
+        public byte Flags;
         public float DefaultPitchMin;
         public float DefaultPitchMax;
         public float DefaultSpeedMin;
@@ -16,6 +17,5 @@
         public float Gravity;
         public float MaxDuration;
         public float CollisionRadius;
-        public byte UnkLegion;
     }
 }

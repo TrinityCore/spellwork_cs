@@ -76,7 +76,7 @@
             // _tbLevel
             //
             this._tbLevel.Location = new System.Drawing.Point(12, 25);
-            this._tbLevel.Maximum = 110;
+            this._tbLevel.Maximum = 120;
             this._tbLevel.Minimum = 1;
             this._tbLevel.Name = "_tbLevel";
             this._tbLevel.Size = new System.Drawing.Size(226, 45);
@@ -107,7 +107,7 @@
             //
             this._tbItemLevel.LargeChange = 20;
             this._tbItemLevel.Location = new System.Drawing.Point(12, 86);
-            this._tbItemLevel.Maximum = 1300;
+            this._tbItemLevel.Maximum = 400;
             this._tbItemLevel.Minimum = 1;
             this._tbItemLevel.Name = "_tbItemLevel";
             this._tbItemLevel.Size = new System.Drawing.Size(226, 45);

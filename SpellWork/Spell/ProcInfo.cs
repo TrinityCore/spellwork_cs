@@ -19,7 +19,7 @@ namespace SpellWork.Spell
             var spells = from spell in DBC.DBC.SpellInfoStore.Values
                          where spell.SpellFamilyName == (uint)spellfamily
 
-                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellID into temp1
+                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.Spell into temp1
                          from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
 
                          join skl in DBC.DBC.SkillLine on skill.SkillLine equals skl.Key into temp2
