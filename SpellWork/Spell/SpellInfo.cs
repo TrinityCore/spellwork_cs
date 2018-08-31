@@ -829,6 +829,7 @@ namespace SpellWork.Spell
                     {
                         rtb.AppendFormatLine("Charges - {0}", triggerSpell.ProcCharges);
                         rtb.AppendLine(Separator);
+                        rtb.AppendFormatLine("Triggered Spell ProcFlags0:");
                         rtb.AppendLine(triggerSpell.ProcInfo0);
                         rtb.AppendLine(Separator);
                     }
@@ -836,6 +837,7 @@ namespace SpellWork.Spell
                     {
                         rtb.AppendFormatLine("Charges - {0}", triggerSpell.ProcCharges);
                         rtb.AppendLine(Separator);
+                        rtb.AppendFormatLine("Triggered Spell ProcFlags1:");
                         rtb.AppendLine(triggerSpell.ProcInfo1);
                         rtb.AppendLine(Separator);
                     }
@@ -843,7 +845,9 @@ namespace SpellWork.Spell
                     {
                         rtb.AppendFormatLine("Charges - {0}", triggerSpell.ProcCharges);
                         rtb.AppendLine(Separator);
+                        rtb.AppendFormatLine("Triggered Spell ProcFlags0:");
                         rtb.AppendLine(triggerSpell.ProcInfo0);
+                        rtb.AppendFormatLine("Triggered Spell ProcFlags1:");
                         rtb.AppendLine(triggerSpell.ProcInfo1);
                         rtb.AppendLine(Separator);
                     }
