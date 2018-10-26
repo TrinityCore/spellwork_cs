@@ -227,7 +227,7 @@ namespace SpellWork.DBC
                 while (proc != 0)
                 {
                     if ((proc & 1) != 0)
-                        sb.AppendFormatLine("  {0}", SpellEnums.ProcFlagDesc[i]);
+                        sb.AppendFormatLine("  {0} (0x{1}) - {2}", (1 << i), (1 << i).ToString("X"), SpellEnums.ProcFlagDesc[i]);
                     i++;
                     proc >>= 1;
                 }
