@@ -30,6 +30,13 @@ namespace SpellWork
                 MessageBox.Show($"Files in {Path.GetFullPath(dbcPath)} missing", @"Missing files", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            
+            var gtPath = $"{Settings.Default.GtPath}";
+            if(!Directory.Exists(gtPath))
+            {
+                MessageBox.Show($"Files in {Path.GetFullPath(gtPath)} missing", @"Missing files", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             try
             {
