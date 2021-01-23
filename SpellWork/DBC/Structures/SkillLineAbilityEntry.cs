@@ -15,7 +15,7 @@ namespace SpellWork.DBC.Structures
         public sbyte AcquireMethod;
         public short TrivialSkillLineRankHigh;
         public short TrivialSkillLineRankLow;
-        public sbyte Flags;
+        public int Flags;
         public sbyte NumSkillUps;
         public short UniqueBit;
         public short TradeSkillCategoryID;

@@ -7,7 +7,6 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public int Base;
-        public short PerLevel;
         public int Minimum;
     }
 }

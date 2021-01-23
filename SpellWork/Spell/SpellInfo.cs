@@ -46,7 +46,6 @@ namespace SpellWork.Spell
 
         #region SpellDuration
         public int Duration => DurationEntry?.Duration ?? 0;
-        public uint DurationPerLevel => DurationEntry?.DurationPerLevel ?? 0;
         public int MaxDuration => DurationEntry?.MaxDuration ?? 0;
         #endregion
 
@@ -73,6 +72,7 @@ namespace SpellWork.Spell
         public uint AttributesEx11 => (uint)(Misc?.Attributes[11] ?? 0);
         public uint AttributesEx12 => (uint)(Misc?.Attributes[12] ?? 0);
         public uint AttributesEx13 => (uint)(Misc?.Attributes[13] ?? 0);
+        public uint AttributesEx14 => (uint)(Misc?.Attributes[14] ?? 0);
         public float Speed => Misc?.Speed ?? 0;
         public int CastingTimeIndex => Misc?.CastingTimeIndex ?? 0;
         public int ActiveIconFileDataID => Misc?.ActiveIconFileDataID ?? 0;
@@ -313,6 +313,8 @@ namespace SpellWork.Spell
                 rtb.AppendFormatLine("AttributesEx12: 0x{0:X8} ({1})", AttributesEx12, (SpellAtributeEx12)AttributesEx12);
             if (AttributesEx13 != 0)
                 rtb.AppendFormatLine("AttributesEx13: 0x{0:X8} ({1})", AttributesEx13, (SpellAtributeEx13)AttributesEx13);
+            if (AttributesEx14 != 0)
+                rtb.AppendFormatLine("AttributesEx14: 0x{0:X8} ({1})", AttributesEx14, (SpellAtributeEx14)AttributesEx14);
 
             rtb.AppendLine(Separator);
             #endregion
@@ -462,7 +464,7 @@ namespace SpellWork.Spell
                 if (Scaling != null && level < Scaling.MinScalingLevel)
                     level = Scaling.MinScalingLevel;
 
-                var castTime = castTimeEntry.Base + castTimeEntry.PerLevel * level;
+                var castTime = castTimeEntry.Base;
                 if (castTime < castTimeEntry.Minimum)
                     castTime = castTimeEntry.Minimum;
 
@@ -476,7 +478,7 @@ namespace SpellWork.Spell
             }
 
             if (DurationEntry != null)
-                rtb.AppendFormatLine("Duration {0}, {1}, {2}", Duration, DurationPerLevel, MaxDuration);
+                rtb.AppendFormatLine("Duration {0}, {1}", Duration, MaxDuration);
 
             foreach (var spellPower in Powers.OrderBy(p => p.OrderIndex))
             {
@@ -997,7 +999,7 @@ namespace SpellWork.Spell
 
         public int DifficultyID => SpellEffect.DifficultyID;
 
-        public uint Effect => SpellEffect.Effect;
+        public int Effect => SpellEffect.Effect;
         public int EffectIndex => SpellEffect.EffectIndex;
         public int EffectAttributes => SpellEffect.EffectAttributes;
 

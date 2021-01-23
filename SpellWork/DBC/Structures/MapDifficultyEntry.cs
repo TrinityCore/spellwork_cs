@@ -16,7 +16,7 @@ namespace SpellWork.DBC.Structures
         public int ItemContextPickerID;
         public int Flags;
         public int ContentTuningID;
-        public uint MapID;
+        public int MapID;
 
         public int CompareTo(object obj)
         {

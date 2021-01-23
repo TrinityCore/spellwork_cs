@@ -9,6 +9,7 @@ namespace SpellWork.DBC.Structures
         public uint ID;
         public string Directory;
         public string MapName;
+        public string InternalName;
         public string MapDescription0;
         public string MapDescription1;
         public string PvpShortDescription;
@@ -31,7 +32,7 @@ namespace SpellWork.DBC.Structures
         public int ZmpFileDataID;
         public int WdtFileDataID;
         [Cardinality(2)]
-        public int[] Flags = new int[2];
+        public uint[] Flags = new uint[2];
 
         public int CompareTo(object obj)
         {

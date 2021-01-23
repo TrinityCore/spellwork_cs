@@ -203,8 +203,9 @@ namespace SpellWork.Forms
                                 (spellInfo.AttributesEx6 & at) != 0 || (spellInfo.AttributesEx7 & at) != 0 ||
                                 (spellInfo.AttributesEx8 & at) != 0 || (spellInfo.AttributesEx9 & at) != 0 ||
                                 (spellInfo.AttributesEx10 & at) != 0 || (spellInfo.AttributesEx11 & at) != 0 ||
-                                (spellInfo.AttributesEx12 & at) != 0 || (spellInfo.AttributesEx13 & at) != 0)) &&
-                              ((id != 0 || ic != 0 && at != 0) || spellInfo.Name.ContainsText(name))
+                                (spellInfo.AttributesEx12 & at) != 0 || (spellInfo.AttributesEx13 & at) != 0 || 
+                                (spellInfo.AttributesEx14 & at) != 0)) && ((id != 0 || ic != 0 && at != 0) ||
+                                spellInfo.Name.ContainsText(name))
                           orderby spellInfo.ID
                           select spellInfo).ToList();
 

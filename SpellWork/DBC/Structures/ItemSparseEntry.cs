@@ -32,6 +32,9 @@ namespace SpellWork.DBC.Structures
         [Cardinality(4)]
         public int[] Flags = new int[4];
         public int FactionRelated;
+        public int ModifiedCraftingReagentItemID;
+        public int ContentTuningID;
+        public int PlayerLevelToItemLevelCurveID;
         public ushort ItemNameDescriptionID;
         public ushort RequiredTransmogHoliday;
         public ushort RequiredHoliday;
@@ -40,13 +43,13 @@ namespace SpellWork.DBC.Structures
         public ushort SocketMatchEnchantmentId;
         public ushort TotemCategoryID;
         public ushort InstanceBound;
-        public ushort ZoneBound;
+        [Cardinality(2)]
+        public ushort[] ZoneBound = new ushort[2];
         public ushort ItemSet;
         public ushort LockID;
         public ushort StartQuestID;
         public ushort PageID;
         public ushort ItemDelay;
-        public ushort ScalingStatDistributionID;
         public ushort MinFactionID;
         public ushort RequiredSkillRank;
         public ushort RequiredSkill;

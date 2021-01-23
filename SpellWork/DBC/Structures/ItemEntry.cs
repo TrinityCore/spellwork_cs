@@ -14,5 +14,6 @@ namespace SpellWork.DBC.Structures
         public sbyte SoundOverrideSubclassID;
         public int IconFileDataID;
         public byte ItemGroupSoundsID;
+        public int ModifiedCraftingReagentItemID;
     }
 }

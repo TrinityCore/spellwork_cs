@@ -9,7 +9,7 @@ namespace SpellWork.DBC.Structures
         public short EffectAura;
         public int DifficultyID;
         public int EffectIndex;
-        public uint Effect;
+        public int Effect;
         public float EffectAmplitude;
         public int EffectAttributes;
         public int EffectAuraPeriod;

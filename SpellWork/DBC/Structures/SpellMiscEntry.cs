@@ -6,8 +6,8 @@ namespace SpellWork.DBC.Structures
     {
         [Index(true)]
         public uint ID;
-        [Cardinality(14)]
-        public int[] Attributes = new int[14];
+        [Cardinality(15)]
+        public int[] Attributes = new int[15];
         public byte DifficultyID;
         public ushort CastingTimeIndex;
         public ushort DurationIndex;
@@ -19,6 +19,9 @@ namespace SpellWork.DBC.Structures
         public int SpellIconFileDataID;
         public int ActiveIconFileDataID;
         public int ContentTuningID;
+        public int ShowFutureSpellPlayerConditionID;
+        public int SpellVisualScript;
+        public int ActiveSpellVisualScript;
         public int SpellID;
     }
 }
