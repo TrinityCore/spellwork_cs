@@ -45,6 +45,9 @@ Nightly Builds & Downloads
 - [**8.3.0 (34220)** (branch 8.x)](https://ci.appveyor.com/api/projects/DDuarte/spellwork-cs/artifacts/SpellWork/SpellWork.zip?job=Configuration:%20Release&branch=8.x)
 [![Build status](https://ci.appveyor.com/api/projects/status/bdkqqtu62sc21lw5/branch/8.x?svg=true)](https://ci.appveyor.com/project/DDuarte/spellwork-cs/branch/8.x)
 
+- [**9.0.2 (37176)** (branch 9.x)](https://ci.appveyor.com/api/projects/DDuarte/spellwork-cs/artifacts/SpellWork/SpellWork.zip?job=Configuration:%20Release&branch=9.x)
+[![Build status](https://ci.appveyor.com/api/projects/status/bdkqqtu62sc21lw5/branch/9.x?svg=true)](https://ci.appveyor.com/project/DDuarte/spellwork-cs/branch/9.x)
+
 History
 -------
 
