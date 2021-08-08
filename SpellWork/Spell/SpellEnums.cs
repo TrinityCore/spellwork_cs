@@ -1028,7 +1028,7 @@ namespace SpellWork.Spell
         TARGET_DEST_TARGET_ALLY            = 132,
         TARGET_UNK_133                     = 133,
         TARGET_UNK_134                     = 134,
-        TARGET_UNK_135                     = 135,
+        TARGET_UNIT_FIRST_IN_LINE          = 135,
         TARGET_UNK_136                     = 136,
         TARGET_UNK_137                     = 137,
         TARGET_UNK_138                     = 138,
