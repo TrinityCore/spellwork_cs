@@ -1028,7 +1028,7 @@ namespace SpellWork.Spell
         TARGET_DEST_TARGET_ALLY                     = 132,
         TARGET_UNIT_LINE_CASTER_TO_DEST_ALLY        = 133,
         TARGET_UNIT_LINE_CASTER_TO_DEST_ENEMY       = 134,
-        TARGET_UNIT_FIRST_ON_LINE_CASTER_TO_DEST    = 135,
+        TARGET_UNIT_LINE_CASTER_TO_DEST             = 135,
         TARGET_UNK_136                              = 136,
         TARGET_UNK_137                              = 137,
         TARGET_UNK_138                              = 138,
