@@ -1240,7 +1240,7 @@ namespace SpellWork.Spell
         SPELL_ATTR1_DONT_DISPLAY_IN_AURA_BAR         = 0x10000000, // TITLE Hide in aura bar (client only)
         SPELL_ATTR1_CHANNEL_DISPLAY_SPELL_NAME       = 0x20000000, // TITLE Show spell name during channel (client only)
         SPELL_ATTR1_ENABLE_AT_DODGE                  = 0x40000000, // TITLE Enable at dodge
-        SPELL_ATTR1_UNK31                            = 0x80000000  // TITLE Unknown attribute 31@Attr1};
+        SPELL_ATTR1_UNK31                            = 0x80000000  // TITLE Unknown attribute 31@Attr1
     };
 
     [Flags]
@@ -1287,6 +1287,8 @@ namespace SpellWork.Spell
     {
         SPELL_ATTR3_ALL                              = 0xFFFFFFFF,
         SPELL_ATTR3_NONE                             = 0x00000000,
+        SPELL_ATTR3_UNK0                             = 0x00000001, // TITLE Unknown attribute 0@Attr3
+        SPELL_ATTR3_IGNORE_PROC_SUBCLASS_MASK        = 0x00000002, // TITLE Ignores subclass mask check when checking proc
         SPELL_ATTR3_UNK2                             = 0x00000004, // TITLE Unknown attribute 2@Attr3
         SPELL_ATTR3_BLOCKABLE_SPELL                  = 0x00000008, // TITLE Blockable spell
         SPELL_ATTR3_IGNORE_RESURRECTION_TIMER        = 0x00000010, // TITLE Ignore resurrection timer
