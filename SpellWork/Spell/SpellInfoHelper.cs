@@ -81,11 +81,11 @@ namespace SpellWork.Spell
         public uint StartRecoveryTime = 0;                            // 206      m_startRecoveryTime
         //public uint MaxTargetLevel = 0;                               // 207      m_maxTargetLevel
         public uint SpellFamilyName = 0;                              // 208      m_spellClassSet
-        public uint[] SpellFamilyFlags;                           // 209-211  m_spellClassMask
-        //public uint MaxAffectedTargets = 0;                           // 212      m_maxTargets
-        public uint DmgClass = 0;                                     // 213      m_defenseType
-        public uint PreventionType = 0;                               // 214      m_preventionType
-        public int StanceBarOrder = 0;                                // 215      m_stanceBarOrder not used
+        public uint[] SpellFamilyFlags;                           // 209-212  m_spellClassMask
+        //public uint MaxAffectedTargets = 0;                           // 213      m_maxTargets
+        public uint DmgClass = 0;                                     // 214      m_defenseType
+        public uint PreventionType = 0;                               // 215      m_preventionType
+        public int StanceBarOrder = 0;                                // 216      m_stanceBarOrder not used
         public uint MinFactionId = 0;                                 // 219      m_minFactionID not used
         public uint MinReputation = 0;                                // 220      m_minReputation not used
         public uint RequiredAuraVision = 0;                           // 221      m_requiredAuraVision not used
@@ -342,7 +342,7 @@ namespace SpellWork.Spell
                 SpellFamilyFlags = (uint[])classOptions.SpellFamilyFlags.Clone();
             }
             else
-                SpellFamilyFlags = new uint[3];
+                SpellFamilyFlags = new uint[4];
 
             // SpellTotems.dbc
             /*var totems = dbcData.Totems;

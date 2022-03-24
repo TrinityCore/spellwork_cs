@@ -63,8 +63,8 @@ namespace SpellWork.Spell
                 _rtb.AppendFormatLine("Category = {0}, SpellIconID = {1}, activeIconID = {2}, SpellVisual = ({3},{4})",
                     _spell.Category, _spell.SpellIconID, _spell.ActiveIconID, _spell.SpellVisual[0], _spell.SpellVisual[1]);
 
-                _rtb.AppendFormatLine("Family {0}, flag [0] 0x{1:X8} [1] 0x{2:X8} [2] 0x{3:X8}",
-                    (SpellFamilyNames)_spell.SpellFamilyName, _spell.SpellFamilyFlags[0], _spell.SpellFamilyFlags[1], _spell.SpellFamilyFlags[2]);
+                _rtb.AppendFormatLine("Family {0}, flag 0x{1:X8} 0x{2:X8} 0x{3:X8} 0x{4:X8}",
+                    (SpellFamilyNames)_spell.SpellFamilyName, _spell.SpellFamilyFlags[0], _spell.SpellFamilyFlags[1], _spell.SpellFamilyFlags[2], _spell.SpellFamilyFlags[3]);
 
                 _rtb.AppendLine();
 
@@ -425,9 +425,9 @@ namespace SpellWork.Spell
 
                 var classMask = effect.SpellClassMask;
 
-                if (classMask[0] != 0 || classMask[1] != 0 || classMask[2] != 0)
+                if (classMask.Any(x => x != 0))
                 {
-                    _rtb.AppendFormatLine("SpellClassMask = {0:X8} {1:X8} {2:X8}", classMask[0], classMask[1], classMask[2]);
+                    _rtb.AppendFormatLine("SpellClassMask = 0x{0:X8} 0x{1:X8} 0x{2:X8} 0x{3:X8}", classMask[0], classMask[1], classMask[2], classMask[3]);
 
                     var query = from spell in DBC.DBC.SpellInfoStore.Values
                                 where spell.SpellFamilyName == _spell.SpellFamilyName && spell.SpellFamilyFlags.ContainsElement(classMask)

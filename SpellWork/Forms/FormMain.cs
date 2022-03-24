@@ -346,9 +346,9 @@ namespace SpellWork.Forms
             var spellFamilyFlags = _tvFamilyTree.GetMask();
             var statusproc =
                 String.Format(
-                    "Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {3}, 0x{4:X8} {5:X8} {6:X8}, procFlag 0x{7:X8}, procEx 0x{8:X8}, PPMRate {9}",
+                    "Spell ({0}) {1}. Proc Event ==> SchoolMask 0x{2:X2}, SpellFamily {4}, 0x{4:X8} {5:X8} {6:X8} {7:X8}, procFlag 0x{8:X8}, procEx 0x{9:X8}, PPMRate {10}",
                     spell.ID, spell.SpellNameRank, _clbSchools.GetFlagsValue(), _cbProcFitstSpellFamily.ValueMember,
-                    spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], _clbProcFlags.GetFlagsValue(),
+                    spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], spellFamilyFlags[3], _clbProcFlags.GetFlagsValue(),
                     _clbProcFlagEx.GetFlagsValue(), _tbPPM.Text.ToFloat());
 
             _gSpellProcEvent.Text = @"Spell Proc Event    " + statusproc;
@@ -585,9 +585,9 @@ namespace SpellWork.Forms
             // insert query
             var insert =
                 String.Format(
-                    "INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, {8}, {9}, {10});",
+                    "INSERT INTO `spell_proc_event` VALUES ({0}, 0x{1:X2}, 0x{2:X2}, 0x{3:X8}, 0x{4:X8}, 0x{5:X8}, 0x{6:X8}, 0x{7:X8}, 0x{8:X8}, {9}, {10}, {11});",
                     ProcInfo.SpellProc.ID, _clbSchools.GetFlagsValue(), _cbProcFitstSpellFamily.SelectedValue.ToUInt32(),
-                    spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], _clbProcFlags.GetFlagsValue(),
+                    spellFamilyFlags[0], spellFamilyFlags[1], spellFamilyFlags[2], spellFamilyFlags[3], _clbProcFlags.GetFlagsValue(),
                     _clbProcFlagEx.GetFlagsValue(), _tbPPM.Text.Replace(',', '.'), _tbChance.Text.Replace(',', '.'),
                     _tbCooldown.Text.Replace(',', '.'));
 

@@ -13,15 +13,17 @@ namespace SpellWork.Extensions
         /// <returns></returns>
         public static uint[] GetMask(this TreeView tv)
         {
-            var val = new uint[3];
+            var val = new uint[4];
             foreach (var node in tv.Nodes.Cast<TreeNode>().Where(node => node.Checked))
             {
                 if (node.Index < 32)
                     val[0] += 1U << node.Index;
                 else if(node.Index < 64)
                     val[1] += 1U << (node.Index - 32);
-                else
+                else if (node.Index < 128)
                     val[2] += 1U << (node.Index - 64);
+                else
+                    val[3] += 1U << (node.Index - 128);
             }
             return val;
         }
@@ -41,8 +43,10 @@ namespace SpellWork.Extensions
                     tv.Nodes[i].Checked = ((mask[0] / (1 << i)) % 2) != 0;
                 else if (i < 64)
                     tv.Nodes[i].Checked = ((mask[1] / (1 << (i - 32))) % 2) != 0;
-                else
+                else if (i < 128)
                     tv.Nodes[i].Checked = ((mask[2] / (1 << (i - 64))) % 2) != 0;
+                else
+                    tv.Nodes[i].Checked = ((mask[3] / (1 << (i - 128))) % 2) != 0;
             }
 
             ProcInfo.Update = true;
