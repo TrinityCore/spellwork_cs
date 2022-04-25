@@ -185,7 +185,7 @@ namespace SpellWork.DBC
                         continue;
                     }
 
-                    SpellInfoStore[spellTargetRestrictions.SpellID].TargetRestrictions.Add(spellTargetRestrictions);
+                    SpellInfoStore[spellTargetRestrictions.SpellID].TargetRestrictions = spellTargetRestrictions;
                 }
             }), Task.Run(() =>
             {

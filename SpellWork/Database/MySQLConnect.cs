@@ -254,7 +254,7 @@ namespace SpellWork.Database
                                 },
                             };
 
-                            spellInfo.TargetRestrictions.Add(new SpellTargetRestrictionsEntry()
+                            spellInfo.TargetRestrictions = new SpellTargetRestrictionsEntry()
                             {
                                 ConeDegrees = reader.GetFloat(62),
                                 MaxTargets = (byte)reader.GetUInt32(65),
@@ -262,7 +262,7 @@ namespace SpellWork.Database
                                 TargetCreatureType = (short)reader.GetUInt32(23),
                                 Targets = (int)reader.GetUInt32(22),
                                 Width = reader.GetFloat(63)
-                            });
+                            };
 
                             if (DBC.DBC.SpellDuration.TryGetValue(spellInfo.Misc.DurationIndex, out var duration))
                                 spellInfo.DurationEntry = duration;

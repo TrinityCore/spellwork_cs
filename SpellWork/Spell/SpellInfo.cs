@@ -52,7 +52,7 @@ namespace SpellWork.Spell
         [IgnoreAutopopulatedFilterValue]
         public SpellShapeshiftEntry Shapeshift { get; set; }
         [IgnoreAutopopulatedFilterValue]
-        public List<SpellTargetRestrictionsEntry> TargetRestrictions { get; } = new List<SpellTargetRestrictionsEntry>();
+        public SpellTargetRestrictionsEntry TargetRestrictions { get; set; }
         [IgnoreAutopopulatedFilterValue]
         public SpellTotemsEntry Totems { get; set; }
         [IgnoreAutopopulatedFilterValue]
@@ -212,6 +212,15 @@ namespace SpellWork.Spell
         public int InterruptFlags => Interrupts?.InterruptFlags ?? 0;
         #endregion
 
+        #region SpellTargetRestrictions
+        public float ConeDegrees => TargetRestrictions?.ConeDegrees ?? 0;
+        public byte MaxTargets => TargetRestrictions?.MaxTargets ?? 0;
+        public uint MaxTargetLevel => TargetRestrictions?.MaxTargetLevel ?? 0;
+        public short TargetCreatureType => TargetRestrictions?.TargetCreatureType ?? 0;
+        public int Targets => TargetRestrictions?.Targets ?? 0;
+        public float Width => TargetRestrictions?.Width ?? 0;
+        #endregion
+
         public string ProcInfo
         {
             get
@@ -358,22 +367,15 @@ namespace SpellWork.Spell
             rtb.AppendLine(Separator);
             #endregion
 
-            if (TargetRestrictions != null)
-            {
-                foreach (var targetRestriction in TargetRestrictions)
-                {
-                    if (targetRestriction.Targets != 0)
-                        rtb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", targetRestriction.Targets, (SpellCastTargetFlags)targetRestriction.Targets);
+            if (Targets != 0)
+                rtb.AppendFormatLine("Targets Mask = 0x{0:X8} ({1})", Targets, (SpellCastTargetFlags)Targets);
 
-                    if (targetRestriction.TargetCreatureType != 0)
-                        rtb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})",
-                            targetRestriction.TargetCreatureType, (CreatureTypeMask)targetRestriction.TargetCreatureType);
+            if (TargetCreatureType != 0)
+                rtb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})", TargetCreatureType, (CreatureTypeMask)TargetCreatureType);
 
-                    rtb.AppendFormatLineIfNotNull("MaxTargets: {0}", targetRestriction.MaxTargets);
-                    rtb.AppendFormatLineIfNotNull("ConeDegrees: {0}", targetRestriction.ConeDegrees);
-                    rtb.AppendFormatLineIfNotNull("Width (line): {0}", targetRestriction.Width);
-                }
-            }
+            rtb.AppendFormatLineIfNotNull("MaxTargets: {0}", TargetRestrictions.MaxTargets);
+            rtb.AppendFormatLineIfNotNull("ConeDegrees: {0}", TargetRestrictions.ConeDegrees);
+            rtb.AppendFormatLineIfNotNull("Width (line): {0}", TargetRestrictions.Width);
 
             if (Stances != 0)
                 rtb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)Stances);
