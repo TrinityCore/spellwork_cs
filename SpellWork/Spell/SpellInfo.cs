@@ -218,7 +218,7 @@ namespace SpellWork.Spell
         public uint MaxTargetLevel => TargetRestrictions?.MaxTargetLevel ?? 0;
         public short TargetCreatureType => TargetRestrictions?.TargetCreatureType ?? 0;
         public int Targets => TargetRestrictions?.Targets ?? 0;
-        public float Width => TargetRestrictions?.Width ?? 0;
+        public float ConeWidth => TargetRestrictions?.Width ?? 0;
         #endregion
 
         public string ProcInfo
@@ -373,9 +373,9 @@ namespace SpellWork.Spell
             if (TargetCreatureType != 0)
                 rtb.AppendFormatLine("Creature Type Mask = 0x{0:X8} ({1})", TargetCreatureType, (CreatureTypeMask)TargetCreatureType);
 
-            rtb.AppendFormatLineIfNotNull("MaxTargets: {0}", TargetRestrictions.MaxTargets);
-            rtb.AppendFormatLineIfNotNull("ConeDegrees: {0}", TargetRestrictions.ConeDegrees);
-            rtb.AppendFormatLineIfNotNull("Width (line): {0}", TargetRestrictions.Width);
+            rtb.AppendFormatLineIfNotNull("MaxTargets: {0}", MaxTargets);
+            rtb.AppendFormatLineIfNotNull("ConeDegrees: {0}", ConeDegrees);
+            rtb.AppendFormatLineIfNotNull("Width (line): {0}", ConeWidth);
 
             if (Stances != 0)
                 rtb.AppendFormatLine("Stances: {0}", (ShapeshiftFormMask)Stances);
