@@ -685,7 +685,7 @@ namespace SpellWork.Spell
                 }
 
                 value *= effect.Coefficient;
-                if (value != 0.0f && value < 1.0f)
+                if (value > 0.0f && value < 1.0f)
                     value = 1.0f;
 
                 return (float)Math.Round(value);
@@ -696,7 +696,7 @@ namespace SpellWork.Spell
                 ExpectedStatType stat = ExpectedStat.GetTypeForSpellEffect(effect);
                 if (stat != ExpectedStatType.None)
                 {
-                    if ((Attributes & (uint)SpellAtribute.SPELL_ATTR0_LEVEL_DAMAGE_CALCULATION) != 0)
+                    if ((Attributes & (uint)SpellAtribute.SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL) != 0)
                         stat = ExpectedStatType.CreatureAutoAttackDps;
 
                     var contentTuningId = ContentTuningID;
