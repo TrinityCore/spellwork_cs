@@ -379,6 +379,8 @@ namespace SpellWork.Spell
         SPELL_EFFECT_MODIFY_KEYSTONE_2                  = 285,
         SPELL_EFFECT_GRANT_BATTLEPET_EXPERIENCE         = 286,
         SPELL_EFFECT_SET_GARRISON_FOLLOWER_LEVEL        = 287,
+        SPELL_EFFECT_288                                = 288,
+        SPELL_EFFECT_289                                = 289,
         TOTAL_SPELL_EFFECTS
     };
 
@@ -551,7 +553,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_HEALTH_REGEN_IN_COMBAT                   = 161,
         SPELL_AURA_POWER_BURN                                   = 162,
         SPELL_AURA_MOD_CRIT_DAMAGE_BONUS                        = 163,
-        SPELL_AURA_FORCE_BREATH_BAR                             = 164,  // NYI
+        SPELL_AURA_FORCE_BREATH_BAR                             = 164,
         SPELL_AURA_MELEE_ATTACK_POWER_ATTACKER_BONUS            = 165,
         SPELL_AURA_MOD_ATTACK_POWER_PCT                         = 166,
         SPELL_AURA_MOD_RANGED_ATTACK_POWER_PCT                  = 167,
@@ -707,7 +709,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_SPELL_POWER_PCT                          = 317,
         SPELL_AURA_MASTERY                                      = 318,
         SPELL_AURA_MOD_MELEE_HASTE_3                            = 319,
-        SPELL_AURA_MOD_RANGED_HASTE_2                           = 320,
+        SPELL_AURA_320                                          = 320,
         SPELL_AURA_MOD_NO_ACTIONS                               = 321,
         SPELL_AURA_INTERFERE_TARGETTING                         = 322,
         SPELL_AURA_323                                          = 323,  // Not used in 4.3.4
@@ -730,7 +732,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_RESURRECTED_HEALTH_BY_GUILD_MEMBER       = 340,  // Increases health gained when resurrected by a guild member by X
         SPELL_AURA_MOD_SPELL_CATEGORY_COOLDOWN                  = 341,  // Modifies cooldown of all spells using affected category
         SPELL_AURA_MOD_MELEE_RANGED_HASTE_2                     = 342,
-        SPELL_AURA_MOD_MELEE_DAMAGE_FROM_CASTER                 = 343,  // NYI
+        SPELL_AURA_MOD_MELEE_DAMAGE_FROM_CASTER                 = 343,
         SPELL_AURA_MOD_AUTOATTACK_DAMAGE                        = 344,
         SPELL_AURA_BYPASS_ARMOR_FOR_CASTER                      = 345,
         SPELL_AURA_ENABLE_ALT_POWER                             = 346,
@@ -759,7 +761,7 @@ namespace SpellWork.Spell
         SPELL_AURA_ENABLE_POWER_BAR_TIMER                       = 369,
         SPELL_AURA_SPELL_OVERRIDE_NAME_GROUP                    = 370,  // picks a random SpellOverrideName id from a group (group id in miscValue)
         SPELL_AURA_371                                          = 371,
-        SPELL_AURA_372                                          = 372,
+        SPELL_AURA_OVERRIDE_MOUNT_FROM_SET                      = 372,  // NYI
         SPELL_AURA_MOD_SPEED_NO_CONTROL                         = 373,  // NYI
         SPELL_AURA_MODIFY_FALL_DAMAGE_PCT                       = 374,
         SPELL_AURA_HIDE_MODEL_AND_EQUIPEMENT_SLOTS              = 375,
@@ -807,7 +809,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_GLOBAL_COOLDOWN_BY_HASTE_REGEN           = 417,
         SPELL_AURA_MOD_MAX_POWER                                = 418,  // NYI
         SPELL_AURA_MOD_BASE_MANA_PCT                            = 419,
-        SPELL_AURA_MOD_BATTLE_PET_XP_PCT                        = 420,  // NYI
+        SPELL_AURA_MOD_BATTLE_PET_XP_PCT                        = 420,
         SPELL_AURA_MOD_ABSORB_EFFECTS_DONE_PCT                  = 421,  // NYI
         SPELL_AURA_MOD_ABSORB_EFFECTS_TAKEN_PCT                 = 422,  // NYI
         SPELL_AURA_MOD_MANA_COST_PCT                            = 423,
@@ -823,7 +825,7 @@ namespace SpellWork.Spell
         SPELL_AURA_433                                          = 433,
         SPELL_AURA_434                                          = 434,
         SPELL_AURA_435                                          = 435,
-        SPELL_AURA_MOD_ENVIRONMENTAL_DAMAGE_TAKEN               = 436,  // NYI
+        SPELL_AURA_MOD_ENVIRONMENTAL_DAMAGE_TAKEN               = 436,
         SPELL_AURA_MOD_MINIMUM_SPEED_RATE                       = 437,
         SPELL_AURA_PRELOAD_PHASE                                = 438,  // NYI
         SPELL_AURA_439                                          = 439,
@@ -845,14 +847,14 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_ROOT_2                                   = 455,
         SPELL_AURA_CHARGE_RECOVERY_AFFECTED_BY_HASTE            = 456,
         SPELL_AURA_CHARGE_RECOVERY_AFFECTED_BY_HASTE_REGEN      = 457,
-        SPELL_AURA_IGNORE_DUAL_WIELD_HIT_PENALTY                = 458,  // NYI
-        SPELL_AURA_IGNORE_MOVEMENT_FORCES                       = 459,  // NYI
+        SPELL_AURA_IGNORE_DUAL_WIELD_HIT_PENALTY                = 458,
+        SPELL_AURA_IGNORE_MOVEMENT_FORCES                       = 459,
         SPELL_AURA_RESET_COOLDOWNS_ON_DUEL_START                = 460,  // NYI
         SPELL_AURA_461                                          = 461,
         SPELL_AURA_MOD_HEALING_AND_ABSORB_FROM_CASTER           = 462,  // NYI
         SPELL_AURA_CONVERT_CRIT_RATING_PCT_TO_PARRY_RATING      = 463,  // NYI
         SPELL_AURA_MOD_ATTACK_POWER_OF_BONUS_ARMOR              = 464,  // NYI
-        SPELL_AURA_MOD_BONUS_ARMOR                              = 465,  // NYI
+        SPELL_AURA_MOD_BONUS_ARMOR                              = 465,
         SPELL_AURA_MOD_BONUS_ARMOR_PCT                          = 466,  // Affects bonus armor gain from all sources except base stats
         SPELL_AURA_MOD_STAT_BONUS_PCT                           = 467,  // Affects stat gain from all sources except base stats
         SPELL_AURA_TRIGGER_SPELL_ON_HEALTH_PCT                  = 468,  // Triggers spell when health goes above (MiscA = 0) or falls below (MiscA = 1) specified percent value (once, not every time condition has meet)
@@ -893,6 +895,11 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_VERSATILITY_HEALING_DONE_BENEFIT         = 503, // NYI
         SPELL_AURA_MOD_HEALING_TAKEN_FROM_CASTER                = 504,
         SPELL_AURA_MOD_PLAYER_CHOICE_REROLLS                    = 505, // NYI
+        SPELL_AURA_DISABLE_INERTIA                              = 506,
+        SPELL_AURA_507                                          = 507,
+        SPELL_AURA_508                                          = 508,
+        SPELL_AURA_509                                          = 509,
+        SPELL_AURA_MODIFIED_RAID_INSTANCE                       = 510, // Related to "Fated" raid affixes
         TOTAL_AURAS
     }
 
@@ -904,8 +911,8 @@ namespace SpellWork.Spell
         NO_TARGET                                   = 0,
         TARGET_UNIT_CASTER                          = 1,
         TARGET_UNIT_NEARBY_ENEMY                    = 2,
-        TARGET_UNIT_NEARBY_PARTY                    = 3,
-        TARGET_UNIT_NEARBY_ALLY                     = 4,
+        TARGET_UNIT_NEARBY_ALLY                     = 3,
+        TARGET_UNIT_NEARBY_PARTY                    = 4,
         TARGET_UNIT_PET                             = 5,
         TARGET_UNIT_TARGET_ENEMY                    = 6,
         TARGET_UNIT_SRC_AREA_ENTRY                  = 7,
@@ -1053,6 +1060,7 @@ namespace SpellWork.Spell
         TARGET_UNK_149                              = 149,
         TARGET_UNIT_OWN_CRITTER                     = 150, // own battle pet from UNIT_FIELD_CRITTER
         TARGET_UNK_151                              = 151,
+        TARGET_UNK_152                              = 152,
         TOTAL_SPELL_TARGETS
     };
 
@@ -1245,6 +1253,10 @@ namespace SpellWork.Spell
         MECHANIC_SAPPED           = 30,
         MECHANIC_ENRAGED          = 31,
         MECHANIC_WOUNDED          = 32,
+        MECHANIC_INFECTED_2       = 33,
+        MECHANIC_INFECTED_3       = 34,
+        MECHANIC_INFECTED_4       = 35,
+        MECHANIC_TAUNTED          = 36,
     };
 
     public enum SpellDmgClass
@@ -1309,6 +1321,8 @@ namespace SpellWork.Spell
         FORM_SPIRIT_OWL_FORM_2          = 1ul << 37,
         FORM_WISP_FORM                  = 1ul << 38,
         FORM_WISP_FORM_2                = 1ul << 39,
+        FORM_SOULSHAPE                  = 1ul << 40,
+        FORM_FORGEBORNE_REVERIES        = 1ul << 41,
     };
 
     public enum DispelType
@@ -2222,47 +2236,7 @@ namespace SpellWork.Spell
         UNIT_MOD_STAT_STRENGTH,                                 // UNIT_MOD_STAT_STRENGTH..UNIT_MOD_STAT_INTELLECT must be in existed order, it's accessed by index values of Stats enum.
         UNIT_MOD_STAT_AGILITY,
         UNIT_MOD_STAT_STAMINA,
-        UNIT_MOD_STAT_INTELLECT,
-        UNIT_MOD_HEALTH,
-        UNIT_MOD_MANA,                                          // UNIT_MOD_MANA..UNIT_MOD_PAIN must be listed in existing order, it is accessed by index values of Powers enum.
-        UNIT_MOD_RAGE,
-        UNIT_MOD_FOCUS,
-        UNIT_MOD_ENERGY,
-        UNIT_MOD_COMBO_POINTS,
-        UNIT_MOD_RUNES,
-        UNIT_MOD_RUNIC_POWER,
-        UNIT_MOD_SOUL_SHARDS,
-        UNIT_MOD_LUNAR_POWER,
-        UNIT_MOD_HOLY_POWER,
-        UNIT_MOD_ALTERNATE,
-        UNIT_MOD_MAELSTROM,
-        UNIT_MOD_CHI,
-        UNIT_MOD_INSANITY,
-        UNIT_MOD_BURNING_EMBERS,
-        UNIT_MOD_DEMONIC_FURY,
-        UNIT_MOD_ARCANE_CHARGES,
-        UNIT_MOD_FURY,
-        UNIT_MOD_PAIN,
-        UNIT_MOD_ARMOR,                                         // UNIT_MOD_ARMOR..UNIT_MOD_RESISTANCE_ARCANE must be in existed order, it's accessed by index values of SpellSchools enum.
-        UNIT_MOD_RESISTANCE_HOLY,
-        UNIT_MOD_RESISTANCE_FIRE,
-        UNIT_MOD_RESISTANCE_NATURE,
-        UNIT_MOD_RESISTANCE_FROST,
-        UNIT_MOD_RESISTANCE_SHADOW,
-        UNIT_MOD_RESISTANCE_ARCANE,
-        UNIT_MOD_ATTACK_POWER,
-        UNIT_MOD_ATTACK_POWER_RANGED,
-        UNIT_MOD_DAMAGE_MAINHAND,
-        UNIT_MOD_DAMAGE_OFFHAND,
-        UNIT_MOD_DAMAGE_RANGED,
-        UNIT_MOD_END,
-        // synonyms
-        UNIT_MOD_STAT_START = UNIT_MOD_STAT_STRENGTH,
-        UNIT_MOD_STAT_END = UNIT_MOD_STAT_INTELLECT + 1,
-        UNIT_MOD_RESISTANCE_START = UNIT_MOD_ARMOR,
-        UNIT_MOD_RESISTANCE_END = UNIT_MOD_RESISTANCE_ARCANE + 1,
-        UNIT_MOD_POWER_START = UNIT_MOD_MANA,
-        UNIT_MOD_POWER_END = UNIT_MOD_PAIN + 1
+        UNIT_MOD_STAT_INTELLECT
     };
 
     [Flags]
