@@ -154,6 +154,10 @@ namespace SpellWork.Spell
         public int TargetAuraSpell => AuraRestrictions?.TargetAuraSpell ?? 0;
         public int ExcludeCasterAuraSpell => AuraRestrictions?.ExcludeCasterAuraSpell ?? 0;
         public int ExcludeTargetAuraSpell => AuraRestrictions?.ExcludeTargetAuraSpell ?? 0;
+        public int CasterAuraType => AuraRestrictions?.CasterAuraType ?? 0;
+        public int TargetAuraType => AuraRestrictions?.TargetAuraType ?? 0;
+        public int ExcludeCasterAuraType => AuraRestrictions?.ExcludeCasterAuraType ?? 0;
+        public int ExcludeTargetAuraType => AuraRestrictions?.ExcludeTargetAuraType ?? 0;
         #endregion
 
         #region SpellAuraOptions
@@ -584,6 +588,18 @@ namespace SpellWork.Spell
                 else
                     rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", ExcludeTargetAuraSpell);
             }
+
+            if (CasterAuraType != 0)
+                rtb.AppendFormatLine("CasterAuraType = {0} ({1})", CasterAuraType, (AuraType)CasterAuraType);
+
+            if (TargetAuraType != 0)
+                rtb.AppendFormatLine("TargetAuraType = {0} ({1})", TargetAuraType, (AuraType)TargetAuraType);
+
+            if (ExcludeCasterAuraType != 0)
+                rtb.AppendFormatLine("ExcludeCasterAuraType = {0} ({1})", ExcludeCasterAuraType, (AuraType)ExcludeCasterAuraType);
+
+            if (ExcludeTargetAuraType != 0)
+                rtb.AppendFormatLine("ExcludeTargetAuraType = {0} ({1})", ExcludeTargetAuraType, (AuraType)ExcludeTargetAuraType);
 
             if (RequiredAreasId > 0)
             {

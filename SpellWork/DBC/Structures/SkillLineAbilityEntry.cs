@@ -5,6 +5,8 @@ namespace SpellWork.DBC.Structures
     public sealed class SkillLineAbilityEntry
     {
         public long RaceMask;
+        public string AbilityVerb;
+        public string AbilityAllVerb;
         [Index(false)]
         public uint ID;
         public short SkillLine;

@@ -15,5 +15,6 @@ namespace SpellWork.DBC.Structures
         public int IconFileDataID;
         public byte ItemGroupSoundsID;
         public int ModifiedCraftingReagentItemID;
+        public int CraftingQualityID;
     }
 }

@@ -10,6 +10,7 @@ namespace SpellWork.DBC.Structures
         public int CategoryRecoveryTime;
         public int RecoveryTime;
         public int StartRecoveryTime;
+        public int AuraSpellID;
         public int SpellID;
     }
 }

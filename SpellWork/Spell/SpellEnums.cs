@@ -84,6 +84,7 @@ namespace SpellWork.Spell
         SPELLFAMILY_UNK91 = 91,     // only Gara'jal the Spiritbinder spells
         SPELLFAMILY_UNK100 = 100,   // smoke bomb
         SPELLFAMILY_DEMON_HUNTER = 107,
+        SPELLFAMILY_EVOKER = 224
     };
 
     /// <summary>
@@ -379,8 +380,23 @@ namespace SpellWork.Spell
         SPELL_EFFECT_MODIFY_KEYSTONE_2                  = 285,
         SPELL_EFFECT_GRANT_BATTLEPET_EXPERIENCE         = 286,
         SPELL_EFFECT_SET_GARRISON_FOLLOWER_LEVEL        = 287,
-        SPELL_EFFECT_288                                = 288,
-        SPELL_EFFECT_289                                = 289,
+        SPELL_EFFECT_CRAFT_ITEM                         = 288, // MiscValue[0] = CraftingDataID
+        SPELL_EFFECT_MODIFY_AURA_STACKS                 = 289, // MiscValue[0] = 0 means add, = 1 means set
+        SPELL_EFFECT_MODIFY_COOLDOWN                    = 290,
+        SPELL_EFFECT_MODIFY_COOLDOWNS                   = 291, // MiscValue[0] = SpellFamily, MiscValue[1] = maybe bit index for family flags? off by 1 for the only spell using this effect
+        SPELL_EFFECT_MODIFY_COOLDOWNS_BY_CATEGORY       = 292, // MiscValue[0] = category
+        SPELL_EFFECT_MODIFY_CHARGES                     = 293, // MiscValue[0] = charge category
+        SPELL_EFFECT_CRAFT_LOOT                         = 294, // MiscValue[0] = CraftingDataID
+        SPELL_EFFECT_SALVAGE_ITEM                       = 295, // MiscValue[0] = ItemSalvageID
+        SPELL_EFFECT_CRAFT_SALVAGE_ITEM                 = 296, // MiscValue[0] = ItemSalvageID, MiscValue[1] = CraftingDataID
+        SPELL_EFFECT_RECRAFT_ITEM                       = 297,
+        SPELL_EFFECT_CANCEL_ALL_PRIVATE_CONVERSATIONS   = 298,
+        SPELL_EFFECT_299                                = 299, // something with items, as of 10.0.2 all spells are named "Downgrading"
+        SPELL_EFFECT_300                                = 300,
+        SPELL_EFFECT_CRAFT_ENCHANT                      = 301, // MiscValue[0] = CraftingDataID, MiscValue[1] = ?
+        SPELL_EFFECT_GATHERING                          = 302,
+        SPELL_EFFECT_CREATE_TRAIT_TREE_CONFIG           = 303, // MiscValue[0] = TraitTreeID
+        SPELL_EFFECT_CHANGE_ACTIVE_COMBAT_TRAIT_CONFIG  = 304,
         TOTAL_SPELL_EFFECTS
     };
 
@@ -896,10 +912,34 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_HEALING_TAKEN_FROM_CASTER                = 504,
         SPELL_AURA_MOD_PLAYER_CHOICE_REROLLS                    = 505, // NYI
         SPELL_AURA_DISABLE_INERTIA                              = 506,
-        SPELL_AURA_507                                          = 507,
+        SPELL_AURA_MOD_DAMAGE_TAKEN_FROM_CASTER_BY_LABEL        = 507,
         SPELL_AURA_508                                          = 508,
         SPELL_AURA_509                                          = 509,
         SPELL_AURA_MODIFIED_RAID_INSTANCE                       = 510, // Related to "Fated" raid affixes
+        SPELL_AURA_APPLY_PROFESSION_EFFECT                      = 511, // MiscValue[0] = ProfessionEffectID
+        SPELL_AURA_512                                          = 512,
+        SPELL_AURA_513                                          = 513,
+        SPELL_AURA_514                                          = 514,
+        SPELL_AURA_515                                          = 515,
+        SPELL_AURA_516                                          = 516,
+        SPELL_AURA_517                                          = 517,
+        SPELL_AURA_518                                          = 518,
+        SPELL_AURA_MOD_COOLDOWN_RECOVERY_RATE_ALL               = 519, // applies to all spells, not filtered by familyflags or label
+        SPELL_AURA_520                                          = 520,
+        SPELL_AURA_521                                          = 521,
+        SPELL_AURA_522                                          = 522,
+        SPELL_AURA_523                                          = 523,
+        SPELL_AURA_524                                          = 524,
+        SPELL_AURA_DISPLAY_PROFESSION_EQUIPMENT                 = 525, // MiscValue[0] = Profession (enum, not id)
+        SPELL_AURA_526                                          = 526,
+        SPELL_AURA_527                                          = 527,
+        SPELL_AURA_ALLOW_BLOCKING_SPELLS                        = 528,
+        SPELL_AURA_MOD_SPELL_BLOCK_CHANCE                       = 529,
+        SPELL_AURA_530                                          = 530,
+        SPELL_AURA_531                                          = 531,
+        SPELL_AURA_532                                          = 532,
+        SPELL_AURA_DISABLE_NAVIGATION                           = 533, // disables map pins
+        SPELL_AURA_534                                          = 534,
         TOTAL_AURAS
     }
 
@@ -1438,7 +1478,8 @@ namespace SpellWork.Spell
         POWER_ARCANE_CHARGES                = 16,
         POWER_FURY                          = 17,
         POWER_PAIN                          = 18,
-        MAX_POWERS                          = 19,
+        POWER_ESSENCE                       = 19,
+        MAX_POWERS                          = 20,
         POWER_ALL                           = 127,          // default for class?
         POWER_HEALTH                        = -2            // (-2 as signed value)
     };
@@ -1474,7 +1515,7 @@ namespace SpellWork.Spell
     };
 
     [Flags]
-    enum InventoryTypeMask
+    enum InventoryTypeMask : long
     {
         ALL             = -1,
         NON_EQUIP       = 1 << 0,
@@ -1506,6 +1547,12 @@ namespace SpellWork.Spell
         RANGEDRIGHT     = 1 << 26,
         QUIVER          = 1 << 27,
         RELIC           = 1 << 28,
+        PROFESSION_TOOL = 1 << 29,
+        PROFESSION_GEAR = 1 << 30,
+        EQUIPABLE_SPELL_OFFENSIVE = 1 << 31,
+        EQUIPABLE_SPELL_UTILITY = 1L << 32,
+        EQUIPABLE_SPELL_DEFENSIVE = 1L << 33,
+        EQUIPABLE_SPELL_MOBILITY = 1L << 34
     };
 
     public enum ItemClass
@@ -1529,6 +1576,7 @@ namespace SpellWork.Spell
         GLYPH                            = 16,
         BATTLE_PETS                      = 17,
         WOW_TOKEN                        = 18,
+        PROFESSION                       = 19,
         MAX
     };
 
@@ -1587,6 +1635,7 @@ namespace SpellWork.Spell
         HOLIDAY         = 1 << 3,
         OTHER           = 1 << 4,
         MOUNT           = 1 << 5,
+        MOUNT_EQUIPMENT = 1 << 6
     }
 
     [Flags]
@@ -2336,7 +2385,9 @@ namespace SpellWork.Spell
         CLASS_WARLOCK       = 9,
         CLASS_MONK          = 10,
         CLASS_DRUID         = 11,
-        CLASS_DEMON_HUNTER  = 12
+        CLASS_DEMON_HUNTER  = 12,
+        CLASS_EVOKER        = 13,
+        CLASS_ADVENTURER    = 14,
     }
 
     public enum ExpectedStatType

@@ -9,7 +9,7 @@ namespace SpellWork.DBC.Structures
         public int SpellID;
         public byte FacingCasterFlags;
         public ushort MinFactionID;
-        public sbyte MinReputation;
+        public int MinReputation;
         public ushort RequiredAreasID;
         public byte RequiredAuraVision;
         public ushort RequiresSpellFocus;

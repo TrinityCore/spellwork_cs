@@ -18,5 +18,7 @@ namespace SpellWork.DBC.Structures
         public int ParentTierIndex;
         public ushort Flags;
         public int SpellBookSpellID;
+        public int ExpansionNameSharedStringID;
+        public int HordeExpansionNameSharedStringID;
     }
 }

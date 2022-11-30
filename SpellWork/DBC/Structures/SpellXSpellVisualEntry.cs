@@ -9,6 +9,7 @@ namespace SpellWork.DBC.Structures
         public byte DifficultyID;
         public uint SpellVisualID;
         public float Probability;
+        public int Flags;
         public int Priority;
         public int SpellIconFileID;
         public int ActiveIconFileID;

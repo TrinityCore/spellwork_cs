@@ -25,6 +25,7 @@ namespace SpellWork.DBC.Structures
         public int[] StatPercentEditor = new int[10];
         public int Stackable;
         public int MaxCount;
+        public int MinReputation;
         public uint RequiredAbility;
         public uint SellPrice;
         public uint BuyPrice;
@@ -70,7 +71,6 @@ namespace SpellWork.DBC.Structures
         [Cardinality(10)]
         public sbyte[] StatModifierBonusStat = new sbyte[10];
         public byte ContainerSlots;
-        public byte MinReputation;
         public byte RequiredPVPMedal;
         public byte RequiredPVPRank;
         public sbyte RequiredLevel;
