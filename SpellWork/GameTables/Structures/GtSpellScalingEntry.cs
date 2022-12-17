@@ -17,6 +17,7 @@
         public float DeathKnight;
         public float Monk;
         public float DemonHunter;
+        public float Evoker;
         public float Item;
         public float Consumable;
         public float Gem1;
@@ -44,6 +45,7 @@
                 case 10: return Monk;
                 case 11: return Druid;
                 case 12: return DemonHunter;
+                case 13: return Evoker;
                 case -1: return Item;
                 case -2: return Consumable;
                 case -3: return Gem1;
