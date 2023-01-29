@@ -31,8 +31,8 @@ namespace SpellWork.DBC.Structures
         public int ZmpFileDataID;
         public int WdtFileDataID;
         public int NavigationMaxDistance;
-        [Cardinality(2)]
-        public uint[] Flags = new uint[2];
+        [Cardinality(3)]
+        public uint[] Flags = new uint[3];
 
         public int CompareTo(object obj)
         {
