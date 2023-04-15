@@ -1021,6 +1021,7 @@
             this._clbProcAttributes.Name = "_clbProcAttributes";
             this._clbProcAttributes.Size = new System.Drawing.Size(579, 57);
             this._clbProcAttributes.TabIndex = 0;
+            this._clbProcAttributes.SelectedIndexChanged += new System.EventHandler(this.ClbSchoolsSelectedIndexChanged);
             // 
             // _gProcFlags
             // 
@@ -1225,6 +1226,7 @@
             this._clbSpellTypeMask.Name = "_clbSpellTypeMask";
             this._clbSpellTypeMask.Size = new System.Drawing.Size(207, 57);
             this._clbSpellTypeMask.TabIndex = 0;
+            this._clbSpellTypeMask.SelectedIndexChanged += new System.EventHandler(this.ClbSchoolsSelectedIndexChanged);
             // 
             // _gProcSpellPhaseMask
             // 
@@ -1249,6 +1251,7 @@
             this._clbSpellPhaseMask.Name = "_clbSpellPhaseMask";
             this._clbSpellPhaseMask.Size = new System.Drawing.Size(207, 57);
             this._clbSpellPhaseMask.TabIndex = 0;
+            this._clbSpellPhaseMask.SelectedIndexChanged += new System.EventHandler(this.ClbSchoolsSelectedIndexChanged);
             // 
             // _lProcHeader
             // 
