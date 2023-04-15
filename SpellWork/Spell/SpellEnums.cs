@@ -397,6 +397,8 @@ namespace SpellWork.Spell
         SPELL_EFFECT_GATHERING                          = 302,
         SPELL_EFFECT_CREATE_TRAIT_TREE_CONFIG           = 303, // MiscValue[0] = TraitTreeID
         SPELL_EFFECT_CHANGE_ACTIVE_COMBAT_TRAIT_CONFIG  = 304,
+        SPELL_EFFECT_305                                = 305,
+        SPELL_EFFECT_306                                = 306,
         TOTAL_SPELL_EFFECTS
     };
 
@@ -940,6 +942,7 @@ namespace SpellWork.Spell
         SPELL_AURA_532                                          = 532,
         SPELL_AURA_DISABLE_NAVIGATION                           = 533, // disables map pins
         SPELL_AURA_534                                          = 534,
+        SPELL_AURA_535                                          = 535, // related to profession equipment; NYI; MiscValue[0] = Profession (enum, not id)
         TOTAL_AURAS
     }
 
