@@ -399,6 +399,14 @@ namespace SpellWork.Spell
         SPELL_EFFECT_CHANGE_ACTIVE_COMBAT_TRAIT_CONFIG  = 304,
         SPELL_EFFECT_305                                = 305,
         SPELL_EFFECT_306                                = 306,
+        SPELL_EFFECT_307                                = 307,
+        SPELL_EFFECT_CANCEL_PRELOAD_WORLD               = 308,
+        SPELL_EFFECT_PRELOAD_WORLD                      = 309,
+        SPELL_EFFECT_310                                = 310,
+        SPELL_EFFECT_ENSURE_WORLD_LOADED                = 311,
+        SPELL_EFFECT_312                                = 312,
+        SPELL_EFFECT_CHANGE_ITEM_BONUSES_2              = 313, // MiscValue[0] = ItemBonusTreeID to preserve
+        SPELL_EFFECT_ADD_SOCKET_BONUS                   = 314, // MiscValue[0] = required ItemBonusTreeID
         TOTAL_SPELL_EFFECTS
     };
 
@@ -943,6 +951,7 @@ namespace SpellWork.Spell
         SPELL_AURA_DISABLE_NAVIGATION                           = 533, // disables map pins
         SPELL_AURA_534                                          = 534,
         SPELL_AURA_535                                          = 535, // related to profession equipment; NYI; MiscValue[0] = Profession (enum, not id)
+        SPELL_AURA_IGNORE_SPELL_CREATURE_TYPE_REQUIREMENTS      = 536,
         TOTAL_AURAS
     }
 
