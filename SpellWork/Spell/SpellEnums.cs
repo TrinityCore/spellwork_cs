@@ -1205,7 +1205,7 @@ namespace SpellWork.Spell
     [Flags]
     public enum ProcFlagsHit : uint
     {
-        PROC_HIT_NONE                = 0x0000000, // no value - PROC_HIT_NORMAL | PROC_HIT_CRITICAL for TAKEN proc type, PROC_HIT_NORMAL | PROC_HIT_CRITICAL | PROC_HIT_ABSORB for DONE
+        //PROC_HIT_NONE                = 0x0000000, // no value - PROC_HIT_NORMAL | PROC_HIT_CRITICAL for TAKEN proc type, PROC_HIT_NORMAL | PROC_HIT_CRITICAL | PROC_HIT_ABSORB for DONE
         PROC_HIT_NORMAL              = 0x0000001, // non-critical hits
         PROC_HIT_CRITICAL            = 0x0000002,
         PROC_HIT_MISS                = 0x0000004,
@@ -1220,6 +1220,7 @@ namespace SpellWork.Spell
         PROC_HIT_REFLECT             = 0x0000800,
         PROC_HIT_INTERRUPT           = 0x0001000,
         PROC_HIT_FULL_BLOCK          = 0x0002000,
+        PROC_HIT_DISPEL              = 0x0004000,
     };
 
     [Flags]
