@@ -398,7 +398,7 @@ namespace SpellWork.Spell
         SPELL_EFFECT_CREATE_TRAIT_TREE_CONFIG           = 303, // MiscValue[0] = TraitTreeID
         SPELL_EFFECT_CHANGE_ACTIVE_COMBAT_TRAIT_CONFIG  = 304,
         SPELL_EFFECT_305                                = 305,
-        SPELL_EFFECT_306                                = 306,
+        SPELL_EFFECT_UPDATE_INTERACTIONS                = 306,
         SPELL_EFFECT_307                                = 307,
         SPELL_EFFECT_CANCEL_PRELOAD_WORLD               = 308,
         SPELL_EFFECT_PRELOAD_WORLD                      = 309,
@@ -407,6 +407,7 @@ namespace SpellWork.Spell
         SPELL_EFFECT_312                                = 312,
         SPELL_EFFECT_CHANGE_ITEM_BONUSES_2              = 313, // MiscValue[0] = ItemBonusTreeID to preserve
         SPELL_EFFECT_ADD_SOCKET_BONUS                   = 314, // MiscValue[0] = required ItemBonusTreeID
+        SPELL_EFFECT_LEARN_TRANSMOG_APPEARANCE_FROM_ITEM_MOD_APPEARANCE_GROUP = 315, // MiscValue[0] = ItemModAppearanceGroupID (not in db2)
         TOTAL_SPELL_EFFECTS
     };
 
@@ -952,6 +953,11 @@ namespace SpellWork.Spell
         SPELL_AURA_534                                          = 534,
         SPELL_AURA_535                                          = 535, // related to profession equipment; NYI; MiscValue[0] = Profession (enum, not id)
         SPELL_AURA_IGNORE_SPELL_CREATURE_TYPE_REQUIREMENTS      = 536,
+        SPELL_AURA_537                                          = 537,
+        SPELL_AURA_MOD_FAKE_INEBRIATION_MOVEMENT_ONLY           = 538,
+        SPELL_AURA_ALLOW_MOUNT_IN_COMBAT                        = 539,
+        SPELL_AURA_MOD_SUPPORT_STAT                             = 540, // NYI
+        SPELL_AURA_MOD_REQUIRED_MOUNT_CAPABILITY_FLAGS          = 541,
         TOTAL_AURAS
     }
 
