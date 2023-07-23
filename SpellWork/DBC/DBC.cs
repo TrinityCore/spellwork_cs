@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using SpellWork.Database;
 
 namespace SpellWork.DBC
 {
@@ -84,7 +85,7 @@ namespace SpellWork.DBC
         public static readonly IDictionary<int, SpellInfo> SpellInfoStore = new ConcurrentDictionary<int, SpellInfo>();
         public static readonly IDictionary<int, ISet<int>> SpellTriggerStore = new Dictionary<int, ISet<int>>();
 
-        public static async void Load()
+        public static async Task Load()
         {
             HotfixReader hotfixReader = null;
             try
@@ -440,6 +441,8 @@ namespace SpellWork.DBC
                     SpellInfoStore[descriptionVariable.SpellID].DescriptionVariables = SpellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
                 }
             }));
+
+            MySqlConnection.LoadServersideSpells();
 
             GameTable<GtSpellScalingEntry>.Open($@"{Settings.Default.GtPath}\SpellScaling.txt");
         }

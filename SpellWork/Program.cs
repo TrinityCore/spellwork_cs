@@ -4,6 +4,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SpellWork
@@ -33,8 +34,16 @@ namespace SpellWork
 
             try
             {
-                DBC.DBC.Load();
-                Application.Run(new FormMain());
+                var mainForm = new FormMain();
+                Task.Run(async () =>
+                {
+                    await DBC.DBC.Load();
+                    if (mainForm.InvokeRequired)
+                        mainForm.Invoke(new Action(() => mainForm.Unblock()));
+                    else
+                        mainForm.Unblock();
+                });
+                Application.Run(mainForm);
             }
             catch (DirectoryNotFoundException dnfe)
             {

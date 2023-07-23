@@ -921,6 +921,7 @@
             this.tabControl1.Controls.Add(this._tpSpellProcDB);
             this.tabControl1.Controls.Add(this._tpCompare);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Enabled = false;
             this.tabControl1.Location = new System.Drawing.Point(0, 24);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;

@@ -123,7 +123,6 @@ namespace SpellWork.Forms
             {
                 _dbConnect.Text = @"Connection successful.";
                 _dbConnect.ForeColor = Color.Green;
-                MySqlConnection.LoadServersideSpells();
             }
             else
             {
@@ -743,5 +742,10 @@ namespace SpellWork.Forms
         }
 
         #endregion
+
+        public void Unblock()
+        {
+            tabControl1.Enabled = true;
+        }
     }
 }
