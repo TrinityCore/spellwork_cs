@@ -34,16 +34,18 @@ namespace SpellWork
 
             try
             {
-                var mainForm = new FormMain();
+                var splashScreen = new SplashScreen();
+
                 Task.Run(async () =>
                 {
                     await DBC.DBC.Load();
-                    if (mainForm.InvokeRequired)
-                        mainForm.Invoke(new Action(() => mainForm.Unblock()));
+
+                    if (splashScreen.InvokeRequired)
+                        splashScreen.Invoke(() => splashScreen.ShowMainForm());
                     else
-                        mainForm.Unblock();
+                        splashScreen.ShowMainForm();
                 });
-                Application.Run(mainForm);
+                Application.Run(splashScreen);
             }
             catch (DirectoryNotFoundException dnfe)
             {

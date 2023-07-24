@@ -442,7 +442,8 @@ namespace SpellWork.DBC
                 }
             }));
 
-            MySqlConnection.LoadServersideSpells();
+            if (Settings.Default.UseDbConnect)
+                MySqlConnection.LoadServersideSpells();
 
             GameTable<GtSpellScalingEntry>.Open($@"{Settings.Default.GtPath}\SpellScaling.txt");
         }

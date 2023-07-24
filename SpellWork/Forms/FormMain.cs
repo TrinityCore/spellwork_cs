@@ -19,6 +19,7 @@ namespace SpellWork.Forms
         public FormMain()
         {
             InitializeComponent();
+            Visible = false;
             splitContainer3.SplitterDistance = 170;
 
             Text = DBC.DBC.Version;
@@ -746,6 +747,11 @@ namespace SpellWork.Forms
         public void Unblock()
         {
             tabControl1.Enabled = true;
+        }
+
+        private void FormMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
