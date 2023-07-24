@@ -14,5 +14,9 @@ namespace SpellWork.DBC.Structures
         public ushort SpellCategoryID;
         public int SpellID;
         public ushort ChrSpecializationID;
+
+        // Helper
+        public ItemSparseEntry Item { get; set; }
+        public int ItemID { get; set; }
     }
 }

@@ -114,12 +114,7 @@ namespace SpellWork.Database
                                 continue;
 
                             var spellId = reader.GetUInt32(0);
-                            var spellInfo = new SpellInfo(
-                                new SpellNameEntry()
-                                {
-                                    ID = spellId,
-                                    Name = reader.GetString(61) + " (SERVERSIDE)"
-                                },
+                            var spellInfo = new SpellInfo(reader.GetString(61) + " (SERVERSIDE)",
                                 new SpellEntry()
                                 {
                                     ID = spellId
@@ -352,8 +347,7 @@ namespace SpellWork.Database
                                 SpellID = (int)spellId
                             };
 
-                            spellInfo.Effects.Add(effect);
-                            spellInfo.SpellEffectInfoStore[effect.EffectIndex] = new SpellEffectInfo(effect);
+                            spellInfo.SpellEffectInfoStore.Add(new SpellEffectInfo(effect));
                         }
                     }
                 }

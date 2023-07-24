@@ -1,10 +1,12 @@
 using DBFileReaderLib;
+using SpellWork.Database;
 using SpellWork.DBC.Structures;
 using SpellWork.Extensions;
 using SpellWork.GameTables;
 using SpellWork.GameTables.Structures;
 using SpellWork.Properties;
 using SpellWork.Spell;
+using SpellWork.Utilities;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -12,8 +14,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using SpellWork.Database;
-using SpellWork.Utilities;
 
 namespace SpellWork.DBC
 {
@@ -23,8 +23,6 @@ namespace SpellWork.DBC
         public const uint MaxLevel = 70;
         public const uint MaxItemLevel = 1300;
 
-        // ReSharper disable MemberCanBePrivate.Global
-        // ReSharper disable CollectionNeverUpdated.Global
         public static Storage<AreaGroupMemberEntry>             AreaGroupMember { get; set; }
         public static Storage<AreaTableEntry>                   AreaTable { get; set; }
         public static Storage<ContentTuningEntry>               ContentTuning { get; set; }
@@ -36,63 +34,26 @@ namespace SpellWork.DBC
         public static Storage<MapDifficultyEntry>               MapDifficulty { get; set; }
         public static Storage<OverrideSpellDataEntry>           OverrideSpellData { get; set; }
         public static Storage<ScreenEffectEntry>                ScreenEffect { get; set; }
-        public static Storage<SpellEntry>                       Spell { get; set; }
-        public static Storage<SpellNameEntry>                   SpellName { get; set; }
-        public static Storage<SpellAuraOptionsEntry>            SpellAuraOptions { get; set; }
-        public static Storage<SpellAuraRestrictionsEntry>       SpellAuraRestrictions { get; set; }
-        public static Storage<SpellCastingRequirementsEntry>    SpellCastingRequirements { get; set; }
         public static Storage<SpellCastTimesEntry>              SpellCastTimes { get; set; }
-        public static Storage<SpellCategoriesEntry>             SpellCategories { get; set; }
         public static Storage<SpellCategoryEntry>               SpellCategory { get; set; }
-        public static Storage<SpellClassOptionsEntry>           SpellClassOptions { get; set; }
-        public static Storage<SpellCooldownsEntry>              SpellCooldowns { get; set; }
-        public static Storage<SpellDescriptionVariablesEntry>   SpellDescriptionVariables { get; set; }
         public static Storage<SpellDurationEntry>               SpellDuration { get; set; }
-        public static Storage<SpellEffectEntry>                 SpellEffect { get; set; }
-        public static Storage<SpellMiscEntry>                   SpellMisc { get; set; }
-        public static Storage<SpellEquippedItemsEntry>          SpellEquippedItems { get; set; }
-        public static Storage<SpellInterruptsEntry>             SpellInterrupts { get; set; }
-        public static Storage<SpellLabelEntry>                  SpellLabel { get; set; }
-        public static Storage<SpellLevelsEntry>                 SpellLevels { get; set; }
-        public static Storage<SpellPowerEntry>                  SpellPower { get; set; }
         public static Storage<SpellRadiusEntry>                 SpellRadius { get; set; }
         public static Storage<SpellRangeEntry>                  SpellRange { get; set; }
-        public static Storage<SpellScalingEntry>                SpellScaling { get; set; }
-        public static Storage<SpellShapeshiftEntry>             SpellShapeshift { get; set; }
-        public static Storage<SpellTargetRestrictionsEntry>     SpellTargetRestrictions { get; set; }
-        public static Storage<SpellTotemsEntry>                 SpellTotems { get; set; }
-        public static Storage<SpellXDescriptionVariablesEntry>  SpellXDescriptionVariables { get; set; }
-        public static Storage<SpellXSpellVisualEntry>           SpellXSpellVisual { get; set; }
         public static Storage<RandPropPointsEntry>              RandPropPoints { get; set; }
-        public static Storage<SpellProcsPerMinuteEntry>         SpellProcsPerMinute { get; set; }
 
         public static Storage<SkillLineAbilityEntry>            SkillLineAbility { get; set; }
         public static Storage<SkillLineEntry>                   SkillLine { get; set; }
 
-        public static Storage<ItemEntry>                        Item { get; set; }
-        public static Storage<ItemEffectEntry>                  ItemEffect { get; set; }
-        public static Storage<ItemSparseEntry>                  ItemSparse { get; set; }
-        public static Storage<ItemXItemEffectEntry>             ItemXItemEffect { get; set; }
-
-        public static Storage<SpellReagentsEntry>               SpellReagents { get; set; }
-        public static Storage<SpellReagentsCurrencyEntry>       SpellReagentsCurrency { get; set; }
-        public static Storage<SpellMissileEntry>                SpellMissile { get; set; }
-        // ReSharper restore MemberCanBePrivate.Global
-        // ReSharper restore CollectionNeverUpdated.Global
-
-        // public static Storage<SpellMissileMotionEntry>         SpellMissileMotion { get; public set; }
-        // public static Storage<SpellVisualEntry>                SpellVisual { get; public set; }
-
         public static readonly IDictionary<int, SpellInfo> SpellInfoStore = new ConcurrentDictionary<int, SpellInfo>();
         public static readonly IDictionary<int, ISet<int>> SpellTriggerStore = new Dictionary<int, ISet<int>>();
 
-        const int ProgressStoresSteps = 21;
+        const int ProgressStoresSteps = 22;
 
         private enum Progress
         {
             Hotfix = 0,
             DB2 = 5,
-            Stores = 85,
+            Stores = 25,
             MySQLSpells = 90,
             GtScaling = 95,
             Completed = 100
@@ -125,14 +86,7 @@ namespace SpellWork.DBC
 
                    try
                    {
-                       var db2Reader = new DBReader($@"{Settings.Default.DbcPath}\{Settings.Default.Locale}\{name}.db2");
-
-                       dynamic storage = Activator.CreateInstance(dbc.PropertyType, db2Reader);
-
-                       if (hotfixReader != null)
-                           hotfixReader.ApplyHotfixes(storage, db2Reader);
-
-                       dbc.SetValue(dbc.GetValue(null), storage);
+                       dbc.SetValue(dbc.GetValue(null), CreateInstance(dbc.PropertyType, name, hotfixReader));
                    }
                    catch (DirectoryNotFoundException)
                    {
@@ -151,13 +105,18 @@ namespace SpellWork.DBC
 
             progressHandler.SetProgress((int)Progress.Stores);
 
-            foreach (var spell in SpellName)
-                SpellInfoStore[(int)spell.Value.ID] = new SpellInfo(spell.Value, Spell.GetValue((int)spell.Value.ID));
+            {
+                var spells = CreateInstance<Storage<SpellEntry>>("Spell", hotfixReader);
+                var spellNames = CreateInstance<Storage<SpellNameEntry>>("SpellName", hotfixReader);
+                foreach (var spell in spellNames)
+                    SpellInfoStore[(int) spell.Value.ID] = new SpellInfo(spell.Value.Name, spells.GetValue((int) spell.Value.ID));
+            }
 
             progressHandler.StartStepsProgress(ProgressStoresSteps, (int)Progress.MySQLSpells);
             await Task.WhenAll(Task.Run(() =>
             {
-                foreach (var spellMisc in SpellMisc.Values.Where(misc => SpellInfoStore.ContainsKey(misc.SpellID)))
+                var spellMiscs = CreateInstance<Storage<SpellMiscEntry>>("SpellMisc", hotfixReader);
+                foreach (var spellMisc in spellMiscs.Values.Where(misc => SpellInfoStore.ContainsKey(misc.SpellID)))
                 {
                     if (spellMisc.DifficultyID != 0)
                         continue;
@@ -166,16 +125,17 @@ namespace SpellWork.DBC
 
                     spell.Misc = spellMisc;
 
-                    if (SpellDuration.ContainsKey(spellMisc.DurationIndex))
-                        spell.DurationEntry = SpellDuration[spellMisc.DurationIndex];
+                    if (SpellDuration.TryGetValue(spellMisc.DurationIndex, out var durationEntry))
+                        spell.DurationEntry = durationEntry;
 
-                    if (SpellRange.ContainsKey(spellMisc.RangeIndex))
-                        spell.Range = SpellRange[spellMisc.RangeIndex];
+                    if (SpellRange.TryGetValue(spellMisc.RangeIndex, out var rangeEntry))
+                        spell.Range = rangeEntry;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var effect in SpellEffect.Values)
+                var spellEffects = CreateInstance<Storage<SpellEffectEntry>>("SpellEffect", hotfixReader);
+                foreach (var effect in spellEffects.Values)
                 {
                     if (!SpellInfoStore.ContainsKey(effect.SpellID))
                     {
@@ -184,39 +144,40 @@ namespace SpellWork.DBC
                         continue;
                     }
 
-                    SpellInfoStore[effect.SpellID].Effects.Add(effect);
-                    SpellInfoStore[effect.SpellID].SpellEffectInfoStore[effect.EffectIndex] = new SpellEffectInfo(effect); // Helper
+                    SpellInfoStore[effect.SpellID].SpellEffectInfoStore.Add(new SpellEffectInfo(effect)); // Helper
 
                     var triggerId = effect.EffectTriggerSpell;
-                    if (triggerId != 0)
-                    {
-                        if (SpellTriggerStore.ContainsKey(triggerId))
-                            SpellTriggerStore[triggerId].Add(effect.SpellID);
-                        else
-                            SpellTriggerStore.Add(triggerId, new SortedSet<int> { effect.SpellID });
-                    }
+                    if (triggerId == 0)
+                        continue;
+
+                    if (SpellTriggerStore.TryGetValue(triggerId, out var trigger))
+                        trigger.Add(effect.SpellID);
+                    else
+                        SpellTriggerStore.Add(triggerId, new SortedSet<int> { effect.SpellID });
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellTargetRestrictions in SpellTargetRestrictions.Values)
+                var spellTargetRestrictions = CreateInstance<Storage<SpellTargetRestrictionsEntry>>("SpellTargetRestrictions", hotfixReader);
+                foreach (var spellTargetRestriction in spellTargetRestrictions.Values)
                 {
-                    if (spellTargetRestrictions.DifficultyID != 0)
+                    if (spellTargetRestriction.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellTargetRestrictions.SpellID))
+                    if (!SpellInfoStore.ContainsKey(spellTargetRestriction.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellTargetRestrictions: Unknown spell {spellTargetRestrictions.SpellID} referenced, ignoring!");
+                            $"SpellTargetRestrictions: Unknown spell {spellTargetRestriction.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellTargetRestrictions.SpellID].TargetRestrictions = spellTargetRestrictions;
+                    SpellInfoStore[spellTargetRestriction.SpellID].TargetRestrictions = spellTargetRestriction;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellXSpellVisual in SpellXSpellVisual.Values.Where(effect => effect.CasterPlayerConditionID == 0))
+                var spellXSpellVisuals = CreateInstance<Storage<SpellXSpellVisualEntry>>("SpellXSpellVisual", hotfixReader);
+                foreach (var spellXSpellVisual in spellXSpellVisuals.Values.Where(effect => effect.CasterPlayerConditionID == 0))
                 {
                     if (spellXSpellVisual.DifficultyID != 0)
                         continue;
@@ -233,7 +194,8 @@ namespace SpellWork.DBC
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellScaling in SpellScaling.Values)
+                var spellScalings = CreateInstance<Storage<SpellScalingEntry>>("SpellScaling", hotfixReader);
+                foreach (var spellScaling in spellScalings.Values)
                 {
                     if (!SpellInfoStore.ContainsKey(spellScaling.SpellID))
                     {
@@ -247,193 +209,207 @@ namespace SpellWork.DBC
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellAuraOptions in SpellAuraOptions.Values)
+                var spellAuraOptions = CreateInstance<Storage<SpellAuraOptionsEntry>>("SpellAuraOptions", hotfixReader);
+                var spellProcsPerMinutes = CreateInstance<Storage<SpellProcsPerMinuteEntry>>("SpellProcsPerMinute", hotfixReader);
+                foreach (var auraOptions in spellAuraOptions.Values)
                 {
-                    if (spellAuraOptions.DifficultyID != 0)
+                    if (auraOptions.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellAuraOptions.SpellID))
+                    if (!SpellInfoStore.ContainsKey(auraOptions.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellAuraOptions: Unknown spell {spellAuraOptions.SpellID} referenced, ignoring!");
+                            $"SpellAuraOptions: Unknown spell {auraOptions.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellAuraOptions.SpellID].AuraOptions = spellAuraOptions;
-                    if (spellAuraOptions.SpellProcsPerMinuteID != 0)
-                        SpellInfoStore[spellAuraOptions.SpellID].ProcsPerMinute = SpellProcsPerMinute[spellAuraOptions.SpellProcsPerMinuteID];
+                    SpellInfoStore[auraOptions.SpellID].AuraOptions = auraOptions;
+                    if (auraOptions.SpellProcsPerMinuteID != 0)
+                        SpellInfoStore[auraOptions.SpellID].ProcsPerMinute = spellProcsPerMinutes[auraOptions.SpellProcsPerMinuteID];
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellAuraRestrictions in SpellAuraRestrictions.Values)
+                var spellAuraRestrictions = CreateInstance<Storage<SpellAuraRestrictionsEntry>>("SpellAuraRestrictions", hotfixReader);
+                foreach (var auraRestrictions in spellAuraRestrictions.Values)
                 {
-                    if (spellAuraRestrictions.DifficultyID != 0)
+                    if (auraRestrictions.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellAuraRestrictions.SpellID))
+                    if (!SpellInfoStore.ContainsKey(auraRestrictions.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellAuraRestrictions: Unknown spell {spellAuraRestrictions.SpellID} referenced, ignoring!");
+                            $"SpellAuraRestrictions: Unknown spell {auraRestrictions.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellAuraRestrictions.SpellID].AuraRestrictions = spellAuraRestrictions;
+                    SpellInfoStore[auraRestrictions.SpellID].AuraRestrictions = auraRestrictions;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellCategories in SpellCategories.Values)
+                var spellCategories = CreateInstance<Storage<SpellCategoriesEntry>>("SpellCategories", hotfixReader);
+                foreach (var categories in spellCategories.Values)
                 {
-                    if (spellCategories.DifficultyID != 0)
+                    if (categories.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellCategories.SpellID))
+                    if (!SpellInfoStore.ContainsKey(categories.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellCategories: Unknown spell {spellCategories.SpellID} referenced, ignoring!");
+                            $"SpellCategories: Unknown spell {categories.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellCategories.SpellID].Categories = spellCategories;
+                    SpellInfoStore[categories.SpellID].Categories = categories;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellCastingRequirements in SpellCastingRequirements.Values)
+                var spellCastingRequirements = CreateInstance<Storage<SpellCastingRequirementsEntry>>("SpellCastingRequirements", hotfixReader);
+                foreach (var castingRequirements in spellCastingRequirements.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellCastingRequirements.SpellID))
+                    if (!SpellInfoStore.ContainsKey(castingRequirements.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellCastingRequirements: Unknown spell {spellCastingRequirements.SpellID} referenced, ignoring!");
+                            $"SpellCastingRequirements: Unknown spell {castingRequirements.SpellID} referenced, ignoring!");
                         return;
                     }
 
-                    SpellInfoStore[spellCastingRequirements.SpellID].CastingRequirements = spellCastingRequirements;
+                    SpellInfoStore[castingRequirements.SpellID].CastingRequirements = castingRequirements;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellClassOptions in SpellClassOptions.Values)
+                var spellClassOptions = CreateInstance<Storage<SpellClassOptionsEntry>>("SpellClassOptions", hotfixReader);
+                foreach (var classOptions in spellClassOptions.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellClassOptions.SpellID))
+                    if (!SpellInfoStore.ContainsKey(classOptions.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellClassOptions: Unknown spell {spellClassOptions.SpellID} referenced, ignoring!");
+                            $"SpellClassOptions: Unknown spell {classOptions.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellClassOptions.SpellID].ClassOptions = spellClassOptions;
+                    SpellInfoStore[classOptions.SpellID].ClassOptions = classOptions;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellCooldowns in SpellCooldowns.Values)
+                var spellCooldowns = CreateInstance<Storage<SpellCooldownsEntry>>("SpellCooldowns", hotfixReader);
+                foreach (var cooldowns in spellCooldowns.Values)
                 {
-                    if (spellCooldowns.DifficultyID != 0)
+                    if (cooldowns.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellCooldowns.SpellID))
+                    if (!SpellInfoStore.ContainsKey(cooldowns.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellCooldowns: Unknown spell {spellCooldowns.SpellID} referenced, ignoring!");
+                            $"SpellCooldowns: Unknown spell {cooldowns.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellCooldowns.SpellID].Cooldowns = spellCooldowns;
+                    SpellInfoStore[cooldowns.SpellID].Cooldowns = cooldowns;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var effect in SpellInterrupts)
+                var spellInterrupts = CreateInstance<Storage<SpellInterruptsEntry>>("SpellInterrupts", hotfixReader);
+                foreach (var interrupt in spellInterrupts)
                 {
-                    if (effect.Value.DifficultyID != 0)
+                    if (interrupt.Value.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(effect.Value.SpellID))
+                    if (!SpellInfoStore.ContainsKey(interrupt.Value.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellInterrupts: Unknown spell {effect.Value.SpellID} referenced, ignoring!");
+                            $"SpellInterrupts: Unknown spell {interrupt.Value.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[effect.Value.SpellID].Interrupts = effect.Value;
+                    SpellInfoStore[interrupt.Value.SpellID].Interrupts = interrupt.Value;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellEquippedItems in SpellEquippedItems.Values)
+                var spellEquippedItems = CreateInstance<Storage<SpellEquippedItemsEntry>>("SpellEquippedItems", hotfixReader);
+                foreach (var equippedItems in spellEquippedItems.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellEquippedItems.SpellID))
+                    if (!SpellInfoStore.ContainsKey(equippedItems.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellEquippedItems: Unknown spell {spellEquippedItems.SpellID} referenced, ignoring!");
+                            $"SpellEquippedItems: Unknown spell {equippedItems.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellEquippedItems.SpellID].EquippedItems = spellEquippedItems;
+                    SpellInfoStore[equippedItems.SpellID].EquippedItems = equippedItems;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellLabel in SpellLabel.Values)
+                var spellLabels = CreateInstance<Storage<SpellLabelEntry>>("SpellLabel", hotfixReader);
+                foreach (var label in spellLabels.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellLabel.SpellID))
+                    if (!SpellInfoStore.ContainsKey(label.SpellID))
                     {
-                        Console.WriteLine($"SpellLabel: Unknown spell {spellLabel.SpellID} referenced, ignoring!");
+                        Console.WriteLine($"SpellLabel: Unknown spell {label.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellLabel.SpellID].Labels.Add(spellLabel.LabelID);
+                    SpellInfoStore[label.SpellID].Labels.Add(label.LabelID);
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellLevels in SpellLevels.Values)
+                var spellLevels = CreateInstance<Storage<SpellLevelsEntry>>("SpellLevels", hotfixReader);
+                foreach (var levels in spellLevels.Values)
                 {
-                    if (spellLevels.DifficultyID != 0)
+                    if (levels.DifficultyID != 0)
                         continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellLevels.SpellID))
+                    if (!SpellInfoStore.ContainsKey(levels.SpellID))
                     {
-                        Console.WriteLine($"SpellLevels: Unknown spell {spellLevels.SpellID} referenced, ignoring!");
+                        Console.WriteLine($"SpellLevels: Unknown spell {levels.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellLevels.SpellID].Levels = spellLevels;
+                    SpellInfoStore[levels.SpellID].Levels = levels;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellPower in SpellPower.Values)
+                var spellPowers = CreateInstance<Storage<SpellPowerEntry>>("SpellPower", hotfixReader);
+                foreach (var power in spellPowers.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellPower.SpellID))
-                    {
-                        Console.WriteLine(
-                            $"SpellPower: Unknown spell {spellPower.SpellID} referenced, ignoring!");
-                        continue;
-                    }
-
-                    SpellInfoStore[spellPower.SpellID].Powers.Add(spellPower);
-                }
-                progressHandler.IncrementStepsProgress();
-            }), Task.Run(() =>
-            {
-                foreach (var spellReagents in SpellReagents.Values)
-                {
-                    if (!SpellInfoStore.ContainsKey(spellReagents.SpellID))
+                    if (!SpellInfoStore.ContainsKey(power.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellReagents: Unknown spell {spellReagents.SpellID} referenced, ignoring!");
+                            $"SpellPower: Unknown spell {power.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellReagents.SpellID].Reagents = spellReagents;
+                    SpellInfoStore[power.SpellID].Powers.Add(power);
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellReagentsCurrency in SpellReagentsCurrency.Values)
+                var spellReagents = CreateInstance<Storage<SpellReagentsEntry>>("SpellReagents", hotfixReader);
+                foreach (var reagents in spellReagents.Values)
+                {
+                    if (!SpellInfoStore.ContainsKey(reagents.SpellID))
+                    {
+                        Console.WriteLine(
+                            $"SpellReagents: Unknown spell {reagents.SpellID} referenced, ignoring!");
+                        continue;
+                    }
+
+                    SpellInfoStore[reagents.SpellID].Reagents = reagents;
+                }
+                progressHandler.IncrementStepsProgress();
+            }), Task.Run(() =>
+            {
+                var spellReagentsCurrencies = CreateInstance<Storage<SpellReagentsCurrencyEntry>>("SpellReagentsCurrency", hotfixReader);
+                foreach (var spellReagentsCurrency in spellReagentsCurrencies.Values)
                 {
                     if (!SpellInfoStore.ContainsKey(spellReagentsCurrency.SpellID))
                     {
@@ -447,7 +423,8 @@ namespace SpellWork.DBC
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellShapeshift in SpellShapeshift.Values)
+                var spellShapeshifts = CreateInstance<Storage<SpellShapeshiftEntry>>("SpellShapeshift", hotfixReader);
+                foreach (var spellShapeshift in spellShapeshifts.Values)
                 {
                     if (!SpellInfoStore.ContainsKey(spellShapeshift.SpellID))
                     {
@@ -461,27 +438,52 @@ namespace SpellWork.DBC
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var spellTotems in SpellTotems.Values)
+                var spellTotems = CreateInstance<Storage<SpellTotemsEntry>>("SpellTotems", hotfixReader);
+                foreach (var spellTotem in spellTotems.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellTotems.SpellID))
+                    if (!SpellInfoStore.ContainsKey(spellTotem.SpellID))
                     {
-                        Console.WriteLine($"SpellTotems: Unknown spell {spellTotems.SpellID} referenced, ignoring!");
+                        Console.WriteLine($"SpellTotems: Unknown spell {spellTotem.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellTotems.SpellID].Totems = spellTotems;
+                    SpellInfoStore[spellTotem.SpellID].Totems = spellTotem;
                 }
                 progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
-                foreach (var descriptionVariable in SpellXDescriptionVariables.Values)
+                var spellXDescriptionVariables = CreateInstance<Storage<SpellXDescriptionVariablesEntry>>("SpellXDescriptionVariables", hotfixReader);
+                var spellDescriptionVariables = CreateInstance<Storage<SpellDescriptionVariablesEntry>>("SpellDescriptionVariables", hotfixReader);
+                foreach (var descriptionVariable in spellXDescriptionVariables.Values)
                 {
                     if (!SpellInfoStore.ContainsKey(descriptionVariable.SpellID))
                     {
                         Console.WriteLine($"SpellXDescriptionVariables: Unknown spell {descriptionVariable.SpellID} referenced, ignoring!");
                         continue;
                     }
-                    SpellInfoStore[descriptionVariable.SpellID].DescriptionVariables = SpellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
+                    SpellInfoStore[descriptionVariable.SpellID].DescriptionVariables = spellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
+                }
+                progressHandler.IncrementStepsProgress();
+            }), Task.Run(() =>
+            {
+                var itemEffects = CreateInstance<Storage<ItemEffectEntry>>("ItemEffect", hotfixReader);
+                var itemSparses = CreateInstance<Storage<ItemSparseEntry>>("ItemSparse", hotfixReader);
+                var itemXItemEffects = CreateInstance<Storage<ItemXItemEffectEntry>>("ItemXItemEffect", hotfixReader);
+
+                foreach (var itemXItemEffect in itemXItemEffects.Values)
+                {
+                    itemEffects.TryGetValue(itemXItemEffect.ItemEffectID, out var itemEffect);
+                    if (itemEffect == null)
+                        continue;
+
+                    if (!SpellInfoStore.ContainsKey(itemEffect.SpellID))
+                        continue;
+
+                    itemEffect.ItemID = itemXItemEffect.ItemID;
+                    if (itemSparses.TryGetValue(itemXItemEffect.ItemID, out var item))
+                        itemEffect.Item = item;
+
+                    SpellInfoStore[itemEffect.SpellID].ItemEffects.Add(itemEffect);
                 }
                 progressHandler.IncrementStepsProgress();
             }));
@@ -495,6 +497,26 @@ namespace SpellWork.DBC
             GameTable<GtSpellScalingEntry>.Open($@"{Settings.Default.GtPath}\SpellScaling.txt");
 
             progressHandler.SetProgress((int)Progress.Completed);
+        }
+
+        private static dynamic CreateInstance(Type type, string name, HotfixReader hotfixReader)
+        {
+            if (!type.IsGenericType || type.GetGenericTypeDefinition() != typeof(Storage<>))
+                return default;
+
+            var db2Reader = new DBReader($@"{Settings.Default.DbcPath}\{Settings.Default.Locale}\{name}.db2");
+
+            dynamic storage = Activator.CreateInstance(type, db2Reader);
+
+            if (hotfixReader != null)
+                hotfixReader.ApplyHotfixes(storage, db2Reader);
+
+            return storage;
+        }
+
+        private static T CreateInstance<T>(string name, HotfixReader hotfixReader)
+        {
+            return CreateInstance(typeof(T), name, hotfixReader);
         }
 
         public static uint SelectedLevel = MaxLevel;
