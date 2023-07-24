@@ -283,8 +283,8 @@ namespace SpellWork.Forms
                          (!use1Val || filterValFn1(spell)) &&
                          (!use2Val || filterValFn2(spell)) &&
                          ((!use1EffectVal && !use2EffectVal) || spell.SpellEffectInfoStore.Any(effect =>
-                         (!use1EffectVal || filterValEffectFn1(effect.Value)) &&
-                         (!use2EffectVal || filterValEffectFn2(effect.Value)))))
+                         (!use1EffectVal || filterValEffectFn1(effect)) &&
+                         (!use2EffectVal || filterValEffectFn2(effect)))))
                 .OrderBy(spell => spell.ID)
                 .ToList();
 
@@ -746,6 +746,10 @@ namespace SpellWork.Forms
         public void Unblock()
         {
             tabControl1.Enabled = true;
+        }
+        private void FormMain_Shown(object sender, EventArgs e)
+        {
+            _status.Text = $"Initialized in {DBC.DBC.DataLoadedInMs} ms";
         }
     }
 }
