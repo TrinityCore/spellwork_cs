@@ -146,15 +146,6 @@ namespace SpellWork.DBC
                     else
                         SpellTriggerStore.Add(triggerId, new SortedSet<int> { effect.SpellID });
                 }
-                    {
-                        if (SpellTriggerStore.ContainsKey(triggerId))
-                            SpellTriggerStore[triggerId].Add(effect.SpellID);
-                        else
-                            SpellTriggerStore.Add(triggerId, new SortedSet<int> { effect.SpellID });
-                    }
-
-                    SpellInfoStore[traitDefinition.SpellID].TraitDefinitions.Add(traitDefinition);
-                }
             }), Task.Run(() =>
             {
                 var spellTargetRestrictions = CreateInstance<Storage<SpellTargetRestrictionsEntry>>("SpellTargetRestrictions", hotfixReader);
@@ -499,7 +490,6 @@ namespace SpellWork.DBC
                 hotfixReader.ApplyHotfixes(storage, db2Reader);
 
             return storage;
-        }
         }
 
         public static uint SelectedLevel = MaxLevel;
