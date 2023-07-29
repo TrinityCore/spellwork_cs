@@ -182,6 +182,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Spell\SpellInfo.cs" />
+    <Compile Include="Utilities\ProgressHandler.cs" />
     <EmbeddedResource Include="Forms\FormCalculateFlags.resx">
       <DependentUpon>FormCalculateFlags.cs</DependentUpon>
     </EmbeddedResource>

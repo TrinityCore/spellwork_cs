@@ -39,10 +39,7 @@ namespace SpellWork
                 {
                     await DBC.DBC.Load(progress =>
                     {
-                        if (mainForm.InvokeRequired)
-                            mainForm.Invoke(new Action(() => mainForm.SetLoadingProgress(progress)));
-                        else
-                            mainForm.SetLoadingProgress(progress);
+                        mainForm.Invoke(new Action(() => mainForm.SetLoadingProgress(progress)));
                     });
                     if (mainForm.InvokeRequired)
                         mainForm.Invoke(new Action(() => mainForm.Unblock()));

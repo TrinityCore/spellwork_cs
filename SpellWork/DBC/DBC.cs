@@ -13,6 +13,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using SpellWork.Database;
+using SpellWork.Utilities;
 
 namespace SpellWork.DBC
 {
@@ -85,18 +86,22 @@ namespace SpellWork.DBC
         public static readonly IDictionary<int, SpellInfo> SpellInfoStore = new ConcurrentDictionary<int, SpellInfo>();
         public static readonly IDictionary<int, ISet<int>> SpellTriggerStore = new Dictionary<int, ISet<int>>();
 
+        const int ProgressStoresSteps = 21;
+
         private enum Progress
         {
             Hotfix = 0,
-            DB2 = 10,
-            Stores = 20,
-            MySQLSpells = 83,
+            DB2 = 5,
+            Stores = 85,
+            MySQLSpells = 90,
             GtScaling = 95,
             Completed = 100
         }
 
         public static async Task Load(Action<int> progressCallback)
         {
+            var progressHandler = new ProgressHandler(progressCallback);
+
             HotfixReader hotfixReader = null;
             try
             {
@@ -108,15 +113,14 @@ namespace SpellWork.DBC
                     $"Hotfix cache {Settings.Default.HotfixCachePath} cannot be loaded, ignoring!");
             }
 
-            progressCallback?.Invoke((int)Progress.DB2);
+            progressHandler.SetProgress((int)Progress.DB2);
 
-            Parallel.ForEach(
-                typeof(DBC).GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic), dbc =>
+            var dbcProperties = typeof(DBC).GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+            var dbcPropertiesFiltered = dbcProperties.Where(dbc => dbc.PropertyType.IsGenericType && dbc.PropertyType.GetGenericTypeDefinition() == typeof(Storage<>));
+            progressHandler.StartStepsProgress(dbcPropertiesFiltered.Count(), (int)Progress.Stores);
+
+            Parallel.ForEach(dbcProperties, dbc =>
                {
-                   if (!dbc.PropertyType.IsGenericType ||
-                       dbc.PropertyType.GetGenericTypeDefinition() != typeof(Storage<>))
-                       return;
-
                    var name = dbc.Name;
 
                    try
@@ -139,13 +143,18 @@ namespace SpellWork.DBC
                            throw new ArgumentException($"Failed to load {name}.db2: {tie.InnerException.Message}");
                        throw;
                    }
+                   finally
+                   {
+                       progressHandler.IncrementStepsProgress();
+                   }
                });
 
-            progressCallback?.Invoke((int)Progress.Stores);
+            progressHandler.SetProgress((int)Progress.Stores);
 
             foreach (var spell in SpellName)
                 SpellInfoStore[(int)spell.Value.ID] = new SpellInfo(spell.Value, Spell.GetValue((int)spell.Value.ID));
 
+            progressHandler.StartStepsProgress(ProgressStoresSteps, (int)Progress.MySQLSpells);
             await Task.WhenAll(Task.Run(() =>
             {
                 foreach (var spellMisc in SpellMisc.Values.Where(misc => SpellInfoStore.ContainsKey(misc.SpellID)))
@@ -163,6 +172,7 @@ namespace SpellWork.DBC
                     if (SpellRange.ContainsKey(spellMisc.RangeIndex))
                         spell.Range = SpellRange[spellMisc.RangeIndex];
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var effect in SpellEffect.Values)
@@ -186,6 +196,7 @@ namespace SpellWork.DBC
                             SpellTriggerStore.Add(triggerId, new SortedSet<int> { effect.SpellID });
                     }
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellTargetRestrictions in SpellTargetRestrictions.Values)
@@ -202,6 +213,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellTargetRestrictions.SpellID].TargetRestrictions = spellTargetRestrictions;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellXSpellVisual in SpellXSpellVisual.Values.Where(effect => effect.CasterPlayerConditionID == 0))
@@ -218,6 +230,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellXSpellVisual.SpellID].SpellXSpellVisual = spellXSpellVisual;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellScaling in SpellScaling.Values)
@@ -231,6 +244,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellScaling.SpellID].Scaling = spellScaling;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellAuraOptions in SpellAuraOptions.Values)
@@ -249,6 +263,7 @@ namespace SpellWork.DBC
                     if (spellAuraOptions.SpellProcsPerMinuteID != 0)
                         SpellInfoStore[spellAuraOptions.SpellID].ProcsPerMinute = SpellProcsPerMinute[spellAuraOptions.SpellProcsPerMinuteID];
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellAuraRestrictions in SpellAuraRestrictions.Values)
@@ -265,6 +280,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellAuraRestrictions.SpellID].AuraRestrictions = spellAuraRestrictions;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellCategories in SpellCategories.Values)
@@ -281,6 +297,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellCategories.SpellID].Categories = spellCategories;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellCastingRequirements in SpellCastingRequirements.Values)
@@ -294,6 +311,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellCastingRequirements.SpellID].CastingRequirements = spellCastingRequirements;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellClassOptions in SpellClassOptions.Values)
@@ -307,6 +325,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellClassOptions.SpellID].ClassOptions = spellClassOptions;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellCooldowns in SpellCooldowns.Values)
@@ -323,6 +342,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellCooldowns.SpellID].Cooldowns = spellCooldowns;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var effect in SpellInterrupts)
@@ -339,6 +359,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[effect.Value.SpellID].Interrupts = effect.Value;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellEquippedItems in SpellEquippedItems.Values)
@@ -352,6 +373,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellEquippedItems.SpellID].EquippedItems = spellEquippedItems;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellLabel in SpellLabel.Values)
@@ -364,6 +386,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellLabel.SpellID].Labels.Add(spellLabel.LabelID);
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellLevels in SpellLevels.Values)
@@ -379,6 +402,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellLevels.SpellID].Levels = spellLevels;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellPower in SpellPower.Values)
@@ -392,6 +416,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellPower.SpellID].Powers.Add(spellPower);
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellReagents in SpellReagents.Values)
@@ -405,6 +430,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellReagents.SpellID].Reagents = spellReagents;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellReagentsCurrency in SpellReagentsCurrency.Values)
@@ -418,6 +444,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellReagentsCurrency.SpellID].ReagentsCurrency.Add(spellReagentsCurrency);
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellShapeshift in SpellShapeshift.Values)
@@ -431,6 +458,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellShapeshift.SpellID].Shapeshift = spellShapeshift;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var spellTotems in SpellTotems.Values)
@@ -443,6 +471,7 @@ namespace SpellWork.DBC
 
                     SpellInfoStore[spellTotems.SpellID].Totems = spellTotems;
                 }
+                progressHandler.IncrementStepsProgress();
             }), Task.Run(() =>
             {
                 foreach (var descriptionVariable in SpellXDescriptionVariables.Values)
@@ -454,17 +483,18 @@ namespace SpellWork.DBC
                     }
                     SpellInfoStore[descriptionVariable.SpellID].DescriptionVariables = SpellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
                 }
+                progressHandler.IncrementStepsProgress();
             }));
 
-            progressCallback?.Invoke((int)Progress.MySQLSpells);
+            progressHandler.SetProgress((int)Progress.MySQLSpells);
 
             MySqlConnection.LoadServersideSpells();
 
-            progressCallback?.Invoke((int)Progress.GtScaling);
+            progressHandler.SetProgress((int)Progress.GtScaling);
 
             GameTable<GtSpellScalingEntry>.Open($@"{Settings.Default.GtPath}\SpellScaling.txt");
 
-            progressCallback?.Invoke((int)Progress.Completed);
+            progressHandler.SetProgress((int)Progress.Completed);
         }
 
         public static uint SelectedLevel = MaxLevel;
