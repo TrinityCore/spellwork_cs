@@ -38,6 +38,9 @@ namespace SpellWork.Database
 
         public static void SelectProc(string query)
         {
+            if (!Connected)
+                return;
+
             Dropped.Clear();
             using (var conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
             {
@@ -83,6 +86,9 @@ namespace SpellWork.Database
 
         public static void LoadServersideSpells()
         {
+            if (!Connected)
+                return;
+
             var spellsQuery =
                 "SELECT Id, DifficultyID, CategoryId, Dispel, Mechanic, Attributes, AttributesEx, AttributesEx2, AttributesEx3, " +
                 "AttributesEx4, AttributesEx5, AttributesEx6, AttributesEx7, AttributesEx8, AttributesEx9, AttributesEx10, AttributesEx11, AttributesEx12, AttributesEx13, " +
@@ -356,7 +362,7 @@ namespace SpellWork.Database
 
         public static void Insert(string query)
         {
-            if (Settings.Default.DbIsReadOnly)
+            if (!Connected || Settings.Default.DbIsReadOnly)
                 return;
 
             using (var conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
