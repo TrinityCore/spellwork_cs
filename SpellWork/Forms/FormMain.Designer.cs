@@ -1955,6 +1955,7 @@
             // _bLevelScaling
             // 
             this._bLevelScaling.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._bLevelScaling.Enabled = false;
             this._bLevelScaling.Location = new System.Drawing.Point(1120, 1);
             this._bLevelScaling.Name = "_bLevelScaling";
             this._bLevelScaling.Size = new System.Drawing.Size(60, 23);
