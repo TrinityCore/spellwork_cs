@@ -746,6 +746,7 @@ namespace SpellWork.Forms
         public void Unblock()
         {
             tabControl1.Enabled = true;
+            _bLevelScaling.Enabled = true;
         }
     }
 }
