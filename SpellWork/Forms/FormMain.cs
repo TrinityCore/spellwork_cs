@@ -755,6 +755,7 @@ namespace SpellWork.Forms
             {
                 loadingProgressBar1.Enabled = false;
                 loadingProgressBar1.Visible = false;
+                loadingProgressLabel1.Visible = false;
             }
         }
     }

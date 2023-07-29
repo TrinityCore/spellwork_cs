@@ -185,6 +185,7 @@
             this._bWrite = new System.Windows.Forms.Button();
             this._bLevelScaling = new System.Windows.Forms.Button();
             this.loadingProgressBar1 = new System.Windows.Forms.ProgressBar();
+            this.loadingProgressLabel1 = new System.Windows.Forms.Label();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer7)).BeginInit();
@@ -1972,11 +1973,21 @@
             this.loadingProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
             this.loadingProgressBar1.TabIndex = 5;
             // 
+            // loadingProgressLabel1
+            // 
+            this.loadingProgressLabel1.AutoSize = true;
+            this.loadingProgressLabel1.Location = new System.Drawing.Point(986, 762);
+            this.loadingProgressLabel1.Name = "loadingProgressLabel1";
+            this.loadingProgressLabel1.Size = new System.Drawing.Size(88, 13);
+            this.loadingProgressLabel1.TabIndex = 6;
+            this.loadingProgressLabel1.Text = "Loading progress";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1184, 781);
+            this.Controls.Add(this.loadingProgressLabel1);
             this.Controls.Add(this.loadingProgressBar1);
             this.Controls.Add(this._bLevelScaling);
             this.Controls.Add(this._bWrite);
@@ -2219,5 +2230,6 @@
         private System.Windows.Forms.Label _lProcHeader;
         private System.Windows.Forms.Label _lNewProcSpellId;
         private System.Windows.Forms.ProgressBar loadingProgressBar1;
+        private System.Windows.Forms.Label loadingProgressLabel1;
     }
 }
