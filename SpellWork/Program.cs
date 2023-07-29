@@ -37,11 +37,21 @@ namespace SpellWork
                 var mainForm = new FormMain();
                 Task.Run(async () =>
                 {
-                    await DBC.DBC.Load();
-                    if (mainForm.InvokeRequired)
-                        mainForm.Invoke(new Action(() => mainForm.Unblock()));
-                    else
-                        mainForm.Unblock();
+                    try
+                    {
+                        await DBC.DBC.Load();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                    finally
+                    {
+                        if (mainForm.InvokeRequired)
+                            mainForm.Invoke(new Action(() => mainForm.Unblock()));
+                        else
+                            mainForm.Unblock();
+                    }
                 });
                 Application.Run(mainForm);
             }
