@@ -39,7 +39,10 @@ namespace SpellWork
                 {
                     try
                     {
-                        await DBC.DBC.Load();
+                        await DBC.DBC.Load(progress =>
+                        {
+                            mainForm.Invoke(new Action(() => mainForm.SetLoadingProgress(progress)));
+                        });
                     }
                     catch (Exception ex)
                     {
