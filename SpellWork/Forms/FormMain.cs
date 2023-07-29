@@ -747,5 +747,15 @@ namespace SpellWork.Forms
         {
             tabControl1.Enabled = true;
         }
+
+        public void SetLoadingProgress(int progress)
+        {
+            loadingProgressBar1.Value = progress;
+            if (progress == 100)
+            {
+                loadingProgressBar1.Enabled = false;
+                loadingProgressBar1.Visible = false;
+            }
+        }
     }
 }

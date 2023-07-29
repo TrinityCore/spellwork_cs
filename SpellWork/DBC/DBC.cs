@@ -85,7 +85,17 @@ namespace SpellWork.DBC
         public static readonly IDictionary<int, SpellInfo> SpellInfoStore = new ConcurrentDictionary<int, SpellInfo>();
         public static readonly IDictionary<int, ISet<int>> SpellTriggerStore = new Dictionary<int, ISet<int>>();
 
-        public static async Task Load()
+        private enum Progress
+        {
+            Hotfix = 0,
+            DB2 = 10,
+            Stores = 20,
+            MySQLSpells = 83,
+            GtScaling = 95,
+            Completed = 100
+        }
+
+        public static async Task Load(Action<int> progressCallback)
         {
             HotfixReader hotfixReader = null;
             try
@@ -97,6 +107,8 @@ namespace SpellWork.DBC
                 Console.WriteLine(
                     $"Hotfix cache {Settings.Default.HotfixCachePath} cannot be loaded, ignoring!");
             }
+
+            progressCallback?.Invoke((int)Progress.DB2);
 
             Parallel.ForEach(
                 typeof(DBC).GetProperties(BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic), dbc =>
@@ -128,6 +140,8 @@ namespace SpellWork.DBC
                        throw;
                    }
                });
+
+            progressCallback?.Invoke((int)Progress.Stores);
 
             foreach (var spell in SpellName)
                 SpellInfoStore[(int)spell.Value.ID] = new SpellInfo(spell.Value, Spell.GetValue((int)spell.Value.ID));
@@ -442,9 +456,15 @@ namespace SpellWork.DBC
                 }
             }));
 
+            progressCallback?.Invoke((int)Progress.MySQLSpells);
+
             MySqlConnection.LoadServersideSpells();
 
+            progressCallback?.Invoke((int)Progress.GtScaling);
+
             GameTable<GtSpellScalingEntry>.Open($@"{Settings.Default.GtPath}\SpellScaling.txt");
+
+            progressCallback?.Invoke((int)Progress.Completed);
         }
 
         public static uint SelectedLevel = MaxLevel;
