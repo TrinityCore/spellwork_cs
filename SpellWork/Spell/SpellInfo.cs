@@ -830,8 +830,8 @@ namespace SpellWork.Spell
                 }
             }
 
-            AppendRadius(rtb, "", effect.EffectRadiusIndex[0]);
-            AppendRadius(rtb, "Max ", effect.EffectRadiusIndex[1]);
+            AppendRadius(rtb, "TargetA", effect.EffectRadiusIndex[0]);
+            AppendRadius(rtb, "TargetB", effect.EffectRadiusIndex[1]);
 
             // append trigger spell
             var trigger = effect.EffectTriggerSpell;
