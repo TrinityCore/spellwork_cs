@@ -1096,8 +1096,8 @@ namespace SpellWork.Spell
         public short TargetA => SpellEffect.ImplicitTarget[0];
         public short TargetB => SpellEffect.ImplicitTarget[1];
 
-        public uint EffectRadiusIndex => SpellEffect.EffectRadiusIndex[0];
-        public uint EffectRadiusMaxIndex => SpellEffect.EffectRadiusIndex[1];
+        public uint TargetARadius => SpellEffect.EffectRadiusIndex[0];
+        public uint TargetBRadius => SpellEffect.EffectRadiusIndex[1];
 
         public int EffectChainTargets => SpellEffect.EffectChainTargets;
         public int EffectItemType => SpellEffect.EffectItemType;
