@@ -14,45 +14,82 @@ namespace SpellWork.DBC
         public static Dictionary<uint, T> ReadDBC<T>(Dictionary<uint, string> strDict) where T : struct
         {
             var dict = new Dictionary<uint, T>();
-            var fileName = Path.Combine(DBC.DbcPath, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
+            var fileName = Path.Combine(Properties.Settings.Default.DbcPath, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
 
-            using (var reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8))
+            try
             {
-                if (!File.Exists(fileName))
-                    throw new FileNotFoundException();
-                // read dbc header
-                var header = reader.ReadStruct<DbcHeader>();
-                var size = Marshal.SizeOf(typeof(T));
-
-                if (!header.IsDBC)
-                    throw new Exception(fileName + " is not DBC files!");
-
-                if (header.RecordSize != size)
-                    throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));
-
-                // read dbc data
-                for (var r = 0; r < header.RecordsCount; ++r)
+                using (var reader = new BinaryReader(new FileStream(fileName, FileMode.Open, FileAccess.Read), Encoding.UTF8))
                 {
-                    var key = reader.ReadUInt32();
-                    reader.BaseStream.Position -= 4;
+                    if (!File.Exists(fileName))
+                        CheckDirectory<T>();
+                    // read dbc header
+                    var header = reader.ReadStruct<DbcHeader>();
+                    var size = Marshal.SizeOf(typeof(T));
 
-                    var entry = reader.ReadStruct<T>();
+                    if (!header.IsDBC)
+                        throw new Exception(fileName + " is not DBC files!");
 
-                    dict.Add(key, entry);
-                }
+                    if (header.RecordSize != size)
+                        throw new Exception(string.Format("Size of row in DBC file ({0}) != size of DBC struct ({1}) in DBC: {2}", header.RecordSize, size, fileName));
 
-                // read dbc strings
-                if (strDict != null)
-                {
-                    while (reader.BaseStream.Position != reader.BaseStream.Length)
+                    // read dbc data
+                    for (var r = 0; r < header.RecordsCount; ++r)
                     {
-                        var offset = (uint)(reader.BaseStream.Position - header.StartStringPosition);
-                        var str    = reader.ReadCString();
-                        strDict.Add(offset, str);
+                        var key = reader.ReadUInt32();
+                        reader.BaseStream.Position -= 4;
+
+                        var entry = reader.ReadStruct<T>();
+
+                        dict.Add(key, entry);
+                    }
+
+                    // read dbc strings
+                    if (strDict != null)
+                    {
+                        while (reader.BaseStream.Position != reader.BaseStream.Length)
+                        {
+                            var offset = (uint)(reader.BaseStream.Position - header.StartStringPosition);
+                            var str = reader.ReadCString();
+                            strDict.Add(offset, str);
+                        }
                     }
                 }
             }
+            catch (Exception e)
+            {
+                if (e is System.IO.DirectoryNotFoundException || e is System.IO.FileNotFoundException)
+                {
+                    CheckDirectory<T>();
+                    return ReadDBC<T>(strDict);
+                }
+                
+                throw;
+            }
+
             return dict;
+        }
+
+        private static void CheckDirectory<T>()
+        {
+            System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog()
+            {
+                Description = "Select your DBC files path:",
+                ShowNewFolderButton = false,
+                RootFolder = Environment.SpecialFolder.MyComputer
+            };
+
+            if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Properties.Settings.Default.DbcPath = fbd.SelectedPath;
+
+                var fileName = Path.Combine(Properties.Settings.Default.DbcPath, typeof(T).Name + ".dbc").Replace("Entry", String.Empty);
+                if (!File.Exists(fileName))
+                    throw new FileNotFoundException();
+
+                Properties.Settings.Default.Save();
+            }
+            else
+                throw new Exception("You didn't select a valid path!");
         }
     }
 }
