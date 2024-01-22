@@ -19,7 +19,7 @@ namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string Version = "SpellWork 10.1.0 (49318)";
+        public const string Version = "SpellWork 10.2.5 (52902)";
         public const uint MaxLevel = 70;
         public const uint MaxItemLevel = 1300;
 
