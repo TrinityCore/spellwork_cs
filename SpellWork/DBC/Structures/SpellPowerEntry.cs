@@ -1,21 +1,24 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+using System.Security.Policy;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellPowerEntry
     {
-        public uint SpellID;
-        public uint ManaCost;
-        public float ManaCostPercentage;
-        public float ManaCostPercentagePerSecond;
-        public uint RequiredAura;
-        public float HealthCostPercentage;
-        public byte PowerIndex;
-        public byte PowerType;
-        public uint ID;
-        public uint ManaCostPerLevel;
-        public uint ManaCostPerSecond;
-        public uint ManaCostAdditional;   // Spell uses [ManaCost, ManaCost+ManaCostAdditional] power - affects tooltip parsing as multiplier on SpellEffectEntry::EffectPointsPerResource
-                                          //   only SPELL_EFFECT_WEAPON_DAMAGE_NOSCHOOL, SPELL_EFFECT_WEAPON_PERCENT_DAMAGE, SPELL_EFFECT_WEAPON_DAMAGE, SPELL_EFFECT_NORMALIZED_WEAPON_DMG
-        public uint PowerDisplayID;
-        public uint UnitPowerBarID;
+        public int ManaCost; // ManaCost<32>
+        public float PowerCostPct; // PowerCostPct
+        public float PowerPctPerSecond; // PowerPctPerSecond
+        public int RequiredAuraSpellID; // RequiredAuraSpellID<32>
+        public float PowerCostMaxPct; // PowerCostMaxPct
+        public byte OrderIndex; // OrderIndex<u8>
+        public sbyte PowerType; // PowerType<8>
+        [Index(false)]
+        public int ID; // $id$ID<32>
+        public int ManaCostPerLevel; // ManaCostPerLevel<32>
+        public int ManaPerSecond; // ManaPerSecond<32>
+        public uint OptionalCost; // OptionalCost<u32>
+        public uint PowerDisplayID; // PowerDisplayID<u32>
+        public int AltPowerBarID; // AltPowerBarID<32>
+        public int SpellID; // $noninline,relation$SpellID<32>
     }
 }

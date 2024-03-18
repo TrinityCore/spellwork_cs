@@ -1,14 +1,18 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class ItemEntry
     {
-        public uint FileDataID;
-        public byte Class;
-        public byte SubClass;
-        public sbyte SoundOverrideSubclass;
-        public sbyte Material;
-        public byte InventoryType;
-        public byte Sheath;
-        public byte GroupSoundsID;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public int IconFileDataID; // IconFileDataID<32>
+        public byte ClassID; // ClassID<u8>
+        public byte SubclassID; // SubclassID<u8>
+        public sbyte Sound_override_subclassID; // Sound_override_subclassID<8>
+        public byte Material; // Material<u8>
+        public byte InventoryType; // InventoryType<u8>
+        public byte SheatheType; // SheatheType<u8>
+        public byte ItemGroupSoundsID; // ItemGroupSoundsID<u8>
     }
 }

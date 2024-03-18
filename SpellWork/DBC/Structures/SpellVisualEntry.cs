@@ -1,37 +1,27 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+using System.Security.Policy;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellVisualEntry
     {
-        public uint ID;
-        public uint UnkMoP1;
-        public uint PrecastKit;
-        public uint CastingKit;
-        public uint ImpactKit;
-        public uint StateKit;
-        public uint StateDoneKit;
-        public uint ChannelKit;
-        public uint UnkMoP2;
-        public uint MissileModel;
-        public uint Flags;
-        public uint CasterImpactKit;
-        public uint TargetImpactKit;
-        public int MissileMotionId;
-        public uint MissileTargetingKit;
-        public uint UnkMoP3;
-        public uint InstantAreaKit;
-        public uint ImpactAreaKit;
-        public uint PersistentAreaKit;
-        public float MissileCastOffsetX;
-        public float MissileCastOffsetY;
-        public float MissileCastOffsetZ;
-        public float MissileImpactOffsetX;
-        public float MissileImpactOffsetY;
-        public float MissileImpactOffsetZ;
-        public uint UnkCata1;
-        public uint Id;
-        public uint UnkMoP4;
-        public uint UnkMoP5;
-        public uint UnkMoP6;
-        public uint MissileGroupingId;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        [Cardinality(3)]
+        public float[] MissileCastOffset = new float[3]; // MissileCastOffset[3]
+        [Cardinality(3)]
+        public float[] MissileImpactOffset = new float[3]; // MissileImpactOffset[3]
+        public int Flags; // Flags<32>
+        public ushort SpellVisualMissileSetID; // SpellVisualMissileSetID<u16>
+        public sbyte MissileDestinationAttachment; // MissileDestinationAttachment<8>
+        public sbyte MissileAttachment; // MissileAttachment<8>
+        public uint MissileCastPositionerID; // MissileCastPositionerID<u32>
+        public uint MissileImpactPositionerID; // MissileImpactPositionerID<u32>
+        public int MissileTargetingKit; // MissileTargetingKit<32>
+        public uint AnimEventSoundID; // AnimEventSoundID<u32>
+        public ushort DamageNumberDelay; // DamageNumberDelay<u16>
+        public uint HostileSpellVisualID; // HostileSpellVisualID<u32>
+        public uint CasterSpellVisualID; // CasterSpellVisualID<u32>
+        public uint LowViolenceSpellVisualID; // LowViolenceSpellVisualID<u32>
     }
 }

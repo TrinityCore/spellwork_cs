@@ -19,7 +19,7 @@ namespace SpellWork.Spell
             var spells = from spell in DBC.DBC.SpellInfoStore.Values
                          where spell.SpellFamilyName == (uint)spellfamily
 
-                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellID into temp1
+                         join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.Spell into temp1
                          from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
 
                          join skl in DBC.DBC.SkillLine on skill.SkillLine equals skl.Key into temp2
@@ -69,11 +69,11 @@ namespace SpellWork.Spell
 
                 if (isSkill)
                 {
-                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillLine, elem.skillLine.DisplayName);
+                    name.AppendFormat("(Skill: ({0}) {1}) ", elem.SkillLine, elem.skillLine.DisplayName_lang);
 
                     toolTip.AppendLine();
-                    toolTip.AppendFormatLine("Skill Name: {0}", elem.skillLine.DisplayName);
-                    toolTip.AppendFormatLine("Description: {0}", elem.skillLine.Description);
+                    toolTip.AppendFormatLine("Skill Name: {0}", elem.skillLine.DisplayName_lang);
+                    toolTip.AppendFormatLine("Description: {0}", elem.skillLine.Description_lang);
                 }
 
                 name.AppendFormat("({0})", ((SpellSchoolMask)spell.SchoolMask).ToString().NormalizeString("MASK_"));

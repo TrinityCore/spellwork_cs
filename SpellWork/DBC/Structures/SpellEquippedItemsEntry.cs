@@ -1,10 +1,14 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public class SpellEquippedItemsEntry
     {
-        public int SpellID;
-        public uint EquippedItemInventoryTypeMask;
-        public uint EquippedItemSubClassMask;
-        public byte EquippedItemClass;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public int SpellID; // SpellID<32>
+        public int EquippedItemInvTypes; // EquippedItemInvTypes<32>
+        public int EquippedItemSubclass; // EquippedItemSubclass<32>
+        public sbyte EquippedItemClass; // EquippedItemClass<8>
     }
 }

@@ -423,7 +423,7 @@ namespace SpellWork.Forms
                         where
                             spell.SpellFamilyName == ProcInfo.SpellProc.SpellFamilyName &&
                             spell.SpellFamilyFlags.ContainsElement(mask)
-                        join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.SpellID into temp1
+                        join sk in DBC.DBC.SkillLineAbility.Values on spell.ID equals sk.Spell into temp1
                         from skill in temp1.DefaultIfEmpty(new SkillLineAbilityEntry())
                         join skl in DBC.DBC.SkillLine on skill.SkillLine equals skl.Key into temp2
                         from SkillLine in temp2.DefaultIfEmpty()
