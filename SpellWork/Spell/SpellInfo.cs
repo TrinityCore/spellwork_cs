@@ -211,6 +211,20 @@ namespace SpellWork.Spell
             rtb.AppendFormatLine("ID - {0} {1}{2}",
                 ID, Name, Scaling != null ? $" (Level {DBC.DBC.SelectedLevel})" : string.Empty);
             rtb.SetDefaultStyle();
+            rtb.AppendLine($"https://wowhead.com/spell={ID}");
+
+            if (MySqlConnection.Connected)
+            {
+                var scripts = MySqlConnection.GetScriptNames((uint)ID);
+                if (scripts.Count > 0)
+                {
+                    rtb.AppendLine("Scripts:");
+                    rtb.SetStyle(Color.Blue, FontStyle.Bold);
+                    foreach (string script in scripts)
+                        rtb.AppendLine(script);
+                    rtb.SetDefaultStyle();
+                }
+            }
 
             rtb.AppendFormatLine(Separator);
 
@@ -474,8 +488,8 @@ namespace SpellWork.Spell
             if (Interrupts != null)
             {
                 rtb.AppendFormatLine("Interrupt Flags: 0x{0:X8} ({1})", Interrupts.InterruptFlags, (SpellInterruptFlags)Interrupts.InterruptFlags);
-                rtb.AppendFormatLine("AuraInterrupt Flags: 0x{0:X8} ({1}), 0x{2:X8} ({3})", Interrupts.AuraInterruptFlags[0], (SpellAuraInterruptFlags)Interrupts.AuraInterruptFlags[0], Interrupts.AuraInterruptFlags[1], (SpellAuraInterruptFlags)Interrupts.AuraInterruptFlags[1]);
-                rtb.AppendFormatLine("ChannelInterrupt Flags: 0x{0:X8} ({1}), 0x{2:X8} ({3})", Interrupts.ChannelInterruptFlags[0], (SpellChannelInterruptFlags)Interrupts.ChannelInterruptFlags[0], Interrupts.ChannelInterruptFlags[1], (SpellChannelInterruptFlags)Interrupts.ChannelInterruptFlags[1]);
+                rtb.AppendFormatLine("AuraInterrupt Flags: 0x{0:X8} ({1}), 0x{2:X8} ({3})", Interrupts.AuraInterruptFlags[0], (SpellAuraInterruptFlags)Interrupts.AuraInterruptFlags[0], Interrupts.AuraInterruptFlags[1], (SpellAuraInterruptFlags2)Interrupts.AuraInterruptFlags[1]);
+                rtb.AppendFormatLine("ChannelInterrupt Flags: 0x{0:X8} ({1}), 0x{2:X8} ({3})", Interrupts.ChannelInterruptFlags[0], (SpellAuraInterruptFlags)Interrupts.ChannelInterruptFlags[0], Interrupts.ChannelInterruptFlags[1], (SpellAuraInterruptFlags)Interrupts.ChannelInterruptFlags[1]);
             }
 
             if (CasterAuraState != 0)
@@ -584,10 +598,9 @@ namespace SpellWork.Spell
             rtb.AppendFormatLine($"Difficulty: Id { effect.DifficultyID } ({ (Difficulty)effect.DifficultyID })");
             rtb.SetDefaultStyle();
 
-            var value = 0.0f;
+            var value = CalculateBaseEffectValue(effect);
 
-            if (effect.SpellEffectScalingEntry != null &&
-                Math.Abs(effect.SpellEffectScalingEntry.Coefficient) > 1.0E-5f &&
+            if (Math.Abs(effect.Coefficient) > 1.0E-5f &&
                 Scaling != null &&
                 Scaling.Class != 0)
             {
@@ -608,7 +621,6 @@ namespace SpellWork.Spell
 
                 if (Scaling.Class != 0)
                 {
-
                     if (Scaling.ScalesFromItemLevel == 0)
                     {
                         if ((AttributesEx11 & (uint)SpellAtributeEx11.SPELL_ATTR11_SCALES_WITH_ITEM_LEVEL) == 0)
@@ -639,20 +651,20 @@ namespace SpellWork.Spell
                     //     value *= ((((1.0f - Scaling.NerfFactor) * (level - 1)) / (Scaling.NerfMaxLevel - 1)) + Scaling.NerfFactor);
                 }
 
-                value *= effect.SpellEffectScalingEntry.Coefficient;
+                value *= effect.Coefficient;
                 if (Math.Abs(value) > 1.0E-5f && value < 1.0f)
                     value = 1.0f;
 
-                if (Math.Abs(effect.SpellEffectScalingEntry.Variance) > 1.0E-5f)
+                if (Math.Abs(effect.Variance) > 1.0E-5f)
                 {
-                    var delta = Math.Abs(value * effect.SpellEffectScalingEntry.Variance * 0.5f);
+                    var delta = Math.Abs(value * effect.Variance * 0.5f);
                     rtb.AppendFormat("BasePoints = {0:F} to {1:F}", value - delta, value + delta);
                 }
                 else
                     rtb.AppendFormat("BasePoints = {0:F}", value);
 
-                if (Math.Abs(effect.SpellEffectScalingEntry.ResourceCoefficient) > 1.0E-5f)
-                    rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.SpellEffectScalingEntry.ResourceCoefficient * value);
+                if (Math.Abs(effect.ResourceCoefficient) > 1.0E-5f)
+                    rtb.AppendFormatIfNotNull(" + combo * {0:F}", effect.ResourceCoefficient * value);
             }
             else
             {
@@ -674,15 +686,15 @@ namespace SpellWork.Spell
             }
 
             if (effect.EffectBonusCoefficient > 1.0E-5f)
-                rtb.AppendFormat(" + spellPower * {0}", effect.EffectBonusCoefficient);
+                rtb.AppendFormat(" + SP * {0}", effect.EffectBonusCoefficient);
 
             if (effect.BonusCoefficientFromAP > 1.0E-5)
                 rtb.AppendFormat(" + AP * {0}", effect.BonusCoefficientFromAP);
 
-            // if (Math.Abs(effect.DamageMultiplier - 1.0f) > 1.0E-5f)
-            //     rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
+            if (Math.Abs(effect.EffectChainAmplitude - 1.0f) > 1.0E-5f)
+                rtb.AppendFormat(" x {0:F}", effect.EffectChainAmplitude);
 
-            // rtb.AppendFormatIfNotNull("  Multiple = {0:F}", effect.ValueMultiplier);
+            rtb.AppendFormatIfNotNull("  Multiple = {0:F}", effect.EffectAmplitude);
             rtb.AppendLine();
 
             rtb.AppendFormatLine("Targets ({0}, {1}) ({2}, {3})",
