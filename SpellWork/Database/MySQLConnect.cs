@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
@@ -36,6 +37,27 @@ namespace SpellWork.Database
 
             Dropped.Add($"DELETE FROM `spell_proc_event` WHERE `entry` IN ({id.ToUInt32()});\r\n");
             return string.Empty;
+        }
+
+        public static ArrayList GetScriptNames(uint id)
+        {
+            ArrayList scripts = new ArrayList();
+            string query = $"SELECT * FROM `spell_script_names` where `spell_id` = {id};";
+            using (_conn = new MySql.Data.MySqlClient.MySqlConnection(ConnectionString))
+            {
+                _command = new MySqlCommand(query, _conn);
+                _conn.Open();
+
+                using (var reader = _command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var scriptName = reader.GetString(1);
+                        scripts.Add(scriptName);
+                    }
+                }
+            }
+            return scripts;
         }
 
         public static void SelectProc(string query)
