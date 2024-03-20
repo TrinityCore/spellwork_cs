@@ -769,7 +769,7 @@ namespace SpellWork.Spell
             if ((Mechanics)effect.EffectMechanic != Mechanics.MECHANIC_NONE)
                 rtb.AppendFormatLine("Effect Mechanic = {0} ({1})", effect.EffectMechanic, (Mechanics)effect.EffectMechanic);
 
-            rtb.AppendFormatLineIfNotNull("Attributes {0:X8} ({0})", effect.EffectAttributes);
+            rtb.AppendFormatLineIfNotNull("Attributes {0:X8} ({0})", (uint)effect.EffectAttributes);
             rtb.AppendLine();
         }
 

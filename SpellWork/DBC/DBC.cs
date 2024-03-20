@@ -104,15 +104,19 @@ namespace SpellWork.DBC
 
             await Task.WhenAll(Task.Run(() =>
             {
-                foreach (var effect in SpellInfoStore.Where(effect => SpellMisc.ContainsKey(effect.Value.Spell.ID)))
+                foreach (var spellMisc in SpellMisc.Values.Where(misc => SpellInfoStore.ContainsKey(misc.SpellID)))
                 {
-                    effect.Value.Misc = SpellMisc[effect.Value.Spell.ID];
+                    if (spellMisc.DifficultyID != 0)
+                        continue;
 
-                    if (SpellDuration.ContainsKey(effect.Value.Misc.DurationIndex))
-                        effect.Value.DurationEntry = SpellDuration[effect.Value.Misc.DurationIndex];
+                    var spell = SpellInfoStore[spellMisc.SpellID];
+                    spell.Misc = spellMisc;
 
-                    if (SpellRange.ContainsKey(effect.Value.Misc.RangeIndex))
-                        effect.Value.Range = SpellRange[effect.Value.Misc.RangeIndex];
+                    if (SpellDuration.ContainsKey(spellMisc.DurationIndex))
+                        spell.DurationEntry = SpellDuration[spellMisc.DurationIndex];
+
+                    if (SpellRange.ContainsKey(spellMisc.RangeIndex))
+                        spell.Range = SpellRange[spellMisc.RangeIndex];
                 }
             }), Task.Run(() =>
             {
@@ -139,32 +143,32 @@ namespace SpellWork.DBC
                 }
             }), Task.Run(() =>
             {
-                foreach (var effect in SpellTargetRestrictions.Values)
+                foreach (var spellTargetRestrictions in SpellTargetRestrictions.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(effect.SpellID))
+                    if (!SpellInfoStore.ContainsKey(spellTargetRestrictions.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellTargetRestrictions: Unknown spell {effect.SpellID} referenced, ignoring!");
+                            $"SpellTargetRestrictions: Unknown spell {spellTargetRestrictions.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[effect.SpellID].TargetRestrictions.Add(effect);
+                    SpellInfoStore[spellTargetRestrictions.SpellID].TargetRestrictions.Add(spellTargetRestrictions);
                 }
             }), Task.Run(() =>
             {
-                foreach (var spellXSpellVisual in SpellXSpellVisual.Where(effect =>
-                    effect.Value.DifficultyID == 0 && effect.Value.CasterPlayerConditionID == 0))
+                foreach (var spellXSpellVisual in SpellXSpellVisual.Values.Where(effect => effect.CasterPlayerConditionID == 0))
                 {
-                    if (spellXSpellVisual.Value.DifficultyID != 0) { continue; }
+                    if (spellXSpellVisual.DifficultyID != 0)
+                        continue;
 
-                    if (!SpellInfoStore.ContainsKey(spellXSpellVisual.Value.SpellID))
+                    if (!SpellInfoStore.ContainsKey(spellXSpellVisual.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellXSpellVisual: Unknown spell {spellXSpellVisual.Value.SpellID} referenced, ignoring!");
+                            $"SpellXSpellVisual: Unknown spell {spellXSpellVisual.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellXSpellVisual.Value.SpellID].SpellXSpellVisual = spellXSpellVisual.Value;
+                    SpellInfoStore[spellXSpellVisual.SpellID].SpellXSpellVisual = spellXSpellVisual;
                 }
             }), Task.Run(() =>
             {
@@ -176,13 +180,15 @@ namespace SpellWork.DBC
                             $"SpellScaling: Unknown spell {spellScaling.SpellID} referenced, ignoring!");
                         continue;
                     }
-
                     SpellInfoStore[spellScaling.SpellID].Scaling = spellScaling;
                 }
             }), Task.Run(() =>
             {
                 foreach (var spellAuraOptions in SpellAuraOptions.Values)
                 {
+                    if (spellAuraOptions.DifficultyID != 0)
+                        continue;
+
                     if (!SpellInfoStore.ContainsKey(spellAuraOptions.SpellID))
                     {
                         Console.WriteLine(
@@ -196,21 +202,27 @@ namespace SpellWork.DBC
                 }
             }), Task.Run(() =>
             {
-                foreach (var spellAuraRestriction in SpellAuraRestrictions.Values)
+                foreach (var spellAuraRestrictions in SpellAuraRestrictions.Values)
                 {
-                    if (!SpellInfoStore.ContainsKey(spellAuraRestriction.SpellID))
+                    if (spellAuraRestrictions.DifficultyID != 0)
+                        continue;
+
+                    if (!SpellInfoStore.ContainsKey(spellAuraRestrictions.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellAuraRestrictions: Unknown spell {spellAuraRestriction.SpellID} referenced, ignoring!");
+                            $"SpellAuraRestrictions: Unknown spell {spellAuraRestrictions.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[spellAuraRestriction.SpellID].AuraRestrictions = spellAuraRestriction;
+                    SpellInfoStore[spellAuraRestrictions.SpellID].AuraRestrictions = spellAuraRestrictions;
                 }
             }), Task.Run(() =>
             {
                 foreach (var spellCategory in SpellCategories.Values)
                 {
+                    if (spellCategory.DifficultyID != 0)
+                        continue;
+
                     if (!SpellInfoStore.ContainsKey(spellCategory.SpellID))
                     {
                         Console.WriteLine(
@@ -250,6 +262,9 @@ namespace SpellWork.DBC
             {
                 foreach (var spellCooldown in SpellCooldowns.Values)
                 {
+                    if (spellCooldown.DifficultyID != 0)
+                        continue;
+
                     if (!SpellInfoStore.ContainsKey(spellCooldown.SpellID))
                     {
                         Console.WriteLine(
@@ -289,6 +304,9 @@ namespace SpellWork.DBC
             {
                 foreach (var spellLevel in SpellLevels.Values)
                 {
+                    if (spellLevel.DifficultyID != 0)
+                        continue;
+
                     if (!SpellInfoStore.ContainsKey(spellLevel.SpellID))
                     {
                         Console.WriteLine($"SpellLevels: Unknown spell {spellLevel.SpellID} referenced, ignoring!");
@@ -299,16 +317,16 @@ namespace SpellWork.DBC
                 }
             }), Task.Run(() =>
             {
-                foreach (var effect in SpellReagents)
+                foreach (var spellReagents in SpellReagents)
                 {
-                    if (!SpellInfoStore.ContainsKey(effect.Value.SpellID))
+                    if (!SpellInfoStore.ContainsKey(spellReagents.Value.SpellID))
                     {
                         Console.WriteLine(
-                            $"SpellReagents: Unknown spell {effect.Value.SpellID} referenced, ignoring!");
+                            $"SpellReagents: Unknown spell {spellReagents.Value.SpellID} referenced, ignoring!");
                         continue;
                     }
 
-                    SpellInfoStore[effect.Value.SpellID].Reagents = effect.Value;
+                    SpellInfoStore[spellReagents.Value.SpellID].Reagents = spellReagents.Value;
                 }
             }), Task.Run(() =>
             {
