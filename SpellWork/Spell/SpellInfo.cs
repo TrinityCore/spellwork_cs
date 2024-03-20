@@ -598,7 +598,7 @@ namespace SpellWork.Spell
             rtb.AppendFormatLine($"Difficulty: Id { effect.DifficultyID } ({ (Difficulty)effect.DifficultyID })");
             rtb.SetDefaultStyle();
 
-            var value = CalculateBaseEffectValue(effect);
+            var value = 0.0f;
 
             if (Math.Abs(effect.Coefficient) > 1.0E-5f &&
                 Scaling != null &&
