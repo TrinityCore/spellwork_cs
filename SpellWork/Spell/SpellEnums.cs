@@ -866,201 +866,216 @@ namespace SpellWork.Spell
     /// </summary>
     public enum Targets
     {
-        NO_TARGET                               = 0,
-        TARGET_UNIT_CASTER                      = 1,
-        TARGET_UNIT_NEARBY_ENEMY                = 2,
-        TARGET_UNIT_NEARBY_PARTY                = 3,
-        TARGET_UNIT_NEARBY_ALLY                 = 4,
-        TARGET_UNIT_PET                         = 5,
-        TARGET_UNIT_TARGET_ENEMY                = 6,
-        TARGET_UNIT_SRC_AREA_ENTRY              = 7,
-        TARGET_UNIT_DEST_AREA_ENTRY             = 8,
-        TARGET_DEST_HOME                        = 9,
-        TARGET_10                               = 10,
-        TARGET_UNIT_SRC_AREA_UNK_11             = 11, // teleport target to caster
-        TARGET_12                               = 12,
-        TARGET_13                               = 13,
-        TARGET_14                               = 14,
-        TARGET_UNIT_SRC_AREA_ENEMY              = 15,
-        TARGET_UNIT_DEST_AREA_ENEMY             = 16,
-        TARGET_DEST_DB                          = 17,
-        TARGET_DEST_CASTER                      = 18,
-        TARGET_19                               = 19,
-        TARGET_UNIT_CASTER_AREA_PARTY           = 20,
-        TARGET_UNIT_TARGET_ALLY                 = 21,
-        TARGET_SRC_CASTER                       = 22,
-        TARGET_GAMEOBJECT_TARGET                = 23,
-        TARGET_UNIT_CONE_ENEMY_24               = 24,
-        TARGET_UNIT_TARGET_ANY                  = 25,
-        TARGET_GAMEOBJECT_ITEM_TARGET           = 26,
-        TARGET_UNIT_MASTER                      = 27,
-        TARGET_DEST_DYNOBJ_ENEMY                = 28,
-        TARGET_DEST_DYNOBJ_ALLY                 = 29,
-        TARGET_UNIT_SRC_AREA_ALLY               = 30,
-        TARGET_UNIT_DEST_AREA_ALLY              = 31,
-        TARGET_DEST_CASTER_SUMMON               = 32, // front left, doesn't use radius
-        TARGET_UNIT_SRC_AREA_PARTY              = 33,
-        TARGET_UNIT_DEST_AREA_PARTY             = 34,
-        TARGET_UNIT_TARGET_PARTY                = 35,
-        TARGET_DEST_CASTER_UNK_36               = 36,
-        TARGET_UNIT_LASTTARGET_AREA_PARTY       = 37,
-        TARGET_UNIT_NEARBY_ENTRY                = 38,
-        TARGET_DEST_CASTER_FISHING              = 39,
-        TARGET_GAMEOBJECT_NEARBY_ENTRY          = 40,
-        TARGET_DEST_CASTER_FRONT_RIGHT          = 41,
-        TARGET_DEST_CASTER_BACK_RIGHT           = 42,
-        TARGET_DEST_CASTER_BACK_LEFT            = 43,
-        TARGET_DEST_CASTER_FRONT_LEFT           = 44,
-        TARGET_UNIT_TARGET_CHAINHEAL_ALLY       = 45,
-        TARGET_DEST_NEARBY_ENTRY                = 46,
-        TARGET_DEST_CASTER_FRONT                = 47,
-        TARGET_DEST_CASTER_BACK                 = 48,
-        TARGET_DEST_CASTER_RIGHT                = 49,
-        TARGET_DEST_CASTER_LEFT                 = 50,
-        TARGET_GAMEOBJECT_SRC_AREA              = 51,
-        TARGET_GAMEOBJECT_DEST_AREA             = 52,
-        TARGET_DEST_TARGET_ENEMY                = 53,
-        TARGET_UNIT_CONE_ENEMY_54               = 54,
-        TARGET_DEST_CASTER_FRONT_LEAP           = 55, // for a leap spell
-        TARGET_UNIT_CASTER_AREA_RAID            = 56,
-        TARGET_UNIT_TARGET_RAID                 = 57,
-        TARGET_UNIT_NEARBY_RAID                 = 58,
-        TARGET_UNIT_CONE_ALLY                   = 59,
-        TARGET_UNIT_CONE_ENTRY                  = 60,
-        TARGET_UNIT_TARGET_AREA_RAID_CLASS      = 61,
-        TARGET_UNK_62                           = 62,
-        TARGET_DEST_TARGET_ANY                  = 63,
-        TARGET_DEST_TARGET_FRONT                = 64,
-        TARGET_DEST_TARGET_BACK                 = 65,
-        TARGET_DEST_TARGET_RIGHT                = 66,
-        TARGET_DEST_TARGET_LEFT                 = 67,
-        TARGET_DEST_TARGET_FRONT_RIGHT          = 68,
-        TARGET_DEST_TARGET_BACK_RIGHT           = 69,
-        TARGET_DEST_TARGET_BACK_LEFT            = 70,
-        TARGET_DEST_TARGET_FRONT_LEFT           = 71,
-        TARGET_DEST_CASTER_RANDOM               = 72,
-        TARGET_DEST_CASTER_RADIUS               = 73,
-        TARGET_DEST_TARGET_RANDOM               = 74,
-        TARGET_DEST_TARGET_RADIUS               = 75,
-        TARGET_DEST_CHANNEL_TARGET              = 76,
-        TARGET_UNIT_CHANNEL_TARGET              = 77,
-        TARGET_DEST_DEST_FRONT                  = 78,
-        TARGET_DEST_DEST_BACK                   = 79,
-        TARGET_DEST_DEST_RIGHT                  = 80,
-        TARGET_DEST_DEST_LEFT                   = 81,
-        TARGET_DEST_DEST_FRONT_RIGHT            = 82,
-        TARGET_DEST_DEST_BACK_RIGHT             = 83,
-        TARGET_DEST_DEST_BACK_LEFT              = 84,
-        TARGET_DEST_DEST_FRONT_LEFT             = 85,
-        TARGET_DEST_DEST_RANDOM                 = 86,
-        TARGET_DEST_DEST                        = 87,
-        TARGET_DEST_DYNOBJ_NONE                 = 88,
-        TARGET_DEST_TRAJ                        = 89,
-        TARGET_UNIT_TARGET_MINIPET              = 90,
-        TARGET_DEST_DEST_RADIUS                 = 91,
-        TARGET_UNIT_SUMMONER                    = 92,
-        TARGET_CORPSE_SRC_AREA_ENEMY            = 93, // NYI
-        TARGET_UNIT_VEHICLE                     = 94,
-        TARGET_UNIT_TARGET_PASSENGER            = 95,
-        TARGET_UNIT_PASSENGER_0                 = 96,
-        TARGET_UNIT_PASSENGER_1                 = 97,
-        TARGET_UNIT_PASSENGER_2                 = 98,
-        TARGET_UNIT_PASSENGER_3                 = 99,
-        TARGET_UNIT_PASSENGER_4                 = 100,
-        TARGET_UNIT_PASSENGER_5                 = 101,
-        TARGET_UNIT_PASSENGER_6                 = 102,
-        TARGET_UNIT_PASSENGER_7                 = 103,
-        TARGET_UNIT_CONE_ENEMY_104              = 104,
-        TARGET_UNIT_UNK_105                     = 105, // 1 spell
-        TARGET_DEST_CHANNEL_CASTER              = 106,
-        TARGET_UNK_DEST_AREA_UNK_107            = 107, // not enough info - only generic spells avalible
-        TARGET_GAMEOBJECT_CONE                  = 108,
-        TARGET_109                              = 109,
-        TARGET_DEST_UNK_110                     = 110, // 1 spell
-        TARGET_UNK_111                          = 111,
-        TARGET_UNK_112                          = 112,
-        TARGET_UNK_113                          = 113,
-        TARGET_UNK_114                          = 114,
-        TARGET_UNK_115                          = 115,
-        TARGET_UNK_116                          = 116,
-        TARGET_UNK_117                          = 117,
-        TARGET_UNK_118                          = 118,
-        TARGET_UNK_119                          = 119,
-        TARGET_UNK_120                          = 120,
-        TARGET_UNK_121                          = 121,
-        TARGET_UNK_122                          = 122,
-        TARGET_UNK_123                          = 123,
-        TARGET_UNK_124                          = 124,
-        TARGET_UNK_125                          = 125,
-        TARGET_UNK_126                          = 126,
-        TARGET_UNK_127                          = 127,
-        TARGET_UNK_128                          = 128,
-        TARGET_UNK_129                          = 129,
-        TARGET_UNK_130                          = 130,
-        TARGET_UNK_131                          = 131,
-        TARGET_UNK_132                          = 132,
-        TARGET_UNK_133                          = 133,
-        TARGET_UNK_134                          = 134,
-        TARGET_UNK_135                          = 135,
-        TARGET_UNK_136                          = 136,
-        TARGET_UNK_137                          = 137,
-        TARGET_UNK_138                          = 138,
-        TARGET_UNK_139                          = 139,
-        TARGET_UNK_140                          = 140,
-        TARGET_UNK_141                          = 141,
-        TARGET_UNK_142                          = 142,
-        TARGET_UNK_143                          = 143,
-        TARGET_UNK_144                          = 144,
-        TARGET_UNK_145                          = 145,
-        TARGET_UNK_146                          = 146,
-        TARGET_UNK_147                          = 147,
-        TARGET_UNK_148                          = 148,
-        TOTAL_SPELL_TARGETS,
+        NO_TARGET                                   = 0,
+        TARGET_UNIT_CASTER                          = 1,
+        TARGET_UNIT_NEARBY_ENEMY                    = 2,
+        TARGET_UNIT_NEARBY_ALLY                     = 3,
+        TARGET_UNIT_NEARBY_PARTY                    = 4,
+        TARGET_UNIT_PET                             = 5,
+        TARGET_UNIT_TARGET_ENEMY                    = 6,
+        TARGET_UNIT_SRC_AREA_ENTRY                  = 7,
+        TARGET_UNIT_DEST_AREA_ENTRY                 = 8,
+        TARGET_DEST_HOME                            = 9,
+        TARGET_UNK_10                               = 10,
+        TARGET_UNIT_SRC_AREA_UNK_11                 = 11,
+        TARGET_UNK_12                               = 12,
+        TARGET_UNK_13                               = 13,
+        TARGET_UNK_14                               = 14,
+        TARGET_UNIT_SRC_AREA_ENEMY                  = 15,
+        TARGET_UNIT_DEST_AREA_ENEMY                 = 16,
+        TARGET_DEST_DB                              = 17,
+        TARGET_DEST_CASTER                          = 18,
+        TARGET_UNK_19                               = 19,
+        TARGET_UNIT_CASTER_AREA_PARTY               = 20,
+        TARGET_UNIT_TARGET_ALLY                     = 21,
+        TARGET_SRC_CASTER                           = 22,
+        TARGET_GAMEOBJECT_TARGET                    = 23,
+        TARGET_UNIT_CONE_ENEMY_24                   = 24,
+        TARGET_UNIT_TARGET_ANY                      = 25,
+        TARGET_GAMEOBJECT_ITEM_TARGET               = 26,
+        TARGET_UNIT_MASTER                          = 27,
+        TARGET_DEST_DYNOBJ_ENEMY                    = 28,
+        TARGET_DEST_DYNOBJ_ALLY                     = 29,
+        TARGET_UNIT_SRC_AREA_ALLY                   = 30,
+        TARGET_UNIT_DEST_AREA_ALLY                  = 31,
+        TARGET_DEST_CASTER_SUMMON                   = 32, // front left, doesn't use radius
+        TARGET_UNIT_SRC_AREA_PARTY                  = 33,
+        TARGET_UNIT_DEST_AREA_PARTY                 = 34,
+        TARGET_UNIT_TARGET_PARTY                    = 35,
+        TARGET_DEST_CASTER_UNK_36                   = 36,
+        TARGET_UNIT_LASTTARGET_AREA_PARTY           = 37,
+        TARGET_UNIT_NEARBY_ENTRY                    = 38,
+        TARGET_DEST_CASTER_FISHING                  = 39,
+        TARGET_GAMEOBJECT_NEARBY_ENTRY              = 40,
+        TARGET_DEST_CASTER_FRONT_RIGHT              = 41,
+        TARGET_DEST_CASTER_BACK_RIGHT               = 42,
+        TARGET_DEST_CASTER_BACK_LEFT                = 43,
+        TARGET_DEST_CASTER_FRONT_LEFT               = 44,
+        TARGET_UNIT_TARGET_CHAINHEAL_ALLY           = 45,
+        TARGET_DEST_NEARBY_ENTRY                    = 46,
+        TARGET_DEST_CASTER_FRONT                    = 47,
+        TARGET_DEST_CASTER_BACK                     = 48,
+        TARGET_DEST_CASTER_RIGHT                    = 49,
+        TARGET_DEST_CASTER_LEFT                     = 50,
+        TARGET_GAMEOBJECT_SRC_AREA                  = 51,
+        TARGET_GAMEOBJECT_DEST_AREA                 = 52,
+        TARGET_DEST_TARGET_ENEMY                    = 53,
+        TARGET_UNIT_CONE_180_DEG_ENEMY              = 54, // Defaults to 180 if ConeDegrees is not set
+        TARGET_DEST_CASTER_FRONT_LEAP               = 55, // for a leap spell
+        TARGET_UNIT_CASTER_AREA_RAID                = 56,
+        TARGET_UNIT_TARGET_RAID                     = 57,
+        TARGET_UNIT_NEARBY_RAID                     = 58,
+        TARGET_UNIT_CONE_ALLY                       = 59,
+        TARGET_UNIT_CONE_ENTRY                      = 60,
+        TARGET_UNIT_TARGET_AREA_RAID_CLASS          = 61,
+        TARGET_DEST_CASTER_GROUND                   = 62,
+        TARGET_DEST_TARGET_ANY                      = 63,
+        TARGET_DEST_TARGET_FRONT                    = 64,
+        TARGET_DEST_TARGET_BACK                     = 65,
+        TARGET_DEST_TARGET_RIGHT                    = 66,
+        TARGET_DEST_TARGET_LEFT                     = 67,
+        TARGET_DEST_TARGET_FRONT_RIGHT              = 68,
+        TARGET_DEST_TARGET_BACK_RIGHT               = 69,
+        TARGET_DEST_TARGET_BACK_LEFT                = 70,
+        TARGET_DEST_TARGET_FRONT_LEFT               = 71,
+        TARGET_DEST_CASTER_RANDOM                   = 72,
+        TARGET_DEST_CASTER_RADIUS                   = 73,
+        TARGET_DEST_TARGET_RANDOM                   = 74,
+        TARGET_DEST_TARGET_RADIUS                   = 75,
+        TARGET_DEST_CHANNEL_TARGET                  = 76,
+        TARGET_UNIT_CHANNEL_TARGET                  = 77,
+        TARGET_DEST_DEST_FRONT                      = 78,
+        TARGET_DEST_DEST_BACK                       = 79,
+        TARGET_DEST_DEST_RIGHT                      = 80,
+        TARGET_DEST_DEST_LEFT                       = 81,
+        TARGET_DEST_DEST_FRONT_RIGHT                = 82,
+        TARGET_DEST_DEST_BACK_RIGHT                 = 83,
+        TARGET_DEST_DEST_BACK_LEFT                  = 84,
+        TARGET_DEST_DEST_FRONT_LEFT                 = 85,
+        TARGET_DEST_DEST_RANDOM                     = 86,
+        TARGET_DEST_DEST                            = 87,
+        TARGET_DEST_DYNOBJ_NONE                     = 88,
+        TARGET_DEST_TRAJ                            = 89,
+        TARGET_UNIT_TARGET_MINIPET                  = 90,
+        TARGET_DEST_DEST_RADIUS                     = 91,
+        TARGET_UNIT_SUMMONER                        = 92,
+        TARGET_CORPSE_SRC_AREA_ENEMY                = 93, // NYI
+        TARGET_UNIT_VEHICLE                         = 94,
+        TARGET_UNIT_TARGET_PASSENGER                = 95,
+        TARGET_UNIT_PASSENGER_0                     = 96,
+        TARGET_UNIT_PASSENGER_1                     = 97,
+        TARGET_UNIT_PASSENGER_2                     = 98,
+        TARGET_UNIT_PASSENGER_3                     = 99,
+        TARGET_UNIT_PASSENGER_4                     = 100,
+        TARGET_UNIT_PASSENGER_5                     = 101,
+        TARGET_UNIT_PASSENGER_6                     = 102,
+        TARGET_UNIT_PASSENGER_7                     = 103,
+        TARGET_UNIT_CONE_CASTER_TO_DEST_ENEMY       = 104,
+        TARGET_UNIT_CASTER_AND_PASSENGERS           = 105,
+        TARGET_DEST_CHANNEL_CASTER                  = 106,
+        TARGET_DEST_NEARBY_ENTRY_2                  = 107,
+        TARGET_GAMEOBJECT_CONE_CASTER_TO_DEST_ENEMY = 108,
+        TARGET_GAMEOBJECT_CONE_CASTER_TO_DEST_ALLY  = 109,
+        TARGET_UNIT_CONE_CASTER_TO_DEST_ENTRY       = 110,
+        TARGET_UNK_111                              = 111, // NYI
+        TARGET_UNK_112                              = 112, // NYI
+        TARGET_UNK_113                              = 113, // NYI
+        TARGET_UNK_114                              = 114, // NYI
+        TARGET_UNIT_SRC_AREA_FURTHEST_ENEMY         = 115,
+        TARGET_UNIT_AND_DEST_LAST_ENEMY             = 116,
+        TARGET_UNK_117                              = 117,
+        TARGET_UNIT_TARGET_ALLY_OR_RAID             = 118, // If target is in your party or raid, all party and raid members will be affected
+        TARGET_CORPSE_SRC_AREA_RAID                 = 119,
+        TARGET_UNIT_CASTER_AND_SUMMONS              = 120,
+        TARGET_CORPSE_TARGET_ALLY                   = 121,
+        TARGET_UNIT_AREA_THREAT_LIST                = 122, // any unit on threat list
+        TARGET_UNIT_AREA_TAP_LIST                   = 123,
+        TARGET_UNIT_TARGET_TAP_LIST                 = 124,
+        TARGET_DEST_CASTER_GROUND_2                 = 125,
+        TARGET_UNIT_CASTER_AREA_ENEMY_CLUMP         = 126, // NYI
+        TARGET_DEST_CASTER_ENEMY_CLUMP_CENTROID     = 127, // NYI
+        TARGET_UNIT_RECT_CASTER_ALLY                = 128,
+        TARGET_UNIT_RECT_CASTER_ENEMY               = 129,
+        TARGET_UNIT_RECT_CASTER                     = 130,
+        TARGET_DEST_SUMMONER                        = 131,
+        TARGET_DEST_TARGET_ALLY                     = 132,
+        TARGET_UNIT_LINE_CASTER_TO_DEST_ALLY        = 133,
+        TARGET_UNIT_LINE_CASTER_TO_DEST_ENEMY       = 134,
+        TARGET_UNIT_LINE_CASTER_TO_DEST             = 135,
+        TARGET_UNIT_CONE_CASTER_TO_DEST_ALLY        = 136,
+        TARGET_DEST_CASTER_MOVEMENT_DIRECTION       = 137,
+        TARGET_DEST_DEST_GROUND                     = 138,
+        TARGET_UNK_139                              = 139,
+        TARGET_DEST_CASTER_CLUMP_CENTROID           = 140, // NYI
+        TARGET_UNK_141                              = 141,
+        TARGET_UNK_142                              = 142,
+        TARGET_UNK_143                              = 143,
+        TARGET_UNK_144                              = 144,
+        TARGET_UNK_145                              = 145,
+        TARGET_UNK_146                              = 146,
+        TARGET_UNK_147                              = 147,
+        TARGET_UNK_148                              = 148,
+        TOTAL_SPELL_TARGETS
     };
 
     ///<summary>
     ///Spell proc event related declarations (accessed using SpellMgr functions)
     ///</summary>
     [Flags]
-    public enum ProcFlags
+    public enum ProcFlags : uint
     {
-        PROC_FLAG_KILLED                            = 0x00000001,    // 00 Killed by agressor - not sure about this flag
-        PROC_FLAG_KILL                              = 0x00000002,    // 01 Kill target (in most cases need XP/Honor reward)
+        PROC_FLAG_HEARTBEAT                       = 0x00000001,    // 00 Heartbeat
+        PROC_FLAG_KILL                            = 0x00000002,    // 01 Kill target (in most cases need XP/Honor reward)
 
-        PROC_FLAG_DONE_MELEE_AUTO_ATTACK            = 0x00000004,    // 02 Done melee auto attack
-        PROC_FLAG_TAKEN_MELEE_AUTO_ATTACK           = 0x00000008,    // 03 Taken melee auto attack
+        PROC_FLAG_DEAL_MELEE_SWING                = 0x00000004,    // 02 Deal Melee Swing
+        PROC_FLAG_TAKE_MELEE_SWING                = 0x00000008,    // 03 Take Melee Swing
 
-        PROC_FLAG_DONE_SPELL_MELEE_DMG_CLASS        = 0x00000010,    // 04 Done attack by Spell that has dmg class melee
-        PROC_FLAG_TAKEN_SPELL_MELEE_DMG_CLASS       = 0x00000020,    // 05 Taken attack by Spell that has dmg class melee
+        PROC_FLAG_DEAL_MELEE_ABILITY              = 0x00000010,    // 04 Deal Melee Ability
+        PROC_FLAG_TAKE_MELEE_ABILITY              = 0x00000020,    // 05 Take Melee Ability
 
-        PROC_FLAG_DONE_RANGED_AUTO_ATTACK           = 0x00000040,    // 06 Done ranged auto attack
-        PROC_FLAG_TAKEN_RANGED_AUTO_ATTACK          = 0x00000080,    // 07 Taken ranged auto attack
+        PROC_FLAG_DEAL_RANGED_ATTACK              = 0x00000040,    // 06 Deal Ranged Attack
+        PROC_FLAG_TAKE_RANGED_ATTACK              = 0x00000080,    // 07 Take Ranged Attack
 
-        PROC_FLAG_DONE_SPELL_RANGED_DMG_CLASS       = 0x00000100,    // 08 Done attack by Spell that has dmg class ranged
-        PROC_FLAG_TAKEN_SPELL_RANGED_DMG_CLASS      = 0x00000200,    // 09 Taken attack by Spell that has dmg class ranged
+        PROC_FLAG_DEAL_RANGED_ABILITY             = 0x00000100,    // 08 Deal Ranged Ability
+        PROC_FLAG_TAKE_RANGED_ABILITY             = 0x00000200,    // 09 Take Ranged Ability
 
-        PROC_FLAG_DONE_SPELL_NONE_DMG_CLASS_POS     = 0x00000400,    // 10 Done positive spell that has dmg class none
-        PROC_FLAG_TAKEN_SPELL_NONE_DMG_CLASS_POS    = 0x00000800,    // 11 Taken positive spell that has dmg class none
+        PROC_FLAG_DEAL_HELPFUL_ABILITY            = 0x00000400,    // 10 Deal Helpful Ability
+        PROC_FLAG_TAKE_HELPFUL_ABILITY            = 0x00000800,    // 11 Take Helpful Ability
 
-        PROC_FLAG_DONE_SPELL_NONE_DMG_CLASS_NEG     = 0x00001000,    // 12 Done negative spell that has dmg class none
-        PROC_FLAG_TAKEN_SPELL_NONE_DMG_CLASS_NEG    = 0x00002000,    // 13 Taken negative spell that has dmg class none
+        PROC_FLAG_DEAL_HARMFUL_ABILITY            = 0x00001000,    // 12 Deal Harmful Ability
+        PROC_FLAG_TAKE_HARMFUL_ABILITY            = 0x00002000,    // 13 Take Harmful Ability
 
-        PROC_FLAG_DONE_SPELL_MAGIC_DMG_CLASS_POS    = 0x00004000,    // 14 Done positive spell that has dmg class magic
-        PROC_FLAG_TAKEN_SPELL_MAGIC_DMG_CLASS_POS   = 0x00008000,    // 15 Taken positive spell that has dmg class magic
+        PROC_FLAG_DEAL_HELPFUL_SPELL              = 0x00004000,    // 14 Deal Helpful Spell
+        PROC_FLAG_TAKE_HELPFUL_SPELL              = 0x00008000,    // 15 Take Helpful Spell
 
-        PROC_FLAG_DONE_SPELL_MAGIC_DMG_CLASS_NEG    = 0x00010000,    // 16 Done negative spell that has dmg class magic
-        PROC_FLAG_TAKEN_SPELL_MAGIC_DMG_CLASS_NEG   = 0x00020000,    // 17 Taken negative spell that has dmg class magic
+        PROC_FLAG_DEAL_HARMFUL_SPELL              = 0x00010000,    // 16 Deal Harmful Spell
+        PROC_FLAG_TAKE_HARMFUL_SPELL              = 0x00020000,    // 17 Take Harmful Spell
 
-        PROC_FLAG_DONE_PERIODIC                     = 0x00040000,    // 18 Successful do periodic (damage / healing)
-        PROC_FLAG_TAKEN_PERIODIC                    = 0x00080000,    // 19 Taken spell periodic (damage / healing)
+        PROC_FLAG_DEAL_HARMFUL_PERIODIC           = 0x00040000,    // 18 Deal Harmful Periodic
+        PROC_FLAG_TAKE_HARMFUL_PERIODIC           = 0x00080000,    // 19 Take Harmful Periodic
 
-        PROC_FLAG_TAKEN_DAMAGE                      = 0x00100000,    // 20 Taken any damage
-        PROC_FLAG_DONE_TRAP_ACTIVATION              = 0x00200000,    // 21 On trap activation (possibly needs name change to ON_GAMEOBJECT_CAST or USE)
+        PROC_FLAG_TAKE_ANY_DAMAGE                 = 0x00100000,    // 20 Take Any Damage
 
-        PROC_FLAG_DONE_MAINHAND_ATTACK              = 0x00400000,    // 22 Done main-hand melee attacks (spell and autoattack)
-        PROC_FLAG_DONE_OFFHAND_ATTACK               = 0x00800000,    // 23 Done off-hand melee attacks (spell and autoattack)
+        PROC_FLAG_DEAL_HELPFUL_PERIODIC           = 0x00200000,    // 21 Deal Helpful Periodic
 
-        PROC_FLAG_DEATH                             = 0x01000000     // 24 Died in any way
+        PROC_FLAG_MAIN_HAND_WEAPON_SWING          = 0x00400000,    // 22 Main Hand Weapon Swing
+        PROC_FLAG_OFF_HAND_WEAPON_SWING           = 0x00800000,    // 23 Off Hand Weapon Swing
+
+        PROC_FLAG_DEATH                           = 0x01000000,    // 24 Died in any way
+
+        PROC_FLAG_JUMP                            = 0x02000000,    // 25 Jumped
+
+        PROC_FLAG_PROC_CLONE_SPELL                = 0x04000000,    // 26 Proc Clone Spell
+
+        PROC_FLAG_ENTER_COMBAT                    = 0x08000000,    // 27 Entered combat
+
+        PROC_FLAG_ENCOUNTER_START                 = 0x10000000,    // 28 Encounter started
+
+        PROC_FLAG_CAST_ENDED                      = 0x20000000,    // 29 Cast Ended
+
+        PROC_FLAG_LOOTED                          = 0x40000000,    // 30 Looted (took from loot, not opened loot window)
+
+        PROC_FLAG_TAKE_HELPFUL_PERIODIC           = 0x80000000,    // 31 Take Helpful Periodic
     };
 
     [Flags]
@@ -1196,9 +1211,10 @@ namespace SpellWork.Spell
 
     public enum SpellPreventionType
     {
-        SPELL_PREVENTION_TYPE_NONE    = 0,
-        SPELL_PREVENTION_TYPE_SILENCE = 1,
-        SPELL_PREVENTION_TYPE_PACIFY  = 2
+        SPELL_PREVENTION_TYPE_NONE          = 0,
+        SPELL_PREVENTION_TYPE_SILENCE       = 1,
+        SPELL_PREVENTION_TYPE_PACIFY        = 2,
+        SPELL_PREVENTION_TYPE_NO_ACTIONS    = 4
     };
 
     [Flags]
@@ -1441,7 +1457,7 @@ namespace SpellWork.Spell
         POLEARM         = 1 << 6,
         SWORD           = 1 << 7,
         SWORD2          = 1 << 8,
-        OBSOLETE        = 1 << 9,
+        WARGLAIVES      = 1 << 9,
         STAFF           = 1 << 10,
         EXOTIC          = 1 << 11,
         EXOTIC2         = 1 << 12,
@@ -1458,30 +1474,32 @@ namespace SpellWork.Spell
     [Flags]
     public enum ItemSubClassArmorMask
     {
-        ALL     = -1,
-        MISC    = 1 << 0,
-        CLOTH   = 1 << 1,
-        LEATHER = 1 << 2,
-        MAIL    = 1 << 3,
-        PLATE   = 1 << 4,
-        BUCKLER = 1 << 5,
-        SHIELD  = 1 << 6,
-        LIBRAM  = 1 << 7,
-        IDOL    = 1 << 8,
-        TOTEM   = 1 << 9,
-        SIGIL   = 1 << 10
+        ALL             = -1,
+        MISCELLANEOUS   = 1 << 0,
+        CLOTH           = 1 << 1,
+        LEATHER         = 1 << 2,
+        MAIL            = 1 << 3,
+        PLATE           = 1 << 4,
+        COSMETIC        = 1 << 5,
+        SHIELD          = 1 << 6,
+        LIBRAM          = 1 << 7,
+        IDOL            = 1 << 8,
+        TOTEM           = 1 << 9,
+        SIGIL           = 1 << 10,
+        RELIC           = 1 << 11,
     };
 
     [Flags]
     public enum ItemSubClassMiscMask
     {
-        ALL     = -1,
-        JUNK    = 1 << 0,
-        REAGENT = 1 << 1,
-        PET     = 1 << 2,
-        HOLIDAY = 1 << 3,
-        OTHER   = 1 << 4,
-        MOUNT   = 1 << 5,
+        ALL             = -1,
+        JUNK            = 1 << 0,
+        REAGENT         = 1 << 1,
+        COMPANION_PET   = 1 << 2,
+        HOLIDAY         = 1 << 3,
+        OTHER           = 1 << 4,
+        MOUNT           = 1 << 5,
+        MOUNT_EQUIPMENT = 1 << 6
     }
 
     [Flags]
@@ -1501,7 +1519,9 @@ namespace SpellWork.Spell
         NOT_SPECIFIED   = 1 << 9,
         TOTEM           = 1 << 10,
         NON_COMBAT_PET  = 1 << 11,
-        GAS_CLOUD       = 1 << 12
+        GAS_CLOUD       = 1 << 12,
+        WILD_PET        = 1 << 13,
+        ABERRATION      = 1 << 14
     };
 
     [Flags]
@@ -2105,52 +2125,84 @@ namespace SpellWork.Spell
     [Flags]
     enum SpellInterruptFlags
     {
-        SPELL_INTERRUPT_FLAG_MOVEMENT       = 0x01, // why need this for instant?
-        SPELL_INTERRUPT_FLAG_PUSH_BACK      = 0x02, // push back
-        SPELL_INTERRUPT_FLAG_UNK3           = 0x04, // any info?
-        SPELL_INTERRUPT_FLAG_INTERRUPT      = 0x08, // interrupt
-        SPELL_INTERRUPT_FLAG_ABORT_ON_DMG   = 0x10, // _complete_ interrupt on direct damage
-        SPELL_INTERRUPT_UNK                 = 0x20  // unk, 564 of 727 spells having this spell start with "Glyph"
+        None                        = 0,
+        Movement                    = 0x00000001,
+        DamagePushbackPlayerOnly    = 0x00000002,
+        Stun                        = 0x00000004, // useless, even spells without it get interrupted
+        Combat                      = 0x00000008,
+        DamageCancelsPlayerOnly     = 0x00000010,
+        MeleeCombat                 = 0x00000020, // NYI
+        Immunity                    = 0x00000040, // NYI
+        DamageAbsorb                = 0x00000080,
+        ZeroDamageCancels           = 0x00000100,
+        DamagePushback              = 0x00000200,
+        DamageCancels               = 0x00000400
     };
 
     [Flags]
-    enum SpellChannelInterruptFlags
+    enum SpellAuraInterruptFlags : uint
     {
-        CHANNEL_INTERRUPT_FLAG_INTERRUPT    = 0x0008,  // interrupt
-        CHANNEL_FLAG_DELAY                  = 0x4000
+        None                        = 0,
+        HostileActionReceived       = 0x00000001,
+        Damage                      = 0x00000002,
+        Action                      = 0x00000004,
+        Moving                      = 0x00000008,
+        Turning                     = 0x00000010,
+        Anim                        = 0x00000020,
+        Dismount                    = 0x00000040,
+        UnderWater                  = 0x00000080,
+        AboveWater                  = 0x00000100,
+        Sheathing                   = 0x00000200,
+        Interacting                 = 0x00000400,
+        Looting                     = 0x00000800,
+        Attacking                   = 0x00001000,
+        ItemUse                     = 0x00002000,
+        DamageChannelDuration       = 0x00004000,
+        Shapeshifting               = 0x00008000,
+        ActionDelayed               = 0x00010000,
+        Mount                       = 0x00020000,
+        Standing                    = 0x00040000,
+        LeaveWorld                  = 0x00080000,
+        StealthOrInvis              = 0x00100000,
+        InvulnerabilityBuff         = 0x00200000,
+        EnterWorld                  = 0x00400000,
+        PvPActive                   = 0x00800000,
+        NonPeriodicDamage           = 0x01000000,
+        LandingOrFlight             = 0x02000000,
+        Release                     = 0x04000000,
+        DamageScript                = 0x08000000,
+        EnteringCombat              = 0x10000000,
+        Login                       = 0x20000000,
+        Summon                      = 0x40000000,
+        LeavingCombat               = 0x80000000,
     };
 
     [Flags]
-    enum SpellAuraInterruptFlags
+    enum SpellAuraInterruptFlags2 : uint
     {
-        AURA_INTERRUPT_FLAG_HITBYSPELL                  = 0x00000001,   // 0    removed when getting hit by a negative spell?
-        AURA_INTERRUPT_FLAG_TAKE_DAMAGE                 = 0x00000002,   // 1    removed by any damage
-        AURA_INTERRUPT_FLAG_CAST                        = 0x00000004,   // 2    cast any spells
-        AURA_INTERRUPT_FLAG_MOVE                        = 0x00000008,   // 3    removed by any movement
-        AURA_INTERRUPT_FLAG_TURNING                     = 0x00000010,   // 4    removed by any turning
-        AURA_INTERRUPT_FLAG_JUMP                        = 0x00000020,   // 5    removed by entering combat
-        AURA_INTERRUPT_FLAG_NOT_MOUNTED                 = 0x00000040,   // 6    removed by dismounting
-        AURA_INTERRUPT_FLAG_NOT_ABOVEWATER              = 0x00000080,   // 7    removed by entering water
-        AURA_INTERRUPT_FLAG_NOT_UNDERWATER              = 0x00000100,   // 8    removed by leaving water
-        AURA_INTERRUPT_FLAG_NOT_SHEATHED                = 0x00000200,   // 9    removed by unsheathing
-        AURA_INTERRUPT_FLAG_TALK                        = 0x00000400,   // 10   talk to npc / loot? action on creature
-        AURA_INTERRUPT_FLAG_USE                         = 0x00000800,   // 11   mine/use/open action on gameobject
-        AURA_INTERRUPT_FLAG_MELEE_ATTACK                = 0x00001000,   // 12   removed by attacking
-        AURA_INTERRUPT_FLAG_SPELL_ATTACK                = 0x00002000,   // 13   ???
-        AURA_INTERRUPT_FLAG_UNK14                       = 0x00004000,   // 14
-        AURA_INTERRUPT_FLAG_TRANSFORM                   = 0x00008000,   // 15   removed by transform?
-        AURA_INTERRUPT_FLAG_UNK16                       = 0x00010000,   // 16
-        AURA_INTERRUPT_FLAG_MOUNT                       = 0x00020000,   // 17   misdirect, aspect, swim speed
-        AURA_INTERRUPT_FLAG_NOT_SEATED                  = 0x00040000,   // 18   removed by standing up (used by food and drink mostly and sleep/Fake Death like)
-        AURA_INTERRUPT_FLAG_CHANGE_MAP                  = 0x00080000,   // 19   leaving map/getting teleported
-        AURA_INTERRUPT_FLAG_IMMUNE_OR_LOST_SELECTION    = 0x00100000,   // 20   removed by auras that make you invulnerable, or make other to lose selection on you
-        AURA_INTERRUPT_FLAG_UNK21                       = 0x00200000,   // 21
-        AURA_INTERRUPT_FLAG_TELEPORTED                  = 0x00400000,   // 22
-        AURA_INTERRUPT_FLAG_ENTER_PVP_COMBAT            = 0x00800000,   // 23   removed by entering pvp combat
-        AURA_INTERRUPT_FLAG_DIRECT_DAMAGE               = 0x01000000,   // 24   removed by any direct damage
-        AURA_INTERRUPT_FLAG_LANDING                     = 0x02000000,   // 25   removed by hitting the ground
-
-        AURA_INTERRUPT_FLAG_NOT_VICTIM = (AURA_INTERRUPT_FLAG_HITBYSPELL | AURA_INTERRUPT_FLAG_TAKE_DAMAGE | AURA_INTERRUPT_FLAG_DIRECT_DAMAGE)
+        None                        = 0,
+        Falling                     = 0x00000001,
+        Swimming                    = 0x00000002,
+        NotMoving                   = 0x00000004,
+        Ground                      = 0x00000008,
+        Transform                   = 0x00000010,
+        Jump                        = 0x00000020,
+        ChangeSpec                  = 0x00000040,
+        AbandonVehicle              = 0x00000080,
+        StartOfEncounter            = 0x00000100,
+        EndOfEncounter              = 0x00000200,
+        Disconnect                  = 0x00000400,
+        EnteringInstance            = 0x00000800,
+        DuelEnd                     = 0x00001000,
+        LeaveArenaOrBattleground    = 0x00002000,
+        ChangeTalent                = 0x00004000,
+        ChangeGlyph                 = 0x00008000,
+        SeamlessTransfer            = 0x00010000,
+        WarModeLeave                = 0x00020000,
+        TouchingGround              = 0x00040000,
+        ChromieTime                 = 0x00080000,
+        SplineFlightOrFreeFlight    = 0x00100000,
+        ProcOrPeriodicAttacking     = 0x00200000
     };
 
 // ReSharper restore InconsistentNaming
@@ -2162,7 +2214,7 @@ namespace SpellWork.Spell
         public static readonly string[] ProcFlagDesc =
         {
             //00 0x00000001 000000000000000000000001 -
-            "00 Killed by aggressor that receive experience or honor",
+            "00 Heartbeat",
             //01 0x00000002 000000000000000000000010 -
             "01 Kill that yields experience or honor",
 
@@ -2214,7 +2266,7 @@ namespace SpellWork.Spell
             //20 0x00100000 000100000000000000000000 -
             "20 Taken any damage",
             //21 0x00200000 001000000000000000000000 -
-            "21 On trap activation",
+            "21 Deal helpful periodic",
 
             //22 0x00800000 010000000000000000000000 -
             "22 Successful main-hand melee attacks",
@@ -2223,13 +2275,19 @@ namespace SpellWork.Spell
 
             //24 0x01000000
             "24 On death",
-            "25",
-            "26",
-            "27",
-            "28",
-            "29",
-            "30",
-            "31"
+            //25 0x02000000
+            "25 Jumped",
+            "26 Proc Clone Spell",
+            //27 0x08000000
+            "27 Entered combat",
+            //28 0x10000000
+            "28 Encounter started",
+            "29 On end of spell cast",
+            "30 Looted something",
+            "31 Taken helpful periodic",
+            "32 Kill or assist in killing target (not restricted to killing blow)",
+            "33 Knockback",
+            "34 Cast Successful",
         };
         #endregion
     }

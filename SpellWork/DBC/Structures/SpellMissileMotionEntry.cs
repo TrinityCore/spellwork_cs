@@ -1,10 +1,15 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+using System.Security.Policy;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellMissileMotionEntry
     {
-        public string Name;
-        public string Script;
-        public byte Flags;
-        public byte MissileCount;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public string Name; // Name
+        public string ScriptBody; // ScriptBody
+        public byte Flags; // Flags<u8>
+        public byte MissileCount; // MissileCount<u8>
     }
 }

@@ -1,9 +1,13 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class SpellDurationEntry
     {
-        public int Duration;
-        public int MaxDuration;
-        public int DurationPerLevel;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public int Duration; // Duration<32>
+        public int MaxDuration; // MaxDuration<32>
+        public uint DurationPerLevel; // DurationPerLevel<u32>
     }
 }

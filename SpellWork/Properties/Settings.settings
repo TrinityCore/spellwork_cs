@@ -26,5 +26,8 @@
     <Setting Name="GtPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">gt</Value>
     </Setting>
+    <Setting Name="Locale" Type="System.String" Scope="User">
+      <Value Profile="(Default)">enUS</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -1,15 +1,22 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public class SpellMiscEntry
     {
-        public uint[] Attributes;
-        public float Speed;
-        public float MultistrikeSpeedMod;
+        [Index(true)]
+        public int ID;
         public ushort CastingTimeIndex;
         public ushort DurationIndex;
         public ushort RangeIndex;
         public byte SchoolMask;
-        public uint IconFileDataID;
-        public uint ActiveIconFileDataID;
+        public int SpellIconFileDataID;
+        public float Speed;
+        public int ActiveIconFileDataID;
+        public float LaunchDelay;
+        public byte DifficultyID;
+        [Cardinality(14)]
+        public int[] Attributes = new int[14];
+        public int SpellID;
     }
 }

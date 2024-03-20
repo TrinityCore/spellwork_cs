@@ -1,8 +1,12 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public sealed class AreaGroupMemberEntry
     {
-        public ushort AreaGroupId;
-        public short AreaId;
-    }
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public ushort AreaID; // AreaID<u16>
+        public ushort AreaGroupID; // AreaGroupID<u16>
+    };
 }

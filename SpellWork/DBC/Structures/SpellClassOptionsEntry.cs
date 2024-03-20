@@ -1,10 +1,15 @@
-﻿namespace SpellWork.DBC.Structures
+﻿using DBFileReaderLib.Attributes;
+
+namespace SpellWork.DBC.Structures
 {
     public class SpellClassOptionsEntry
     {
-        public int SpellID;
-        public uint[] SpellFamilyFlags;
-        public byte SpellClassSet;
-        public uint ModalNextSpell;
+        [Index(true)]
+        public int ID; // $noninline,id$ID<32>
+        public int SpellID; // SpellID<32>
+        [Cardinality(4)]
+        public int[] SpellClassMask = new int[4]; // SpellClassMask<32>[4]
+        public byte SpellClassSet; // SpellClassSet<u8>
+        public uint ModalNextSpell; // ModalNextSpell<u32>
     }
 }
