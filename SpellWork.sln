@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34707.107
 MinimumVisualStudioVersion = 14.0.23107.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpellWork", "SpellWork\SpellWork.csproj", "{49A3559B-529A-4406-824B-F7E2831DE1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SpellWork", "SpellWork\SpellWork.csproj", "{49A3559B-529A-4406-824B-F7E2831DE1B2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
