@@ -47,7 +47,7 @@ namespace SpellWork
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
+                        MessageBox.Show("Error while loading DBC: " + ex.Message);
                     }
                     finally
                     {
