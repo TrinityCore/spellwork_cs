@@ -945,6 +945,7 @@
             tabControl1.Controls.Add(_tpSpellProcDB);
             tabControl1.Controls.Add(_tpCompare);
             tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            tabControl1.Enabled = false;
             tabControl1.Location = new System.Drawing.Point(0, 24);
             tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControl1.Name = "tabControl1";
@@ -2021,6 +2022,7 @@
             // _bLevelScaling
             // 
             _bLevelScaling.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
+            _bLevelScaling.Enabled = false;
             _bLevelScaling.Location = new System.Drawing.Point(1307, 1);
             _bLevelScaling.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _bLevelScaling.Name = "_bLevelScaling";
