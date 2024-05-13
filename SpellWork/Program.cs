@@ -41,7 +41,8 @@ namespace SpellWork
                     {
                         await DBC.DBC.Load(progress =>
                         {
-                            mainForm.Invoke(new Action(() => mainForm.SetLoadingProgress(progress)));
+                            if (mainForm.InvokeRequired)
+                                mainForm.Invoke(new Action(() => mainForm.SetLoadingProgress(progress)));
                         });
                     }
                     catch (Exception ex)
