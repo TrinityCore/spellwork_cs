@@ -1,4 +1,5 @@
-﻿using SpellWork.DBC.Structures;
+﻿using Mysqlx.Crud;
+using SpellWork.DBC.Structures;
 using SpellWork.Extensions;
 using SpellWork.GameTables;
 using SpellWork.GameTables.Structures;
@@ -149,10 +150,6 @@ namespace SpellWork.Spell
         public int TargetAuraSpell => AuraRestrictions?.TargetAuraSpell ?? 0;
         public int ExcludeCasterAuraSpell => AuraRestrictions?.ExcludeCasterAuraSpell ?? 0;
         public int ExcludeTargetAuraSpell => AuraRestrictions?.ExcludeTargetAuraSpell ?? 0;
-        public int CasterAuraType => AuraRestrictions?.CasterAuraType ?? 0;
-        public int TargetAuraType => AuraRestrictions?.TargetAuraType ?? 0;
-        public int ExcludeCasterAuraType => AuraRestrictions?.ExcludeCasterAuraType ?? 0;
-        public int ExcludeTargetAuraType => AuraRestrictions?.ExcludeTargetAuraType ?? 0;
         #endregion
 
         #region SpellAuraOptions
@@ -587,18 +584,6 @@ namespace SpellWork.Spell
                     rtb.AppendFormatLine("  Ex Target Aura Spell ({0}) ?????", ExcludeTargetAuraSpell);
             }
 
-            if (CasterAuraType != 0)
-                rtb.AppendFormatLine("CasterAuraType = {0} ({1})", CasterAuraType, (AuraType)CasterAuraType);
-
-            if (TargetAuraType != 0)
-                rtb.AppendFormatLine("TargetAuraType = {0} ({1})", TargetAuraType, (AuraType)TargetAuraType);
-
-            if (ExcludeCasterAuraType != 0)
-                rtb.AppendFormatLine("ExcludeCasterAuraType = {0} ({1})", ExcludeCasterAuraType, (AuraType)ExcludeCasterAuraType);
-
-            if (ExcludeTargetAuraType != 0)
-                rtb.AppendFormatLine("ExcludeTargetAuraType = {0} ({1})", ExcludeTargetAuraType, (AuraType)ExcludeTargetAuraType);
-
             if (RequiredAreasId > 0)
             {
                 var areas = (from ag in DBC.DBC.AreaGroupMember.Values where ag.AreaGroupID == RequiredAreasId
@@ -649,6 +634,27 @@ namespace SpellWork.Spell
             AppendSpellVisualInfo();
         }
 
+        private float GetSpellScalingMultiplier(uint level)
+        {
+            if (level == 0 || Scaling == null || Scaling.Class == 0)
+                return 1.0f;
+
+            float multiplier = 1.0f;
+            float scalingMultiplier = 1.0f;
+
+            if (level < Scaling.CastTimeMaxLevel && Scaling.CastTimeMax != 0)
+            {
+                int castTime = Scaling.CastTimeMin + (((int)level - 1) * (Scaling.CastTimeMax - Scaling.CastTimeMin)) / (Scaling.CastTimeMaxLevel - 1);
+                multiplier = castTime / (float)Scaling.CastTimeMax;
+                scalingMultiplier = castTime / (float)Scaling.CastTimeMax;
+            }
+
+            if (level < Scaling.NerfMaxLevel)
+                scalingMultiplier = ((((1.0f - Scaling.NerfFactor) * ((int)level - 1)) / (Scaling.NerfMaxLevel - 1)) + Scaling.NerfFactor) * multiplier;
+
+            return scalingMultiplier;
+        }
+
         private float CalculateBaseEffectValue(SpellEffectEntry effect)
         {
             if (effect.Coefficient != 0.0f)
@@ -656,7 +662,7 @@ namespace SpellWork.Spell
                 if (Scaling == null)
                     return 0.0f;
 
-                var level = DBC.DBC.SelectedLevel - 1;
+                var level = DBC.DBC.SelectedLevel;
 
                 if (BaseLevel != 0
                     && (AttributesEx11 & (uint)SpellAtributeEx11.SPELL_ATTR11_SCALES_WITH_ITEM_LEVEL) == 0
@@ -672,30 +678,14 @@ namespace SpellWork.Spell
                 float value = 0.0f;
                 if (level > 0)
                 {
-                    if (effect.ScalingClass == 0)
+                    if (Scaling.Class == 0)
                         return 0.0f;
 
-                    if (Scaling.ScalesFromItemLevel != 0 || (AttributesEx11 & (uint)SpellAtributeEx11.SPELL_ATTR11_SCALES_WITH_ITEM_LEVEL) != 0)
-                    {
-                        var effectiveItemLevel = (int)DBC.DBC.SelectedItemLevel;
-                        if (Scaling.ScalesFromItemLevel != 0)
-                            effectiveItemLevel = (ushort)Scaling.ScalesFromItemLevel;
+                    var gtScaling = GameTable<GtSpellScalingEntry>.GetRecord((int)level);
+                    Debug.Assert(gtScaling != null);
+                    value = gtScaling.GetColumnForClass(Scaling.Class);
 
-                        RandPropPointsEntry randPropPoints;
-                        if (!DBC.DBC.RandPropPoints.TryGetValue(effectiveItemLevel, out randPropPoints))
-                            randPropPoints = DBC.DBC.RandPropPoints.Last().Value;
-
-                        if (effect.ScalingClass == -8 || effect.ScalingClass == -9)
-                            value = effect.ScalingClass == -8 ? randPropPoints.DamageReplaceStatF : randPropPoints.DamageSecondaryF;
-                        else
-                            value = randPropPoints.SuperiorF[0];
-                    }
-                    else
-                    {
-                        var gtScaling = GameTable<GtSpellScalingEntry>.GetRecord((int)level);
-                        Debug.Assert(gtScaling != null);
-                        value = gtScaling.GetColumnForClass(effect.ScalingClass);
-                    }
+                    value *= GetSpellScalingMultiplier(level);
                 }
 
                 value *= effect.Coefficient;
@@ -707,23 +697,6 @@ namespace SpellWork.Spell
             else
             {
                 float value = effect.EffectBasePoints;
-                ExpectedStatType stat = ExpectedStat.GetTypeForSpellEffect(effect);
-                if (stat != ExpectedStatType.None)
-                {
-                    if ((Attributes & (uint)SpellAtribute.SPELL_ATTR0_SCALES_WITH_CREATURE_LEVEL) != 0)
-                        stat = ExpectedStatType.CreatureAutoAttackDps;
-
-                    var contentTuningId = ContentTuningID;
-                    if (DBC.DBC.SelectedMapDifficulty != null)
-                        contentTuningId = DBC.DBC.SelectedMapDifficulty.ContentTuningID;
-
-                    var expansion = -2;
-                    if (DBC.DBC.ContentTuning.TryGetValue(contentTuningId, out var contentTuning))
-                        expansion = contentTuning.ExpansionID;
-
-                    value = ExpectedStat.Evaluate(stat, DBC.DBC.SelectedLevel, expansion, contentTuningId, 0, Classes.CLASS_NONE) * value / 100.0f;
-                }
-
                 return (float)Math.Round(value);
             }
         }
@@ -742,30 +715,34 @@ namespace SpellWork.Spell
                 var delta = Math.Abs(baseValue * effect.Variance * 0.5f);
                 rtb.AppendFormat("BasePoints = {0:F} to {1:F}", baseValue - delta, baseValue + delta);
             }
+            else if (effect.EffectDieSides != 0)
+            {
+                if (effect.EffectDieSides == 1)
+                    rtb.AppendFormat("BasePoints = {0:F}", baseValue + effect.EffectDieSides);
+                else
+                    rtb.AppendFormat("BasePoints = {0:F} to {1:F}", baseValue + 1, baseValue + effect.EffectDieSides);
+            }
             else
                 rtb.AppendFormat("BasePoints = {0:F}", baseValue);
 
             var valuePerResource = 0.0f;
-            var usesExpectedStat = false;
             if (Math.Abs(effect.Coefficient) > 1.0E-5f)
             {
                 if (Math.Abs(effect.ResourceCoefficient) > 1.0E-5f)
                     valuePerResource = baseValue * effect.ResourceCoefficient;
 
             }
-            else if (ExpectedStat.GetTypeForSpellEffect(effect) == ExpectedStatType.None)
+            else
             {
                 valuePerResource = effect.EffectPointsPerResource;
                 if (Math.Abs(effect.EffectRealPointsPerLevel) > 1.0E-5f)
                     rtb.AppendFormat(" + Level * {0:F}", effect.EffectRealPointsPerLevel);
             }
-            else
-                usesExpectedStat = true;
 
             rtb.AppendFormatIfNotNull(" + resource * {0:F}", valuePerResource);
 
             if (effect.EffectBonusCoefficient > 1.0E-5f)
-                rtb.AppendFormat(" + spellPower * {0}", effect.EffectBonusCoefficient);
+                rtb.AppendFormat(" + spellPower * {0}", (effect.EffectBonusCoefficient * GetSpellScalingMultiplier(DBC.DBC.SelectedLevel)));
 
             if (effect.BonusCoefficientFromAP > 1.0E-5)
                 rtb.AppendFormat(" + AP * {0}", effect.BonusCoefficientFromAP);
@@ -774,14 +751,6 @@ namespace SpellWork.Spell
             //     rtb.AppendFormat(" x {0:F}", effect.DamageMultiplier);
 
             // rtb.AppendFormatIfNotNull("  Multiple = {0:F}", effect.ValueMultiplier);
-
-            if (usesExpectedStat && DBC.DBC.SelectedMapDifficulty != null)
-            {
-                rtb.SelectionColor = Color.MediumPurple;
-                rtb.AppendFormat(" ({2} - {0}: {1})", DBC.DBC.Map[(int)DBC.DBC.SelectedMapDifficulty.MapID].MapName,
-                    DBC.DBC.Difficulty[DBC.DBC.SelectedMapDifficulty.DifficultyID].Name,
-                    DBC.DBC.SelectedMapDifficulty.MapID);
-            }
 
             rtb.AppendLine();
 

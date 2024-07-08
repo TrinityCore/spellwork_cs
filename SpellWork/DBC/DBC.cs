@@ -19,17 +19,13 @@ namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string Version = "SpellWork 10.2.5 (52902)";
-        public const uint MaxLevel = 70;
-        public const uint MaxItemLevel = 1300;
+        public const string Version = "SpellWork 4.4.0 (55262)";
+        public const uint MaxLevel = 85;
+        public const uint MaxItemLevel = 416;
 
         public static Storage<AreaGroupMemberEntry>             AreaGroupMember { get; set; }
         public static Storage<AreaTableEntry>                   AreaTable { get; set; }
-        public static Storage<ContentTuningEntry>               ContentTuning { get; set; }
-        public static Storage<ContentTuningXExpectedEntry>      ContentTuningXExpected { get; set; }
         public static Storage<DifficultyEntry>                  Difficulty { get; set; }
-        public static Storage<ExpectedStatEntry>                ExpectedStat { get; set; }
-        public static Storage<ExpectedStatModEntry>             ExpectedStatMod { get; set; }
         public static Storage<MapEntry>                         Map { get; set; }
         public static Storage<MapDifficultyEntry>               MapDifficulty { get; set; }
         public static Storage<OverrideSpellDataEntry>           OverrideSpellData { get; set; }
@@ -220,16 +216,16 @@ namespace SpellWork.DBC
                         if (auraOptions.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(auraOptions.SpellID))
+                        if (!SpellInfoStore.ContainsKey((int)auraOptions.SpellID))
                         {
                             Console.WriteLine(
                                 $"SpellAuraOptions: Unknown spell {auraOptions.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[auraOptions.SpellID].AuraOptions = auraOptions;
+                        SpellInfoStore[(int)auraOptions.SpellID].AuraOptions = auraOptions;
                         if (auraOptions.SpellProcsPerMinuteID != 0)
-                            SpellInfoStore[auraOptions.SpellID].ProcsPerMinute = spellProcsPerMinutes[auraOptions.SpellProcsPerMinuteID];
+                            SpellInfoStore[(int)auraOptions.SpellID].ProcsPerMinute = spellProcsPerMinutes[auraOptions.SpellProcsPerMinuteID];
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -241,14 +237,14 @@ namespace SpellWork.DBC
                         if (auraRestrictions.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(auraRestrictions.SpellID))
+                        if (!SpellInfoStore.ContainsKey((int)auraRestrictions.SpellID))
                         {
                             Console.WriteLine(
                                 $"SpellAuraRestrictions: Unknown spell {auraRestrictions.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[auraRestrictions.SpellID].AuraRestrictions = auraRestrictions;
+                        SpellInfoStore[(int)auraRestrictions.SpellID].AuraRestrictions = auraRestrictions;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -380,13 +376,13 @@ namespace SpellWork.DBC
                         if (levels.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(levels.SpellID))
+                        if (!SpellInfoStore.ContainsKey((int)levels.SpellID))
                         {
                             Console.WriteLine($"SpellLevels: Unknown spell {levels.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[levels.SpellID].Levels = levels;
+                        SpellInfoStore[(int)levels.SpellID].Levels = levels;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -488,19 +484,14 @@ namespace SpellWork.DBC
                 {
                     var itemEffects = CreateInstance<Storage<ItemEffectEntry>>("ItemEffect", hotfixReader);
                     var itemSparses = CreateInstance<Storage<ItemSparseEntry>>("ItemSparse", hotfixReader);
-                    var itemXItemEffects = CreateInstance<Storage<ItemXItemEffectEntry>>("ItemXItemEffect", hotfixReader);
 
-                    foreach (var itemXItemEffect in itemXItemEffects.Values)
+                    foreach (var itemEffect in itemEffects.Values)
                     {
-                        itemEffects.TryGetValue(itemXItemEffect.ItemEffectID, out var itemEffect);
-                        if (itemEffect == null)
-                            continue;
-
                         if (!SpellInfoStore.ContainsKey(itemEffect.SpellID))
                             continue;
 
-                        itemEffect.ItemID = itemXItemEffect.ItemID;
-                        if (itemSparses.TryGetValue(itemXItemEffect.ItemID, out var item))
+                        itemEffect.ItemID = (int)itemEffect.ParentItemID;
+                        if (itemSparses.TryGetValue(itemEffect.ItemID, out var item))
                             itemEffect.Item = item;
 
                         SpellInfoStore[itemEffect.SpellID].ItemEffects.Add(itemEffect);
@@ -545,7 +536,7 @@ namespace SpellWork.DBC
         }
 
         public static uint SelectedLevel = MaxLevel;
-        public static uint SelectedItemLevel = 475;
+        public static uint SelectedItemLevel = 416;
         public static MapDifficultyEntry SelectedMapDifficulty;
     }
 }

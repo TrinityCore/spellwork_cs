@@ -14,7 +14,6 @@ namespace SpellWork.DBC.Structures
         public int AltPowerBarID;
         public float PowerCostPct;
         public float PowerCostMaxPct;
-        public float OptionalCostPct;
         public float PowerPctPerSecond;
         public sbyte PowerType;
         public int RequiredAuraSpellID;

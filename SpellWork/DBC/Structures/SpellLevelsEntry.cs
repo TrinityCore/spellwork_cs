@@ -1,4 +1,5 @@
 ﻿using DBFileReaderLib.Attributes;
+using System;
 
 namespace SpellWork.DBC.Structures
 {
@@ -7,10 +8,10 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public byte DifficultyID;
+        public short BaseLevel;
         public short MaxLevel;
+        public short SpellLevel;
         public byte MaxPassiveAuraLevel;
-        public int BaseLevel;
-        public int SpellLevel;
-        public int SpellID;
+        public uint SpellID;
     }
 }

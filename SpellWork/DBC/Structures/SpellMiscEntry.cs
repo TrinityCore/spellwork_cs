@@ -20,8 +20,6 @@ namespace SpellWork.DBC.Structures
         public int ActiveIconFileDataID;
         public int ContentTuningID;
         public int ShowFutureSpellPlayerConditionID;
-        public int SpellVisualScript;
-        public int ActiveSpellVisualScript;
         public int SpellID;
     }
 }

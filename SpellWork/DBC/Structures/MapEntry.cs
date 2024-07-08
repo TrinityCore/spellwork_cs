@@ -13,8 +13,6 @@ namespace SpellWork.DBC.Structures
         public string MapDescription1;
         public string PvpShortDescription;
         public string PvpLongDescription;
-        [Cardinality(2)]
-        public float[] Corpse = new float[2];
         public byte MapType;
         public sbyte InstanceType;
         public byte ExpansionID;
@@ -25,14 +23,13 @@ namespace SpellWork.DBC.Structures
         public short CosmeticParentMapID;
         public byte TimeOffset;
         public float MinimapIconScale;
+        public int RaidOffset;
         public short CorpseMapID;
         public byte MaxPlayers;
         public short WindSettingsID;
         public int ZmpFileDataID;
-        public int WdtFileDataID;
-        public int NavigationMaxDistance;
         [Cardinality(3)]
-        public uint[] Flags = new uint[3];
+        public int[] Flags = new int[3];
 
         public int CompareTo(object obj)
         {

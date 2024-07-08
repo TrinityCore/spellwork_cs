@@ -203,8 +203,8 @@ namespace SpellWork.Database
                             spellInfo.Levels = new SpellLevelsEntry()
                             {
                                 MaxLevel = (short)reader.GetUInt32(49),
-                                BaseLevel = (int)reader.GetUInt32(50),
-                                SpellLevel = (int)reader.GetUInt32(51)
+                                BaseLevel = (short)reader.GetUInt32(50),
+                                SpellLevel = (short)reader.GetUInt32(51)
                             };
 
                             spellInfo.Misc = new SpellMiscEntry()
@@ -321,7 +321,7 @@ namespace SpellWork.Database
                                 Variance = reader.GetFloat(20),
                                 ResourceCoefficient = reader.GetFloat(21),
                                 GroupSizeBasePointsCoefficient = reader.GetFloat(22),
-                                EffectBasePoints = reader.GetFloat(23),
+                                EffectBasePoints = (int)reader.GetFloat(23),
                                 EffectMiscValue = new[]
                                 {
                                     reader.GetInt32(24),

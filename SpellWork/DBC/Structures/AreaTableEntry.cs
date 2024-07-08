@@ -17,16 +17,16 @@ namespace SpellWork.DBC.Structures
         public ushort UwAmbience;
         public ushort ZoneMusic;
         public ushort UwZoneMusic;
+        public sbyte ExplorationLevel;
         public ushort IntroSound;
         public uint UwIntroSound;
         public byte FactionGroupMask;
         public float AmbientMultiplier;
-        public byte MountFlags;
+        public int MountFlags;
         public short PvpCombatWorldStateID;
         public byte WildBattlePetLevelMin;
         public byte WildBattlePetLevelMax;
         public byte WindSettingsID;
-        public int ContentTuningID;
         [Cardinality(2)]
         public int[] Flags = new int[2];
         [Cardinality(4)]

@@ -1,4 +1,5 @@
 ﻿using DBFileReaderLib.Attributes;
+using System;
 
 namespace SpellWork.DBC.Structures
 {
@@ -7,6 +8,7 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public int Duration;
+        public uint DurationPerLevel;
         public int MaxDuration;
     }
 }

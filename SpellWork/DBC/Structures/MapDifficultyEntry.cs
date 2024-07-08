@@ -8,15 +8,15 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public string Message;
-        public int DifficultyID;
-        public int LockID;
-        public sbyte ResetInterval;
-        public int MaxPlayers;
-        public int ItemContext;
-        public int ItemContextPickerID;
-        public int Flags;
+        public uint ItemContextPickerID;
         public int ContentTuningID;
-        public int MapID;
+        public int ItemContext;
+        public byte DifficultyID;
+        public byte LockID;
+        public byte ResetInterval;
+        public byte MaxPlayers;
+        public byte Flags;
+        public uint MapID;
 
         public int CompareTo(object obj)
         {

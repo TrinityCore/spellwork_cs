@@ -7,6 +7,6 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public ushort AreaID;
-        public ushort AreaGroupID;
+        public uint AreaGroupID;
     }
 }

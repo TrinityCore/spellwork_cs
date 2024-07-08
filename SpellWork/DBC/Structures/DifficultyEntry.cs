@@ -13,7 +13,7 @@ namespace SpellWork.DBC.Structures
         public byte FallbackDifficultyID;
         public byte MinPlayers;
         public byte MaxPlayers;
-        public ushort Flags;
+        public byte Flags;
         public byte ItemContext;
         public byte ToggleDifficultyID;
         public ushort GroupSizeHealthCurveID;
