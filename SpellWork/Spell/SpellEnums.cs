@@ -276,7 +276,7 @@ namespace SpellWork.Spell
         SPELL_EFFECT_REMOVE_TALENT                      = 181,
         SPELL_EFFECT_DESPAWN_AREATRIGGER                = 182,
         SPELL_EFFECT_183                                = 183,
-        SPELL_EFFECT_REPUTATION_2                       = 184, // NYI
+        SPELL_EFFECT_REPUTATION_2                       = 184,
         SPELL_EFFECT_185                                = 185,
         SPELL_EFFECT_186                                = 186,
         SPELL_EFFECT_RANDOMIZE_ARCHAEOLOGY_DIGSITES     = 187, // NYI
@@ -408,6 +408,21 @@ namespace SpellWork.Spell
         SPELL_EFFECT_CHANGE_ITEM_BONUSES_2              = 313, // MiscValue[0] = ItemBonusTreeID to preserve
         SPELL_EFFECT_ADD_SOCKET_BONUS                   = 314, // MiscValue[0] = required ItemBonusTreeID
         SPELL_EFFECT_LEARN_TRANSMOG_APPEARANCE_FROM_ITEM_MOD_APPEARANCE_GROUP = 315, // MiscValue[0] = ItemModAppearanceGroupID (not in db2)
+        SPELL_EFFECT_316                                = 316,
+        SPELL_EFFECT_317                                = 317,
+        SPELL_EFFECT_318                                = 318,
+        SPELL_EFFECT_319                                = 319,
+        SPELL_EFFECT_320                                = 320,
+        SPELL_EFFECT_321                                = 321,
+        SPELL_EFFECT_322                                = 322,
+        SPELL_EFFECT_323                                = 323,
+        SPELL_EFFECT_324                                = 324,
+        SPELL_EFFECT_325                                = 325,
+        SPELL_EFFECT_326                                = 326,
+        SPELL_EFFECT_PULL                               = 327,
+        SPELL_EFFECT_ADD_COMBO_POINTS                   = 328,
+        SPELL_EFFECT_RESURRECT_NEW                      = 329,
+        SPELL_EFFECT_ACTIVATE_RUNE                      = 330,
         TOTAL_SPELL_EFFECTS
     };
 
@@ -489,7 +504,7 @@ namespace SpellWork.Spell
         SPELL_AURA_PERIODIC_WEAPON_PERCENT_DAMAGE               = 70,
         SPELL_AURA_STORE_TELEPORT_RETURN_POINT                  = 71,
         SPELL_AURA_MOD_POWER_COST_SCHOOL_PCT                    = 72,
-        SPELL_AURA_MOD_POWER_COST_SCHOOL                        = 73,
+        SPELL_AURA_MOD_BASE_POWER_COST_SCHOOL                   = 73,
         SPELL_AURA_REFLECT_SPELLS_SCHOOL                        = 74,
         SPELL_AURA_MOD_LANGUAGE                                 = 75,
         SPELL_AURA_FAR_SIGHT                                    = 76,
@@ -541,7 +556,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_OFFHAND_DAMAGE_PCT                       = 122,
         SPELL_AURA_MOD_TARGET_RESISTANCE                        = 123,
         SPELL_AURA_MOD_RANGED_ATTACK_POWER                      = 124,
-        SPELL_AURA_MOD_MELEE_DAMAGE_TAKEN                       = 125,
+        SPELL_AURA_125                                          = 125,
         SPELL_AURA_MOD_MELEE_DAMAGE_TAKEN_PCT                   = 126,
         SPELL_AURA_RANGED_ATTACK_POWER_ATTACKER_BONUS           = 127,
         SPELL_AURA_MOD_FIXATE                                   = 128,
@@ -566,14 +581,14 @@ namespace SpellWork.Spell
         SPELL_AURA_MECHANIC_IMMUNITY_MASK                       = 147,
         SPELL_AURA_MOD_CHARGE_RECOVERY_RATE                     = 148,  // NYI
         SPELL_AURA_REDUCE_PUSHBACK                              = 149,  //    Reduce Pushback
-        SPELL_AURA_MOD_SHIELD_BLOCKVALUE_PCT                    = 150,
+        SPELL_AURA_MOD_BLOCKVALUE_PCT                           = 150,  // NYI
         SPELL_AURA_TRACK_STEALTHED                              = 151,  //    Track Stealthed
         SPELL_AURA_MOD_DETECTED_RANGE                           = 152,  //    Mod Detected Range
         SPELL_AURA_MOD_AUTOATTACK_RANGE                         = 153,
         SPELL_AURA_MOD_STEALTH_LEVEL                            = 154,  //    Stealth Level Modifier
         SPELL_AURA_MOD_WATER_BREATHING                          = 155,  //    Mod Water Breathing
         SPELL_AURA_MOD_REPUTATION_GAIN                          = 156,  //    Mod Reputation Gain
-        SPELL_AURA_PET_DAMAGE_MULTI                             = 157,  //    Mod Pet Damage
+        SPELL_AURA_MOD_PET_DAMAGE_TAKEN_PCT                     = 157,  // NYI
         SPELL_AURA_ALLOW_TALENT_SWAPPING                        = 158,
         SPELL_AURA_NO_PVP_CREDIT                                = 159,
         SPELL_AURA_160                                          = 160,  // old SPELL_AURA_MOD_AOE_AVOIDANCE. Unused 4.3.4
@@ -581,7 +596,7 @@ namespace SpellWork.Spell
         SPELL_AURA_POWER_BURN                                   = 162,
         SPELL_AURA_MOD_CRIT_DAMAGE_BONUS                        = 163,
         SPELL_AURA_FORCE_BREATH_BAR                             = 164,
-        SPELL_AURA_MELEE_ATTACK_POWER_ATTACKER_BONUS            = 165,
+        SPELL_AURA_165                                          = 165,
         SPELL_AURA_MOD_ATTACK_POWER_PCT                         = 166,
         SPELL_AURA_MOD_RANGED_ATTACK_POWER_PCT                  = 167,
         SPELL_AURA_MOD_DAMAGE_DONE_VERSUS                       = 168,
@@ -604,7 +619,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_ATTACKER_RANGED_HIT_CHANCE               = 185,
         SPELL_AURA_MOD_ATTACKER_SPELL_HIT_CHANCE                = 186,
         SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_CHANCE               = 187,
-        SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_CHANCE              = 188,
+        SPELL_AURA_MOD_UI_HEALING_RANGE                         = 188,
         SPELL_AURA_MOD_RATING                                   = 189,
         SPELL_AURA_MOD_FACTION_REPUTATION_GAIN                  = 190,
         SPELL_AURA_USE_NORMAL_MOVEMENT_SPEED                    = 191,
@@ -628,7 +643,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_MOUNTED_FLIGHT_SPEED_ALWAYS              = 209,
         SPELL_AURA_MOD_VEHICLE_SPEED_ALWAYS                     = 210,
         SPELL_AURA_MOD_FLIGHT_SPEED_NOT_STACK                   = 211,
-        SPELL_AURA_MOD_HONOR_GAIN_PCT                           = 212,
+        SPELL_AURA_MOD_SOURCE_HONOR_GAIN_PCT                    = 212, // MiscvalueA is a bitmask that defines which source of honor is affected
         SPELL_AURA_MOD_RAGE_FROM_DAMAGE_DEALT                   = 213,
         SPELL_AURA_214                                          = 214,
         SPELL_AURA_ARENA_PREPARATION                            = 215,
@@ -655,7 +670,7 @@ namespace SpellWork.Spell
         SPELL_AURA_CONTROL_VEHICLE                              = 236,
         SPELL_AURA_237                                          = 237,
         SPELL_AURA_238                                          = 238,
-        SPELL_AURA_MOD_SCALE_2                                  = 239,
+        SPELL_AURA_239                                          = 239, // old SPELL_AURA_MOD_SCALE_2
         SPELL_AURA_MOD_EXPERTISE                                = 240,
         SPELL_AURA_FORCE_MOVE_FORWARD                           = 241,
         SPELL_AURA_MOD_SPELL_DAMAGE_FROM_HEALING                = 242,
@@ -664,8 +679,8 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_AURA_DURATION_BY_DISPEL                  = 245,
         SPELL_AURA_MOD_AURA_DURATION_BY_DISPEL_NOT_STACK        = 246,
         SPELL_AURA_CLONE_CASTER                                 = 247,
-        SPELL_AURA_MOD_COMBAT_RESULT_CHANCE                     = 248,
-        SPELL_AURA_MOD_DAMAGE_PERCENT_DONE_BY_TARGET_AURA_MECHANIC = 249, // NYI
+        SPELL_AURA_248                                          = 248,
+        SPELL_AURA_MOD_DAMAGE_PERCENT_DONE_BY_TARGET_AURA_MECHANIC = 249,
         SPELL_AURA_MOD_INCREASE_HEALTH_2                        = 250,
         SPELL_AURA_MOD_ENEMY_DODGE                              = 251,
         SPELL_AURA_MOD_SPEED_SLOW_ALL                           = 252,
@@ -673,7 +688,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_DISARM_OFFHAND                           = 254,
         SPELL_AURA_MOD_MECHANIC_DAMAGE_TAKEN_PERCENT            = 255,
         SPELL_AURA_NO_REAGENT_USE                               = 256,
-        SPELL_AURA_MOD_TARGET_RESIST_BY_SPELL_CLASS             = 257,
+        SPELL_AURA_257                                          = 257,
         SPELL_AURA_OVERRIDE_SUMMONED_OBJECT                     = 258,
         SPELL_AURA_MOD_HOT_PCT                                  = 259,
         SPELL_AURA_SCREEN_EFFECT                                = 260,
@@ -685,7 +700,7 @@ namespace SpellWork.Spell
         SPELL_AURA_SET_VIGNETTE                                 = 266,  // NYI
         SPELL_AURA_MOD_IMMUNE_AURA_APPLY_SCHOOL                 = 267,
         SPELL_AURA_MOD_ARMOR_PCT_FROM_STAT                      = 268,
-        SPELL_AURA_MOD_IGNORE_TARGET_RESIST                     = 269,
+        SPELL_AURA_269                                          = 269,
         SPELL_AURA_MOD_SCHOOL_MASK_DAMAGE_FROM_CASTER           = 270,
         SPELL_AURA_MOD_SPELL_DAMAGE_FROM_CASTER                 = 271,
         SPELL_AURA_MOD_BLOCK_VALUE_PCT                          = 272,  // NYI
@@ -698,7 +713,7 @@ namespace SpellWork.Spell
         SPELL_AURA_INITIALIZE_IMAGES                            = 279,
         SPELL_AURA_280                                          = 280,  // old SPELL_AURA_MOD_ARMOR_PENETRATION_PCT unused 4.3.4
         SPELL_AURA_PROVIDE_SPELL_FOCUS                          = 281,
-        SPELL_AURA_MOD_BASE_HEALTH_PCT                          = 282,
+        SPELL_AURA_282                                          = 282,
         SPELL_AURA_MOD_HEALING_RECEIVED                         = 283,  // Possibly only for some spell family class spells
         SPELL_AURA_LINKED                                       = 284,
         SPELL_AURA_LINKED_2                                     = 285,
@@ -753,7 +768,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_AUTOATTACK_CRIT_CHANCE                   = 334,
         SPELL_AURA_335                                          = 335,
         SPELL_AURA_MOUNT_RESTRICTIONS                           = 336,
-        SPELL_AURA_MOD_VENDOR_ITEMS_PRICES                      = 337,
+        SPELL_AURA_337                                          = 337,
         SPELL_AURA_MOD_DURABILITY_LOSS                          = 338,
         SPELL_AURA_MOD_CRIT_CHANCE_FOR_CASTER_PET               = 339,
         SPELL_AURA_MOD_RESURRECTED_HEALTH_BY_GUILD_MEMBER       = 340,  // Increases health gained when resurrected by a guild member by X
@@ -767,7 +782,7 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_MONEY_GAIN                               = 348,  // Modifies gold gains from source: [Misc = 0, Quests][Misc = 1, Loot]
         SPELL_AURA_MOD_CURRENCY_GAIN                            = 349,
         SPELL_AURA_350                                          = 350,
-        SPELL_AURA_MOD_CURRENCY_CATEGORY_GAIN_PCT               = 351,  // NYI
+        SPELL_AURA_MOD_CURRENCY_CATEGORY_GAIN_PCT               = 351,
         SPELL_AURA_352                                          = 352,
         SPELL_AURA_MOD_CAMOUFLAGE                               = 353,  // NYI
         SPELL_AURA_MOD_HEALING_DONE_PCT_VERSUS_TARGET_HEALTH    = 354,  // Restoration Shaman mastery - mod healing based on target's health (less = more healing)
@@ -799,7 +814,7 @@ namespace SpellWork.Spell
         SPELL_AURA_380                                          = 380,
         SPELL_AURA_MOD_DAMAGE_TAKEN_FROM_CASTER_PET             = 381,  // NYI
         SPELL_AURA_MOD_PET_STAT_PCT                             = 382,  // NYI
-        SPELL_AURA_IGNORE_SPELL_COOLDOWN                        = 383,  // NYI
+        SPELL_AURA_IGNORE_SPELL_COOLDOWN                        = 383,
         SPELL_AURA_384                                          = 384,
         SPELL_AURA_385                                          = 385,
         SPELL_AURA_386                                          = 386,
@@ -822,7 +837,7 @@ namespace SpellWork.Spell
         SPELL_AURA_OVERRIDE_SPELL_VISUAL                        = 403,
         SPELL_AURA_OVERRIDE_ATTACK_POWER_BY_SP_PCT              = 404,
         SPELL_AURA_MOD_RATING_PCT                               = 405,
-        SPELL_AURA_KEYBOUND_OVERRIDE                            = 406,  // NYI
+        SPELL_AURA_KEYBOUND_OVERRIDE                            = 406,
         SPELL_AURA_MOD_FEAR_2                                   = 407,  // NYI
         SPELL_AURA_SET_ACTION_BUTTON_SPELL_COUNT                = 408,
         SPELL_AURA_CAN_TURN_WHILE_FALLING                       = 409,
@@ -926,26 +941,26 @@ namespace SpellWork.Spell
         SPELL_AURA_MOD_DAMAGE_TAKEN_FROM_CASTER_BY_LABEL        = 507,
         SPELL_AURA_508                                          = 508,
         SPELL_AURA_509                                          = 509,
-        SPELL_AURA_MODIFIED_RAID_INSTANCE                       = 510, // Related to "Fated" raid affixes
-        SPELL_AURA_APPLY_PROFESSION_EFFECT                      = 511, // MiscValue[0] = ProfessionEffectID
-        SPELL_AURA_512                                          = 512,
+        SPELL_AURA_MODIFIED_RAID_INSTANCE                       = 510, // NYI; Related to "Fated" raid affixes
+        SPELL_AURA_APPLY_PROFESSION_EFFECT                      = 511, // NYI; MiscValue[0] = ProfessionEffectID
+        SPELL_AURA_CONVERT_RUNE                                 = 512,
         SPELL_AURA_513                                          = 513,
         SPELL_AURA_514                                          = 514,
         SPELL_AURA_515                                          = 515,
         SPELL_AURA_516                                          = 516,
         SPELL_AURA_517                                          = 517,
         SPELL_AURA_518                                          = 518,
-        SPELL_AURA_MOD_COOLDOWN_RECOVERY_RATE_ALL               = 519, // applies to all spells, not filtered by familyflags or label
+        SPELL_AURA_MOD_COOLDOWN_RECOVERY_RATE_ALL               = 519, // NYI; applies to all spells, not filtered by familyflags or label
         SPELL_AURA_520                                          = 520,
         SPELL_AURA_521                                          = 521,
         SPELL_AURA_522                                          = 522,
         SPELL_AURA_523                                          = 523,
         SPELL_AURA_524                                          = 524,
-        SPELL_AURA_DISPLAY_PROFESSION_EQUIPMENT                 = 525, // MiscValue[0] = Profession (enum, not id)
+        SPELL_AURA_DISPLAY_PROFESSION_EQUIPMENT                 = 525, // NYI; MiscValue[0] = Profession (enum, not id)
         SPELL_AURA_526                                          = 526,
         SPELL_AURA_527                                          = 527,
-        SPELL_AURA_ALLOW_BLOCKING_SPELLS                        = 528,
-        SPELL_AURA_MOD_SPELL_BLOCK_CHANCE                       = 529,
+        SPELL_AURA_ALLOW_BLOCKING_SPELLS                        = 528, // NYI
+        SPELL_AURA_MOD_SPELL_BLOCK_CHANCE                       = 529, // NYI
         SPELL_AURA_530                                          = 530,
         SPELL_AURA_531                                          = 531,
         SPELL_AURA_532                                          = 532,
@@ -958,6 +973,89 @@ namespace SpellWork.Spell
         SPELL_AURA_ALLOW_MOUNT_IN_COMBAT                        = 539,
         SPELL_AURA_MOD_SUPPORT_STAT                             = 540, // NYI
         SPELL_AURA_MOD_REQUIRED_MOUNT_CAPABILITY_FLAGS          = 541,
+        SPELL_AURA_542                                          = 542,
+        SPELL_AURA_543                                          = 543,
+        SPELL_AURA_544                                          = 544,
+        SPELL_AURA_545                                          = 545,
+        SPELL_AURA_546                                          = 546,
+        SPELL_AURA_547                                          = 547,
+        SPELL_AURA_MOD_RUNE_REGEN_SPEED                         = 548,
+        SPELL_AURA_549                                          = 549, // formerly SPELL_AURA_46 - Ignore all gear test spells
+        SPELL_AURA_550                                          = 550,
+        SPELL_AURA_EXTRA_ATTACKS                                = 551, // NYI
+        SPELL_AURA_MOD_SPELL_CRIT_CHANCE_SCHOOL                 = 552,
+        SPELL_AURA_MOD_POWER_COST_SCHOOL                        = 553,
+        SPELL_AURA_554                                          = 554,
+        SPELL_AURA_555                                          = 555,
+        SPELL_AURA_MOD_MELEE_DAMAGE_TAKEN                       = 556,
+        SPELL_AURA_557                                          = 557,
+        SPELL_AURA_MOD_RESISTANCE_EXCLUSIVE                     = 558, // NYI
+        SPELL_AURA_MOD_PET_TALENT_POINTS                        = 559, // NYI
+        SPELL_AURA_RETAIN_COMBO_POINTS                          = 560, // NYI
+        SPELL_AURA_MOD_SHIELD_BLOCKVALUE_PCT                    = 561,
+        SPELL_AURA_562                                          = 562,
+        SPELL_AURA_PET_DAMAGE_MULTI                             = 563, // NYI
+        SPELL_AURA_MOD_SHIELD_BLOCKVALUE                        = 564,
+        SPELL_AURA_565                                          = 565,
+        SPELL_AURA_MELEE_ATTACK_POWER_ATTACKER_BONUS            = 566, // old SPELL_AURA_165 in 4.3.4.15595
+        SPELL_AURA_567                                          = 567,
+        SPELL_AURA_568                                          = 568,
+        SPELL_AURA_MOD_ATTACKER_SPELL_CRIT_CHANCE               = 569, // NYI
+        SPELL_AURA_570                                          = 570,
+        SPELL_AURA_MOD_RESISTANCE_OF_STAT_PERCENT               = 571, // NYI
+        SPELL_AURA_MOD_CRITICAL_THREAT                          = 572, // NYI
+        SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_CHANCE              = 573, // NYI
+        SPELL_AURA_MOD_TARGET_ABILITY_ABSORB_SCHOOL             = 574, // NYI
+        SPELL_AURA_575                                          = 575,
+        SPELL_AURA_576                                          = 576,
+        SPELL_AURA_MOD_ATTACKER_MELEE_CRIT_DAMAGE               = 577, // NYI
+        SPELL_AURA_MOD_ATTACKER_RANGED_CRIT_DAMAGE              = 578, // NYI
+        SPELL_AURA_MOD_SCHOOL_CRIT_DMG_TAKEN                    = 579, // NYI
+        SPELL_AURA_580                                          = 580,
+        SPELL_AURA_581                                          = 581,
+        SPELL_AURA_582                                          = 582,
+        SPELL_AURA_MOD_RATING_FROM_STAT                         = 583, // NYI
+        SPELL_AURA_584                                          = 584, // old SPELL_AURA_222 in 4.3.4.15595
+        SPELL_AURA_RAID_PROC_FROM_CHARGE                        = 585, // NYI
+        SPELL_AURA_586                                          = 586,
+        SPELL_AURA_587                                          = 587,
+        SPELL_AURA_MOD_DISPEL_RESIST                            = 588, // NYI
+        SPELL_AURA_MOD_SPELL_DAMAGE_OF_ATTACK_POWER             = 589, // NYI
+        SPELL_AURA_MOD_SPELL_HEALING_OF_ATTACK_POWER            = 590, // NYI
+        SPELL_AURA_MOD_SCALE_2                                  = 591,
+        SPELL_AURA_592                                          = 592,
+        SPELL_AURA_MOD_COMBAT_RESULT_CHANCE                     = 593,
+        SPELL_AURA_MOD_TARGET_RESIST_BY_SPELL_CLASS             = 594,
+        SPELL_AURA_595                                          = 595, // old SPELL_AURA_258 in 4.3.4.15595
+        SPELL_AURA_596                                          = 596,
+        SPELL_AURA_597                                          = 597,
+        SPELL_AURA_598                                          = 598,
+        SPELL_AURA_MOD_IGNORE_TARGET_RESIST                     = 599,
+        SPELL_AURA_600                                          = 600,
+        SPELL_AURA_IGNORE_MELEE_RESET                           = 601, // NYI
+        SPELL_AURA_602                                          = 602,
+        SPELL_AURA_603                                          = 603,
+        SPELL_AURA_MOD_HONOR_GAIN_PCT                           = 604,
+        SPELL_AURA_605                                          = 605,
+        SPELL_AURA_MOD_BASE_HEALTH_PCT                          = 606,
+        SPELL_AURA_MOD_ATTACK_POWER_OF_ARMOR                    = 607, // NYI
+        SPELL_AURA_ABILITY_PERIODIC_CRIT                        = 608, // NYI
+        SPELL_AURA_609                                          = 609,
+        SPELL_AURA_610                                          = 610,
+        SPELL_AURA_611                                          = 611,
+        SPELL_AURA_612                                          = 612,
+        SPELL_AURA_613                                          = 613,
+        SPELL_AURA_614                                          = 614,
+        SPELL_AURA_MOD_RANGED_HASTE_2                           = 615, // NYI
+        SPELL_AURA_616                                          = 616,
+        SPELL_AURA_617                                          = 617, // old SPELL_AURA_324 in 4.3.4.15595 - crit chance related
+        SPELL_AURA_618                                          = 618,
+        SPELL_AURA_MOD_BLIND                                    = 619, // NYI
+        SPELL_AURA_MOD_VENDOR_ITEMS_PRICES                      = 620,
+        SPELL_AURA_INCREASE_SKILL_GAIN_CHANCE                   = 621, // NYI
+        SPELL_AURA_622                                          = 622,
+        SPELL_AURA_MOD_GATHERING_ITEMS_GAINED_PERCENT           = 623, // NYI
+        SPELL_AURA_MOD_DAMAGE_FROM_MANA                         = 624, // NYI
         TOTAL_AURAS
     }
 
