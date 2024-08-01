@@ -115,12 +115,13 @@ namespace SpellWork.DBC
                 () =>
                 {
                     var spellMiscs = CreateInstance<Storage<SpellMiscEntry>>("SpellMisc", hotfixReader);
-                    foreach (var spellMisc in spellMiscs.Values.Where(misc => SpellInfoStore.ContainsKey(misc.SpellID)))
+                    foreach (var spellMisc in spellMiscs.Values)
                     {
                         if (spellMisc.DifficultyID != 0)
                             continue;
 
-                        var spell = SpellInfoStore[spellMisc.SpellID];
+                        if (!SpellInfoStore.TryGetValue(spellMisc.SpellID, out var spell))
+                            continue;
 
                         spell.Misc = spellMisc;
 
@@ -137,14 +138,14 @@ namespace SpellWork.DBC
                     var spellEffects = CreateInstance<Storage<SpellEffectEntry>>("SpellEffect", hotfixReader);
                     foreach (var effect in spellEffects.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(effect.SpellID))
+                        if (!SpellInfoStore.TryGetValue(effect.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"Spell effect {effect.ID} is referencing unknown spell {effect.SpellID}, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[effect.SpellID].SpellEffectInfoStore.Add(new SpellEffectInfo(effect)); // Helper
+                        spellInfo.SpellEffectInfoStore.Add(new SpellEffectInfo(effect)); // Helper
 
                         var triggerId = effect.EffectTriggerSpell;
                         if (triggerId == 0)
@@ -165,14 +166,14 @@ namespace SpellWork.DBC
                         if (spellTargetRestriction.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(spellTargetRestriction.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellTargetRestriction.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellTargetRestrictions: Unknown spell {spellTargetRestriction.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellTargetRestriction.SpellID].TargetRestrictions = spellTargetRestriction;
+                        spellInfo.TargetRestrictions = spellTargetRestriction;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -184,14 +185,14 @@ namespace SpellWork.DBC
                         if (spellXSpellVisual.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(spellXSpellVisual.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellXSpellVisual.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellXSpellVisual: Unknown spell {spellXSpellVisual.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellXSpellVisual.SpellID].SpellXSpellVisual = spellXSpellVisual;
+                        spellInfo.SpellXSpellVisual = spellXSpellVisual;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -200,14 +201,14 @@ namespace SpellWork.DBC
                     var spellScalings = CreateInstance<Storage<SpellScalingEntry>>("SpellScaling", hotfixReader);
                     foreach (var spellScaling in spellScalings.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(spellScaling.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellScaling.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellScaling: Unknown spell {spellScaling.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellScaling.SpellID].Scaling = spellScaling;
+                        spellInfo.Scaling = spellScaling;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -220,14 +221,14 @@ namespace SpellWork.DBC
                         if (auraOptions.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(auraOptions.SpellID))
+                        if (!SpellInfoStore.TryGetValue(auraOptions.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellAuraOptions: Unknown spell {auraOptions.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[auraOptions.SpellID].AuraOptions = auraOptions;
+                        spellInfo.AuraOptions = auraOptions;
                         if (auraOptions.SpellProcsPerMinuteID != 0)
                             SpellInfoStore[auraOptions.SpellID].ProcsPerMinute = spellProcsPerMinutes[auraOptions.SpellProcsPerMinuteID];
                     }
@@ -241,14 +242,14 @@ namespace SpellWork.DBC
                         if (auraRestrictions.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(auraRestrictions.SpellID))
+                        if (!SpellInfoStore.TryGetValue(auraRestrictions.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellAuraRestrictions: Unknown spell {auraRestrictions.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[auraRestrictions.SpellID].AuraRestrictions = auraRestrictions;
+                        spellInfo.AuraRestrictions = auraRestrictions;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -260,14 +261,14 @@ namespace SpellWork.DBC
                         if (categories.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(categories.SpellID))
+                        if (!SpellInfoStore.TryGetValue(categories.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellCategories: Unknown spell {categories.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[categories.SpellID].Categories = categories;
+                        spellInfo.Categories = categories;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -276,14 +277,14 @@ namespace SpellWork.DBC
                     var spellCastingRequirements = CreateInstance<Storage<SpellCastingRequirementsEntry>>("SpellCastingRequirements", hotfixReader);
                     foreach (var castingRequirements in spellCastingRequirements.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(castingRequirements.SpellID))
+                        if (!SpellInfoStore.TryGetValue(castingRequirements.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellCastingRequirements: Unknown spell {castingRequirements.SpellID} referenced, ignoring!");
                             return;
                         }
 
-                        SpellInfoStore[castingRequirements.SpellID].CastingRequirements = castingRequirements;
+                        spellInfo.CastingRequirements = castingRequirements;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -292,14 +293,14 @@ namespace SpellWork.DBC
                     var spellClassOptions = CreateInstance<Storage<SpellClassOptionsEntry>>("SpellClassOptions", hotfixReader);
                     foreach (var classOptions in spellClassOptions.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(classOptions.SpellID))
+                        if (!SpellInfoStore.TryGetValue(classOptions.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellClassOptions: Unknown spell {classOptions.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[classOptions.SpellID].ClassOptions = classOptions;
+                        spellInfo.ClassOptions = classOptions;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -311,14 +312,14 @@ namespace SpellWork.DBC
                         if (cooldowns.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(cooldowns.SpellID))
+                        if (!SpellInfoStore.TryGetValue(cooldowns.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellCooldowns: Unknown spell {cooldowns.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[cooldowns.SpellID].Cooldowns = cooldowns;
+                        spellInfo.Cooldowns = cooldowns;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -330,14 +331,14 @@ namespace SpellWork.DBC
                         if (interrupt.Value.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(interrupt.Value.SpellID))
+                        if (!SpellInfoStore.TryGetValue(interrupt.Value.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellInterrupts: Unknown spell {interrupt.Value.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[interrupt.Value.SpellID].Interrupts = interrupt.Value;
+                        spellInfo.Interrupts = interrupt.Value;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -346,14 +347,14 @@ namespace SpellWork.DBC
                     var spellEquippedItems = CreateInstance<Storage<SpellEquippedItemsEntry>>("SpellEquippedItems", hotfixReader);
                     foreach (var equippedItems in spellEquippedItems.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(equippedItems.SpellID))
+                        if (!SpellInfoStore.TryGetValue(equippedItems.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellEquippedItems: Unknown spell {equippedItems.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[equippedItems.SpellID].EquippedItems = equippedItems;
+                        spellInfo.EquippedItems = equippedItems;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -362,13 +363,13 @@ namespace SpellWork.DBC
                     var spellLabels = CreateInstance<Storage<SpellLabelEntry>>("SpellLabel", hotfixReader);
                     foreach (var label in spellLabels.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(label.SpellID))
+                        if (!SpellInfoStore.TryGetValue(label.SpellID, out var spellInfo))
                         {
                             Console.WriteLine($"SpellLabel: Unknown spell {label.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[label.SpellID].Labels.Add(label.LabelID);
+                        spellInfo.Labels.Add(label.LabelID);
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -380,13 +381,13 @@ namespace SpellWork.DBC
                         if (levels.DifficultyID != 0)
                             continue;
 
-                        if (!SpellInfoStore.ContainsKey(levels.SpellID))
+                        if (!SpellInfoStore.TryGetValue(levels.SpellID, out var spellInfo))
                         {
                             Console.WriteLine($"SpellLevels: Unknown spell {levels.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[levels.SpellID].Levels = levels;
+                        spellInfo.Levels = levels;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -395,14 +396,14 @@ namespace SpellWork.DBC
                     var spellPowers = CreateInstance<Storage<SpellPowerEntry>>("SpellPower", hotfixReader);
                     foreach (var power in spellPowers.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(power.SpellID))
+                        if (!SpellInfoStore.TryGetValue(power.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellPower: Unknown spell {power.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[power.SpellID].Powers.Add(power);
+                        spellInfo.Powers.Add(power);
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -411,14 +412,14 @@ namespace SpellWork.DBC
                     var spellReagents = CreateInstance<Storage<SpellReagentsEntry>>("SpellReagents", hotfixReader);
                     foreach (var reagents in spellReagents.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(reagents.SpellID))
+                        if (!SpellInfoStore.TryGetValue(reagents.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellReagents: Unknown spell {reagents.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[reagents.SpellID].Reagents = reagents;
+                        spellInfo.Reagents = reagents;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -427,14 +428,14 @@ namespace SpellWork.DBC
                     var spellReagentsCurrencies = CreateInstance<Storage<SpellReagentsCurrencyEntry>>("SpellReagentsCurrency", hotfixReader);
                     foreach (var spellReagentsCurrency in spellReagentsCurrencies.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(spellReagentsCurrency.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellReagentsCurrency.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellReagentsCurrency: Unknown spell {spellReagentsCurrency.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellReagentsCurrency.SpellID].ReagentsCurrency.Add(spellReagentsCurrency);
+                        spellInfo.ReagentsCurrency.Add(spellReagentsCurrency);
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -443,14 +444,14 @@ namespace SpellWork.DBC
                     var spellShapeshifts = CreateInstance<Storage<SpellShapeshiftEntry>>("SpellShapeshift", hotfixReader);
                     foreach (var spellShapeshift in spellShapeshifts.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(spellShapeshift.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellShapeshift.SpellID, out var spellInfo))
                         {
                             Console.WriteLine(
                                 $"SpellShapeshift: Unknown spell {spellShapeshift.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellShapeshift.SpellID].Shapeshift = spellShapeshift;
+                        spellInfo.Shapeshift = spellShapeshift;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -459,13 +460,13 @@ namespace SpellWork.DBC
                     var spellTotems = CreateInstance<Storage<SpellTotemsEntry>>("SpellTotems", hotfixReader);
                     foreach (var spellTotem in spellTotems.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(spellTotem.SpellID))
+                        if (!SpellInfoStore.TryGetValue(spellTotem.SpellID, out var spellInfo))
                         {
                             Console.WriteLine($"SpellTotems: Unknown spell {spellTotem.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellTotem.SpellID].Totems = spellTotem;
+                        spellInfo.Totems = spellTotem;
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -475,12 +476,12 @@ namespace SpellWork.DBC
                     var spellDescriptionVariables = CreateInstance<Storage<SpellDescriptionVariablesEntry>>("SpellDescriptionVariables", hotfixReader);
                     foreach (var descriptionVariable in spellXDescriptionVariables.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(descriptionVariable.SpellID))
+                        if (!SpellInfoStore.TryGetValue(descriptionVariable.SpellID, out var spellInfo))
                         {
                             Console.WriteLine($"SpellXDescriptionVariables: Unknown spell {descriptionVariable.SpellID} referenced, ignoring!");
                             continue;
                         }
-                        SpellInfoStore[descriptionVariable.SpellID].DescriptionVariables = spellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
+                        spellInfo.DescriptionVariables = spellDescriptionVariables.GetValue(descriptionVariable.SpellDescriptionVariablesID);
                     }
                     progressHandler.IncrementStepsProgress();
                 },
@@ -492,8 +493,7 @@ namespace SpellWork.DBC
 
                     foreach (var itemXItemEffect in itemXItemEffects.Values)
                     {
-                        itemEffects.TryGetValue(itemXItemEffect.ItemEffectID, out var itemEffect);
-                        if (itemEffect == null)
+                        if (!itemEffects.TryGetValue(itemXItemEffect.ItemEffectID, out var itemEffect))
                             continue;
 
                         if (!SpellInfoStore.ContainsKey(itemEffect.SpellID))
