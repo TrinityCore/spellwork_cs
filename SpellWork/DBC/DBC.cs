@@ -19,8 +19,8 @@ namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string Version = "SpellWork 10.2.5 (52902)";
-        public const uint MaxLevel = 70;
+        public const string Version = "SpellWork 11.0.0 (55945)";
+        public const uint MaxLevel = 80;
         public const uint MaxItemLevel = 1300;
 
         public static Storage<AreaGroupMemberEntry>             AreaGroupMember { get; set; }
@@ -127,6 +127,9 @@ namespace SpellWork.DBC
 
                         if (SpellDuration.TryGetValue(spellMisc.DurationIndex, out var durationEntry))
                             spell.DurationEntry = durationEntry;
+
+                        if (SpellDuration.TryGetValue(spellMisc.PvPDurationIndex, out var pvpDurationEntry))
+                            spell.PvpDurationEntry = pvpDurationEntry;
 
                         if (SpellRange.TryGetValue(spellMisc.RangeIndex, out var rangeEntry))
                             spell.Range = rangeEntry;

@@ -12,7 +12,7 @@ namespace SpellWork.DBC.Structures
         public int LockID;
         public sbyte ResetInterval;
         public int MaxPlayers;
-        public int ItemContext;
+        public byte ItemContext;
         public int ItemContextPickerID;
         public int Flags;
         public int ContentTuningID;

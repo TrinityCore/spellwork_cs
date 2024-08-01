@@ -16,7 +16,7 @@ namespace SpellWork.DBC.Structures
         public sbyte CanLink;
         public uint ParentSkillLineID;
         public int ParentTierIndex;
-        public ushort Flags;
+        public int Flags;
         public int SpellBookSpellID;
         public int ExpansionNameSharedStringID;
         public int HordeExpansionNameSharedStringID;

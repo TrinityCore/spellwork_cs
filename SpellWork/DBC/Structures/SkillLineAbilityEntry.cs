@@ -14,7 +14,7 @@ namespace SpellWork.DBC.Structures
         public short MinSkillLineRank;
         public int ClassMask;
         public int SupercedesSpell;
-        public sbyte AcquireMethod;
+        public int AcquireMethod;
         public short TrivialSkillLineRankHigh;
         public short TrivialSkillLineRankLow;
         public int Flags;

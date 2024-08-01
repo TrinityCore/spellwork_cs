@@ -61,6 +61,8 @@ namespace SpellWork.Spell
         [IgnoreAutopopulatedFilterValue]
         public SpellDurationEntry DurationEntry { get; set; }
         [IgnoreAutopopulatedFilterValue]
+        public SpellDurationEntry PvpDurationEntry { get; set; }
+        [IgnoreAutopopulatedFilterValue]
         public SpellRangeEntry Range { get; set; }
 
         // Helper
@@ -162,11 +164,6 @@ namespace SpellWork.Spell
         public uint ProcFlagsEx => (uint)(AuraOptions?.ProcTypeMask[1] ?? 0);
         public uint CumulativeAura => AuraOptions?.CumulativeAura ?? 0;
         public int ProcCooldown => AuraOptions?.ProcCategoryRecovery ?? 0;
-        #endregion
-
-        #region SpellDuration
-        public int Duration => DurationEntry?.Duration ?? 0;
-        public int MaxDuration => DurationEntry?.MaxDuration ?? 0;
         #endregion
 
         #region SpellLevels
@@ -522,7 +519,10 @@ namespace SpellWork.Spell
             }
 
             if (DurationEntry != null)
-                rtb.AppendFormatLine("Duration {0}, {1}", Duration, MaxDuration);
+                rtb.AppendFormatLine("Duration {0}, {1}", DurationEntry.Duration, DurationEntry.MaxDuration);
+
+            if (PvpDurationEntry != null)
+                rtb.AppendFormatLine("PvP Duration {0}, {1}", PvpDurationEntry.Duration, PvpDurationEntry.MaxDuration);
 
             foreach (var spellPower in Powers.OrderBy(p => p.OrderIndex))
             {

@@ -11,6 +11,7 @@ namespace SpellWork.DBC.Structures
         public byte DifficultyID;
         public ushort CastingTimeIndex;
         public ushort DurationIndex;
+        public ushort PvPDurationIndex;
         public ushort RangeIndex;
         public byte SchoolMask;
         public float Speed;

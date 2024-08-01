@@ -23,6 +23,8 @@ namespace SpellWork.DBC.Structures
         public float[] StatPercentageOfSocket = new float[10];
         [Cardinality(10)]
         public int[] StatPercentEditor = new int[10];
+        [Cardinality(10)]
+        public int[] StatModifierBonusStat = new int[10];
         public int Stackable;
         public int MaxCount;
         public int MinReputation;
@@ -32,8 +34,8 @@ namespace SpellWork.DBC.Structures
         public uint VendorStackCount;
         public float PriceVariance;
         public float PriceRandomValue;
-        [Cardinality(4)]
-        public int[] Flags = new int[4];
+        [Cardinality(5)]
+        public int[] Flags = new int[5];
         public int FactionRelated;
         public int ModifiedCraftingReagentItemID;
         public int ContentTuningID;
@@ -68,8 +70,6 @@ namespace SpellWork.DBC.Structures
         public byte LanguageID;
         public byte Bonding;
         public byte DamageDamageType;
-        [Cardinality(10)]
-        public sbyte[] StatModifierBonusStat = new sbyte[10];
         public byte ContainerSlots;
         public byte RequiredPVPMedal;
         public byte RequiredPVPRank;

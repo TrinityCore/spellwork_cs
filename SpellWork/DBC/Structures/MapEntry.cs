@@ -31,6 +31,7 @@ namespace SpellWork.DBC.Structures
         public int ZmpFileDataID;
         public int WdtFileDataID;
         public int NavigationMaxDistance;
+        public int PreloadFileDataID;
         [Cardinality(3)]
         public uint[] Flags = new uint[3];
 
