@@ -19,7 +19,7 @@ namespace SpellWork.Forms
         public FormMain()
         {
             InitializeComponent();
-            splitContainer3.SplitterDistance = 170;
+            splitContainer3.SplitterDistance = 200;
 
             Text = DBC.DBC.Version;
 
@@ -332,7 +332,7 @@ namespace SpellWork.Forms
 
         private void CbProcFlagCheckedChanged(object sender, EventArgs e)
         {
-            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 270 : 170;
+            splitContainer3.SplitterDistance = ((CheckBox)sender).Checked ? 300 : 200;
         }
 
         private void TvFamilyTreeAfterSelect(object sender, TreeViewEventArgs e)

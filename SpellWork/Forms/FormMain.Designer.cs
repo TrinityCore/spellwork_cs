@@ -249,7 +249,7 @@
             statusStrip1.Location = new System.Drawing.Point(0, 879);
             statusStrip1.Name = "statusStrip1";
             statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
-            statusStrip1.Size = new System.Drawing.Size(1381, 22);
+            statusStrip1.Size = new System.Drawing.Size(1384, 22);
             statusStrip1.TabIndex = 0;
             statusStrip1.Text = "statusStrip1";
             // 
@@ -274,7 +274,7 @@
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            menuStrip1.Size = new System.Drawing.Size(1381, 24);
+            menuStrip1.Size = new System.Drawing.Size(1384, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -374,7 +374,7 @@
             _tpCompare.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tpCompare.Name = "_tpCompare";
             _tpCompare.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            _tpCompare.Size = new System.Drawing.Size(1373, 827);
+            _tpCompare.Size = new System.Drawing.Size(1376, 827);
             _tpCompare.TabIndex = 4;
             _tpCompare.Text = "Compare Spells";
             _tpCompare.UseVisualStyleBackColor = true;
@@ -402,8 +402,8 @@
             _scCompareRoot.Panel2.Controls.Add(label14);
             _scCompareRoot.Panel2.Controls.Add(_rtbCompareSpell2);
             _scCompareRoot.Panel2.Controls.Add(_tbCompareFilterSpell2);
-            _scCompareRoot.Size = new System.Drawing.Size(1365, 821);
-            _scCompareRoot.SplitterDistance = 583;
+            _scCompareRoot.Size = new System.Drawing.Size(1368, 821);
+            _scCompareRoot.SplitterDistance = 684;
             _scCompareRoot.SplitterWidth = 5;
             _scCompareRoot.TabIndex = 0;
             // 
@@ -445,7 +445,7 @@
             _rtbCompareSpell1.Location = new System.Drawing.Point(0, 33);
             _rtbCompareSpell1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _rtbCompareSpell1.Name = "_rtbCompareSpell1";
-            _rtbCompareSpell1.Size = new System.Drawing.Size(579, 787);
+            _rtbCompareSpell1.Size = new System.Drawing.Size(680, 787);
             _rtbCompareSpell1.TabIndex = 0;
             _rtbCompareSpell1.Text = "";
             // 
@@ -478,7 +478,7 @@
             _rtbCompareSpell2.Location = new System.Drawing.Point(4, 33);
             _rtbCompareSpell2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _rtbCompareSpell2.Name = "_rtbCompareSpell2";
-            _rtbCompareSpell2.Size = new System.Drawing.Size(763, 787);
+            _rtbCompareSpell2.Size = new System.Drawing.Size(663, 787);
             _rtbCompareSpell2.TabIndex = 0;
             _rtbCompareSpell2.Text = "";
             // 
@@ -521,7 +521,7 @@
             splitContainer1.Panel2.BackColor = System.Drawing.Color.Gainsboro;
             splitContainer1.Panel2.Controls.Add(groupBox1);
             splitContainer1.Size = new System.Drawing.Size(1365, 821);
-            splitContainer1.SplitterDistance = 956;
+            splitContainer1.SplitterDistance = 954;
             splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 0;
             // 
@@ -534,7 +534,7 @@
             _rtSpellInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _rtSpellInfo.Name = "_rtSpellInfo";
             _rtSpellInfo.ReadOnly = true;
-            _rtSpellInfo.Size = new System.Drawing.Size(956, 821);
+            _rtSpellInfo.Size = new System.Drawing.Size(954, 821);
             _rtSpellInfo.TabIndex = 0;
             _rtSpellInfo.Text = "";
             // 
@@ -548,7 +548,7 @@
             groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox1.Size = new System.Drawing.Size(404, 821);
+            groupBox1.Size = new System.Drawing.Size(406, 821);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             // 
@@ -563,7 +563,7 @@
             _lvSpellList.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _lvSpellList.MultiSelect = false;
             _lvSpellList.Name = "_lvSpellList";
-            _lvSpellList.Size = new System.Drawing.Size(396, 409);
+            _lvSpellList.Size = new System.Drawing.Size(398, 409);
             _lvSpellList.TabIndex = 7;
             _lvSpellList.UseCompatibleStateImageBehavior = false;
             _lvSpellList.View = System.Windows.Forms.View.Details;
@@ -600,7 +600,7 @@
             _gSpellFilter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _gSpellFilter.Name = "_gSpellFilter";
             _gSpellFilter.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            _gSpellFilter.Size = new System.Drawing.Size(401, 305);
+            _gSpellFilter.Size = new System.Drawing.Size(403, 305);
             _gSpellFilter.TabIndex = 8;
             _gSpellFilter.TabStop = false;
             _gSpellFilter.Text = "Spell Filter";
@@ -624,7 +624,7 @@
             _gbAdvansedSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _gbAdvansedSearch.Name = "_gbAdvansedSearch";
             _gbAdvansedSearch.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            _gbAdvansedSearch.Size = new System.Drawing.Size(391, 142);
+            _gbAdvansedSearch.Size = new System.Drawing.Size(393, 142);
             _gbAdvansedSearch.TabIndex = 6;
             _gbAdvansedSearch.TabStop = false;
             _gbAdvansedSearch.Text = "Advanced Filter";
@@ -635,7 +635,7 @@
             _cbAdvancedFilter2CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedFilter2CompareType.DropDownWidth = 160;
             _cbAdvancedFilter2CompareType.FormattingEnabled = true;
-            _cbAdvancedFilter2CompareType.Location = new System.Drawing.Point(189, 47);
+            _cbAdvancedFilter2CompareType.Location = new System.Drawing.Point(191, 47);
             _cbAdvancedFilter2CompareType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedFilter2CompareType.Name = "_cbAdvancedFilter2CompareType";
             _cbAdvancedFilter2CompareType.Size = new System.Drawing.Size(88, 23);
@@ -647,7 +647,7 @@
             _cbAdvancedFilter1CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedFilter1CompareType.DropDownWidth = 160;
             _cbAdvancedFilter1CompareType.FormattingEnabled = true;
-            _cbAdvancedFilter1CompareType.Location = new System.Drawing.Point(189, 17);
+            _cbAdvancedFilter1CompareType.Location = new System.Drawing.Point(191, 17);
             _cbAdvancedFilter1CompareType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedFilter1CompareType.Name = "_cbAdvancedFilter1CompareType";
             _cbAdvancedFilter1CompareType.Size = new System.Drawing.Size(88, 23);
@@ -656,7 +656,7 @@
             // _tbAdvancedFilter2Val
             // 
             _tbAdvancedFilter2Val.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _tbAdvancedFilter2Val.Location = new System.Drawing.Point(285, 50);
+            _tbAdvancedFilter2Val.Location = new System.Drawing.Point(287, 50);
             _tbAdvancedFilter2Val.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbAdvancedFilter2Val.Name = "_tbAdvancedFilter2Val";
             _tbAdvancedFilter2Val.Size = new System.Drawing.Size(98, 23);
@@ -666,7 +666,7 @@
             // _tbAdvancedFilter1Val
             // 
             _tbAdvancedFilter1Val.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _tbAdvancedFilter1Val.Location = new System.Drawing.Point(285, 17);
+            _tbAdvancedFilter1Val.Location = new System.Drawing.Point(287, 17);
             _tbAdvancedFilter1Val.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbAdvancedFilter1Val.Name = "_tbAdvancedFilter1Val";
             _tbAdvancedFilter1Val.Size = new System.Drawing.Size(98, 23);
@@ -683,7 +683,7 @@
             _cbAdvancedFilter2.Location = new System.Drawing.Point(1, 48);
             _cbAdvancedFilter2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedFilter2.Name = "_cbAdvancedFilter2";
-            _cbAdvancedFilter2.Size = new System.Drawing.Size(180, 23);
+            _cbAdvancedFilter2.Size = new System.Drawing.Size(182, 23);
             _cbAdvancedFilter2.TabIndex = 0;
             // 
             // _cbAdvancedFilter1
@@ -696,7 +696,7 @@
             _cbAdvancedFilter1.Location = new System.Drawing.Point(1, 17);
             _cbAdvancedFilter1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedFilter1.Name = "_cbAdvancedFilter1";
-            _cbAdvancedFilter1.Size = new System.Drawing.Size(180, 23);
+            _cbAdvancedFilter1.Size = new System.Drawing.Size(182, 23);
             _cbAdvancedFilter1.TabIndex = 0;
             // 
             // _cbAdvancedEffectFilter2CompareType
@@ -705,7 +705,7 @@
             _cbAdvancedEffectFilter2CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedEffectFilter2CompareType.DropDownWidth = 160;
             _cbAdvancedEffectFilter2CompareType.FormattingEnabled = true;
-            _cbAdvancedEffectFilter2CompareType.Location = new System.Drawing.Point(188, 110);
+            _cbAdvancedEffectFilter2CompareType.Location = new System.Drawing.Point(190, 110);
             _cbAdvancedEffectFilter2CompareType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedEffectFilter2CompareType.Name = "_cbAdvancedEffectFilter2CompareType";
             _cbAdvancedEffectFilter2CompareType.Size = new System.Drawing.Size(88, 23);
@@ -717,7 +717,7 @@
             _cbAdvancedEffectFilter1CompareType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedEffectFilter1CompareType.DropDownWidth = 160;
             _cbAdvancedEffectFilter1CompareType.FormattingEnabled = true;
-            _cbAdvancedEffectFilter1CompareType.Location = new System.Drawing.Point(189, 78);
+            _cbAdvancedEffectFilter1CompareType.Location = new System.Drawing.Point(191, 78);
             _cbAdvancedEffectFilter1CompareType.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedEffectFilter1CompareType.Name = "_cbAdvancedEffectFilter1CompareType";
             _cbAdvancedEffectFilter1CompareType.Size = new System.Drawing.Size(88, 23);
@@ -726,7 +726,7 @@
             // _tbAdvancedEffectFilter2Val
             // 
             _tbAdvancedEffectFilter2Val.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _tbAdvancedEffectFilter2Val.Location = new System.Drawing.Point(285, 111);
+            _tbAdvancedEffectFilter2Val.Location = new System.Drawing.Point(287, 111);
             _tbAdvancedEffectFilter2Val.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbAdvancedEffectFilter2Val.Name = "_tbAdvancedEffectFilter2Val";
             _tbAdvancedEffectFilter2Val.Size = new System.Drawing.Size(98, 23);
@@ -736,7 +736,7 @@
             // _tbAdvancedEffectFilter1Val
             // 
             _tbAdvancedEffectFilter1Val.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _tbAdvancedEffectFilter1Val.Location = new System.Drawing.Point(285, 78);
+            _tbAdvancedEffectFilter1Val.Location = new System.Drawing.Point(287, 78);
             _tbAdvancedEffectFilter1Val.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbAdvancedEffectFilter1Val.Name = "_tbAdvancedEffectFilter1Val";
             _tbAdvancedEffectFilter1Val.Size = new System.Drawing.Size(98, 23);
@@ -750,7 +750,7 @@
             _cbAdvancedEffectFilter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedEffectFilter2.FormattingEnabled = true;
             _cbAdvancedEffectFilter2.IntegralHeight = false;
-            _cbAdvancedEffectFilter2.Location = new System.Drawing.Point(10, 110);
+            _cbAdvancedEffectFilter2.Location = new System.Drawing.Point(12, 110);
             _cbAdvancedEffectFilter2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedEffectFilter2.Name = "_cbAdvancedEffectFilter2";
             _cbAdvancedEffectFilter2.Size = new System.Drawing.Size(170, 23);
@@ -763,7 +763,7 @@
             _cbAdvancedEffectFilter1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             _cbAdvancedEffectFilter1.FormattingEnabled = true;
             _cbAdvancedEffectFilter1.IntegralHeight = false;
-            _cbAdvancedEffectFilter1.Location = new System.Drawing.Point(10, 78);
+            _cbAdvancedEffectFilter1.Location = new System.Drawing.Point(12, 78);
             _cbAdvancedEffectFilter1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbAdvancedEffectFilter1.Name = "_cbAdvancedEffectFilter1";
             _cbAdvancedEffectFilter1.Size = new System.Drawing.Size(170, 23);
@@ -780,7 +780,7 @@
             _cbTarget2.Location = new System.Drawing.Point(5, 128);
             _cbTarget2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbTarget2.Name = "_cbTarget2";
-            _cbTarget2.Size = new System.Drawing.Size(392, 23);
+            _cbTarget2.Size = new System.Drawing.Size(394, 23);
             _cbTarget2.TabIndex = 5;
             _cbTarget2.SelectedIndexChanged += CbSpellFamilyNamesSelectedIndexChanged;
             // 
@@ -795,7 +795,7 @@
             _cbTarget1.Location = new System.Drawing.Point(5, 100);
             _cbTarget1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbTarget1.Name = "_cbTarget1";
-            _cbTarget1.Size = new System.Drawing.Size(392, 23);
+            _cbTarget1.Size = new System.Drawing.Size(394, 23);
             _cbTarget1.TabIndex = 5;
             _cbTarget1.SelectedIndexChanged += CbSpellFamilyNamesSelectedIndexChanged;
             // 
@@ -811,7 +811,7 @@
             _cbSpellEffect.Location = new System.Drawing.Point(5, 72);
             _cbSpellEffect.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbSpellEffect.Name = "_cbSpellEffect";
-            _cbSpellEffect.Size = new System.Drawing.Size(392, 23);
+            _cbSpellEffect.Size = new System.Drawing.Size(394, 23);
             _cbSpellEffect.TabIndex = 4;
             _cbSpellEffect.SelectedIndexChanged += CbSpellFamilyNamesSelectedIndexChanged;
             // 
@@ -826,7 +826,7 @@
             _cbSpellAura.Location = new System.Drawing.Point(5, 44);
             _cbSpellAura.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbSpellAura.Name = "_cbSpellAura";
-            _cbSpellAura.Size = new System.Drawing.Size(392, 23);
+            _cbSpellAura.Size = new System.Drawing.Size(394, 23);
             _cbSpellAura.TabIndex = 3;
             _cbSpellAura.SelectedIndexChanged += CbSpellFamilyNamesSelectedIndexChanged;
             // 
@@ -842,7 +842,7 @@
             _cbSpellFamilyName.Location = new System.Drawing.Point(5, 16);
             _cbSpellFamilyName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbSpellFamilyName.Name = "_cbSpellFamilyName";
-            _cbSpellFamilyName.Size = new System.Drawing.Size(392, 23);
+            _cbSpellFamilyName.Size = new System.Drawing.Size(394, 23);
             _cbSpellFamilyName.TabIndex = 2;
             _cbSpellFamilyName.SelectedIndexChanged += CbSpellFamilyNamesSelectedIndexChanged;
             // 
@@ -861,7 +861,7 @@
             groupBox7.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             groupBox7.Name = "groupBox7";
             groupBox7.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            groupBox7.Size = new System.Drawing.Size(404, 103);
+            groupBox7.Size = new System.Drawing.Size(406, 103);
             groupBox7.TabIndex = 9;
             groupBox7.TabStop = false;
             groupBox7.Text = "Spell Search";
@@ -899,7 +899,7 @@
             // _bSearch
             // 
             _bSearch.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _bSearch.Location = new System.Drawing.Point(344, 13);
+            _bSearch.Location = new System.Drawing.Point(346, 13);
             _bSearch.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _bSearch.Name = "_bSearch";
             _bSearch.Size = new System.Drawing.Size(58, 27);
@@ -914,7 +914,7 @@
             _tbSearchAttributes.Location = new System.Drawing.Point(108, 66);
             _tbSearchAttributes.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbSearchAttributes.Name = "_tbSearchAttributes";
-            _tbSearchAttributes.Size = new System.Drawing.Size(229, 23);
+            _tbSearchAttributes.Size = new System.Drawing.Size(231, 23);
             _tbSearchAttributes.TabIndex = 0;
             _tbSearchAttributes.KeyDown += TbSearchIdKeyDown;
             // 
@@ -924,7 +924,7 @@
             _tbSearchIcon.Location = new System.Drawing.Point(108, 40);
             _tbSearchIcon.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbSearchIcon.Name = "_tbSearchIcon";
-            _tbSearchIcon.Size = new System.Drawing.Size(229, 23);
+            _tbSearchIcon.Size = new System.Drawing.Size(231, 23);
             _tbSearchIcon.TabIndex = 0;
             _tbSearchIcon.KeyDown += TbSearchIdKeyDown;
             // 
@@ -934,7 +934,7 @@
             _tbSearchId.Location = new System.Drawing.Point(108, 15);
             _tbSearchId.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _tbSearchId.Name = "_tbSearchId";
-            _tbSearchId.Size = new System.Drawing.Size(229, 23);
+            _tbSearchId.Size = new System.Drawing.Size(231, 23);
             _tbSearchId.TabIndex = 0;
             _tbSearchId.KeyDown += TbSearchIdKeyDown;
             // 
@@ -950,7 +950,7 @@
             tabControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(1381, 855);
+            tabControl1.Size = new System.Drawing.Size(1384, 855);
             tabControl1.TabIndex = 2;
             tabControl1.SelectedIndexChanged += TabControl1SelectedIndexChanged;
             // 
@@ -1434,7 +1434,7 @@
             splitContainer5.Panel2.Controls.Add(_cbProcSpellAura);
             splitContainer5.Panel2.Controls.Add(_cbProcSpellFamilyName);
             splitContainer5.Size = new System.Drawing.Size(1022, 383);
-            splitContainer5.SplitterDistance = 741;
+            splitContainer5.SplitterDistance = 739;
             splitContainer5.SplitterWidth = 5;
             splitContainer5.TabIndex = 0;
             // 
@@ -1446,7 +1446,7 @@
             _rtbProcSpellInfo.Location = new System.Drawing.Point(0, 0);
             _rtbProcSpellInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _rtbProcSpellInfo.Name = "_rtbProcSpellInfo";
-            _rtbProcSpellInfo.Size = new System.Drawing.Size(741, 383);
+            _rtbProcSpellInfo.Size = new System.Drawing.Size(739, 383);
             _rtbProcSpellInfo.TabIndex = 0;
             _rtbProcSpellInfo.Text = "";
             // 
@@ -1965,7 +1965,7 @@
             _rtbSqlLog.Location = new System.Drawing.Point(0, 37);
             _rtbSqlLog.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _rtbSqlLog.Name = "_rtbSqlLog";
-            _rtbSqlLog.Size = new System.Drawing.Size(1363, 285);
+            _rtbSqlLog.Size = new System.Drawing.Size(1363, 283);
             _rtbSqlLog.TabIndex = 3;
             _rtbSqlLog.Text = "";
             // 
@@ -1996,7 +1996,7 @@
             _cbProcFlag.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             _cbProcFlag.Appearance = System.Windows.Forms.Appearance.Button;
             _cbProcFlag.AutoSize = true;
-            _cbProcFlag.Location = new System.Drawing.Point(1237, 1);
+            _cbProcFlag.Location = new System.Drawing.Point(1240, 1);
             _cbProcFlag.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _cbProcFlag.Name = "_cbProcFlag";
             _cbProcFlag.Size = new System.Drawing.Size(63, 25);
@@ -2009,7 +2009,7 @@
             // _bWrite
             // 
             _bWrite.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            _bWrite.Location = new System.Drawing.Point(1164, 1);
+            _bWrite.Location = new System.Drawing.Point(1167, 1);
             _bWrite.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _bWrite.Name = "_bWrite";
             _bWrite.Size = new System.Drawing.Size(59, 27);
@@ -2023,7 +2023,7 @@
             // 
             _bLevelScaling.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
             _bLevelScaling.Enabled = false;
-            _bLevelScaling.Location = new System.Drawing.Point(1307, 1);
+            _bLevelScaling.Location = new System.Drawing.Point(1310, 1);
             _bLevelScaling.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             _bLevelScaling.Name = "_bLevelScaling";
             _bLevelScaling.Size = new System.Drawing.Size(70, 27);
@@ -2035,7 +2035,7 @@
             // loadingProgressBar1
             // 
             loadingProgressBar1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            loadingProgressBar1.Location = new System.Drawing.Point(1260, 879);
+            loadingProgressBar1.Location = new System.Drawing.Point(1263, 879);
             loadingProgressBar1.Name = "loadingProgressBar1";
             loadingProgressBar1.Size = new System.Drawing.Size(100, 23);
             loadingProgressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
@@ -2045,7 +2045,7 @@
             // 
             loadingProgressLabel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
             loadingProgressLabel1.AutoSize = true;
-            loadingProgressLabel1.Location = new System.Drawing.Point(1160, 883);
+            loadingProgressLabel1.Location = new System.Drawing.Point(1163, 883);
             loadingProgressLabel1.Name = "loadingProgressLabel1";
             loadingProgressLabel1.Size = new System.Drawing.Size(98, 15);
             loadingProgressLabel1.TabIndex = 6;
@@ -2055,7 +2055,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(1381, 901);
+            ClientSize = new System.Drawing.Size(1384, 901);
             Controls.Add(loadingProgressLabel1);
             Controls.Add(loadingProgressBar1);
             Controls.Add(_bLevelScaling);
@@ -2067,7 +2067,7 @@
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            MinimumSize = new System.Drawing.Size(1397, 669);
+            MinimumSize = new System.Drawing.Size(1400, 670);
             Name = "FormMain";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "FormMain";
