@@ -2015,38 +2015,38 @@ namespace SpellWork.Spell
     [Flags]
     public enum SpellAtributeEx9 : uint
     {
-        SPELL_ATTR9_UNK0                             = 0x00000001, //  0
-        SPELL_ATTR9_UNK1                             = 0x00000002, //  1
-        SPELL_ATTR9_RESTRICTED_FLIGHT_AREA           = 0x00000004, //  2 Dalaran and Wintergrasp flight area auras have it
-        SPELL_ATTR9_UNK3                             = 0x00000008, //  3
-        SPELL_ATTR9_SPECIAL_DELAY_CALCULATION        = 0x00000010, //  4
-        SPELL_ATTR9_SUMMON_PLAYER_TOTEM              = 0x00000020, //  5
-        SPELL_ATTR9_UNK6                             = 0x00000040, //  6
-        SPELL_ATTR9_UNK7                             = 0x00000080, //  7
-        SPELL_ATTR9_AIMED_SHOT                       = 0x00000100, //  8
-        SPELL_ATTR9_NOT_USABLE_IN_ARENA              = 0x00000200, //  9 Cannot be used in arenas
-        SPELL_ATTR9_UNK10                            = 0x00000400, // 10
-        SPELL_ATTR9_UNK11                            = 0x00000800, // 11
-        SPELL_ATTR9_UNK12                            = 0x00001000, // 12
-        SPELL_ATTR9_SLAM                             = 0x00002000, // 13
-        SPELL_ATTR9_USABLE_IN_RATED_BATTLEGROUNDS    = 0x00004000, // 14 Can be used in Rated Battlegrounds
-        SPELL_ATTR9_UNK15                            = 0x00008000, // 15
-        SPELL_ATTR9_UNK16                            = 0x00010000, // 16
-        SPELL_ATTR9_UNK17                            = 0x00020000, // 17
-        SPELL_ATTR9_UNK18                            = 0x00040000, // 18
-        SPELL_ATTR9_UNK19                            = 0x00080000, // 19
-        SPELL_ATTR9_UNK20                            = 0x00100000, // 20
-        SPELL_ATTR9_UNK21                            = 0x00200000, // 21
-        SPELL_ATTR9_UNK22                            = 0x00400000, // 22
-        SPELL_ATTR9_UNK23                            = 0x00800000, // 23
-        SPELL_ATTR9_UNK24                            = 0x01000000, // 24
-        SPELL_ATTR9_UNK25                            = 0x02000000, // 25
-        SPELL_ATTR9_UNK26                            = 0x04000000, // 26
-        SPELL_ATTR9_UNK27                            = 0x08000000, // 27
-        SPELL_ATTR9_UNK28                            = 0x10000000, // 28
-        SPELL_ATTR9_UNK29                            = 0x20000000, // 29
-        SPELL_ATTR9_UNK30                            = 0x40000000, // 30
-        SPELL_ATTR9_UNK31                            = 0x80000000  // 31
+        SPELL_ATTR9_FORCE_DEST_LOCATION                                 = 0x00000001, //  0
+        SPELL_ATTR9_MOD_INVIS_INCLUDES_PARTY                            = 0x00000002, //  1
+        SPELL_ATTR9_ONLY_WHEN_ILLEGALLY_MOUNTED                         = 0x00000004, //  2 Dalaran and Wintergrasp flight area auras have it
+        SPELL_ATTR9_DO_NOT_LOG_AURA_REFRESH                             = 0x00000008, //  3
+        SPELL_ATTR9_MISSILE_SPEED_IS_DELAY_IN_SEC                       = 0x00000010, //  4
+        SPELL_ATTR9_IGNORE_TOTEM_REQUIREMENTS_FOR_CASTING               = 0x00000020, //  5
+        SPELL_ATTR9_ITEM_CAST_GRANTS_SKILL_GAIN                         = 0x00000040, //  6
+        SPELL_ATTR9_DO_NOT_ADD_TO_UNLEARN_LIST                          = 0x00000080, //  7
+        SPELL_ATTR9_COOLDOWN_IGNORES_RANGED_WEAPON                      = 0x00000100, //  8
+        SPELL_ATTR9_NOT_IN_ARENA                                        = 0x00000200, //  9 Cannot be used in arenas
+        SPELL_ATTR9_TARGET_MUST_BE_GROUNDED                             = 0x00000400, // 10
+        SPELL_ATTR9_ALLOW_WHILE_BANISHED_AURA_STATE                     = 0x00000800, // 11
+        SPELL_ATTR9_FACE_UNIT_TARGET_UPON_COMPLETION_OF_JUMP_CHARGE     = 0x00001000, // 12
+        SPELL_ATTR9_HASTE_AFFECTS_MELEE_ABILITY_CASTTIME                = 0x00002000, // 13
+        SPELL_ATTR9_IGNORE_DEFAULT_RATED_BATTLEGROUND_RESTRICTIONS      = 0x00004000, // 14 Can be used in Rated Battlegrounds
+        SPELL_ATTR9_DO_NOT_DISPLAY_POWER_COST                           = 0x00008000, // 15
+        SPELL_ATTR9_NEXT_MODAL_SPELL_REQUIRES_SAME_UNIT_TARGET          = 0x00010000, // 16
+        SPELL_ATTR9_AUTOCAST_OFF_BY_DEFAULT                             = 0x00020000, // 17
+        SPELL_ATTR9_IGNORE_SCHOOL_LOCKOUT                               = 0x00040000, // 18
+        SPELL_ATTR9_ALLOW_DARK_SIMULACRUM                               = 0x00080000, // 19
+        SPELL_ATTR9_ALLOW_CAST_WHILE_CHANNELING                         = 0x00100000, // 20
+        SPELL_ATTR9_SUPPRESS_VISUAL_KIT_ERRORS                          = 0x00200000, // 21
+        SPELL_ATTR9_SPELLCAST_OVERRIDE_IN_SPELLBOOK                     = 0x00400000, // 22
+        SPELL_ATTR9_JUMPCHARGE__NO_FACING_CONTROL                       = 0x00800000, // 23
+        SPELL_ATTR9_IGNORE_CASTER_HEALING_MODIFIERS                     = 0x01000000, // 24
+        SPELL_ATTR9_DONT_CONSUME_CHARGE_IF_ITEM_DELETED                 = 0x02000000, // 25
+        SPELL_ATTR9_ITEM_PASSIVE_ON_CLIENT                              = 0x04000000, // 26
+        SPELL_ATTR9_FORCE_CORPSE_TARGET                                 = 0x08000000, // 27
+        SPELL_ATTR9_CANNOT_KILL_TARGET                                  = 0x10000000, // 28
+        SPELL_ATTR9_LOG_PASSIVE                                         = 0x20000000, // 29
+        SPELL_ATTR9_NO_MOVEMENT_RADIUS_BONUS                            = 0x40000000, // 30
+        SPELL_ATTR9_CHANNEL_PERSISTS_ON_PET_FOLLOW                      = 0x80000000  // 31
     };
 
     [Flags]
