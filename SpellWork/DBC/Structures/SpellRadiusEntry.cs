@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -9,6 +9,6 @@ namespace SpellWork.DBC.Structures
         public float Radius;
         public float RadiusPerLevel;
         public float RadiusMin;
-        public float MaxRadius;
+        public float RadiusMax;
     }
 }

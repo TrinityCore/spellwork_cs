@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -14,7 +14,8 @@ namespace SpellWork.DBC.Structures
         public ushort SpellCategoryID;
         public int SpellID;
         public ushort ChrSpecializationID;
-        public uint ParentItemID;
+        [NonInlineRelation(typeof(uint))]
+        public int ParentItemID;
 
         // Helper
         public ItemSparseEntry Item { get; set; }

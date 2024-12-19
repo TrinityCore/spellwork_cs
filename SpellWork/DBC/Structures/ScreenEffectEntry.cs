@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {

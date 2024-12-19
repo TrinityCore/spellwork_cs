@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -13,6 +13,7 @@ namespace SpellWork.DBC.Structures
         public short TargetCreatureType;
         public int Targets;
         public float Width;
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

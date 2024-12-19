@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -7,6 +7,7 @@ namespace SpellWork.DBC.Structures
         [Index(true)]
         public uint ID;
         public uint LabelID;
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

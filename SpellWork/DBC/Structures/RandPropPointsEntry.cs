@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -8,10 +8,10 @@ namespace SpellWork.DBC.Structures
         public uint ID;
         public int DamageReplaceStat;
         [Cardinality(5)]
-        public uint[] Epic;
+        public uint[] Epic = new uint[5];
         [Cardinality(5)]
-        public uint[] Superior;
+        public uint[] Superior = new uint[5];
         [Cardinality(5)]
-        public uint[] Good;
+        public uint[] Good = new uint[5];
     }
 }

@@ -1,9 +1,7 @@
 ﻿namespace SpellWork.GameTables.Structures
 {
-    // ReSharper disable once ClassNeverInstantiated.Global
     internal class GtSpellScalingEntry : GameTableRecord
     {
-        // ReSharper disable MemberCanBePrivate.Global
         public uint ID;
         public float Warrior;
         public float Paladin;
@@ -18,11 +16,9 @@
         public float Druid;
         public float Item;
         public float Consumable;
-        // ReSharper restore MemberCanBePrivate.Global
 
         public float GetColumnForClass(int scalingClass)
         {
-            // ReSharper disable once SwitchStatementMissingSomeCases
             switch (scalingClass)
             {
                 case 1: return Warrior;

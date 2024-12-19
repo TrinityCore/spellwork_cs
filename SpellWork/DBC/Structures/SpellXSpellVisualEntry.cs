@@ -1,11 +1,11 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
     public sealed class SpellXSpellVisualEntry
     {
         [Index(false)]
-        public int ID;
+        public uint ID;
         public byte DifficultyID;
         public uint SpellVisualID;
         public float Probability;
@@ -17,6 +17,7 @@ namespace SpellWork.DBC.Structures
         public uint ViewerPlayerConditionID;
         public ushort CasterUnitConditionID;
         public uint CasterPlayerConditionID;
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

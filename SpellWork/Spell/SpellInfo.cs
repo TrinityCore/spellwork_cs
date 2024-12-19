@@ -475,8 +475,8 @@ namespace SpellWork.Spell
             if (Range != null)
             {
                 rtb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", RangeIndex, Range.DisplayName);
-                rtb.AppendFormatLine("    MinRangeNegative = {0}, MinRangePositive = {1}", Range.MinRange[0], Range.MinRange[1]);
-                rtb.AppendFormatLine("    MaxRangeNegative = {0}, MaxRangePositive = {1}", Range.MaxRange[0], Range.MaxRange[1]);
+                rtb.AppendFormatLine("    MinRangeNegative = {0}, MinRangePositive = {1}", Range.RangeMin[0], Range.RangeMax[1]);
+                rtb.AppendFormatLine("    MaxRangeNegative = {0}, MaxRangePositive = {1}", Range.RangeMin[0], Range.RangeMax[1]);
             }
 
             if (Misc != null)
@@ -843,7 +843,7 @@ namespace SpellWork.Spell
                 return;
 
             rtb.AppendLine($"{name}Radius (Id {radiusIndex}) {DBC.DBC.SpellRadius[(int)radiusIndex].Radius:F}" +
-                $" (Min: {DBC.DBC.SpellRadius[(int)radiusIndex].RadiusMin:F} Max: {DBC.DBC.SpellRadius[(int)radiusIndex].MaxRadius:F})");
+                $" (Min: {DBC.DBC.SpellRadius[(int)radiusIndex].RadiusMin:F} Max: {DBC.DBC.SpellRadius[(int)radiusIndex].RadiusMax:F})");
         }
 
         private static void AuraModTypeName(RichTextBox rtb, SpellEffectEntry effect)
@@ -1043,7 +1043,7 @@ namespace SpellWork.Spell
         [IgnoreAutopopulatedFilterValue("Filter using ID field on SpellInfo instead")]
         public int SpellID => SpellEffect.SpellID;
 
-        public int Effect => SpellEffect.Effect;
+        public uint Effect => SpellEffect.Effect;
         public int EffectIndex => SpellEffect.EffectIndex;
         public int EffectAttributes => SpellEffect.EffectAttributes;
 

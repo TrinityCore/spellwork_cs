@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -15,6 +15,7 @@ namespace SpellWork.DBC.Structures
         public int TargetAuraSpell;
         public int ExcludeCasterAuraSpell;
         public int ExcludeTargetAuraSpell;
-        public uint SpellID;
+        [NonInlineRelation(typeof(uint))]
+        public int SpellID;
     }
 }

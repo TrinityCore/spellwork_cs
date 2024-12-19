@@ -1,5 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
-using System;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -12,6 +11,7 @@ namespace SpellWork.DBC.Structures
         public short MaxLevel;
         public short SpellLevel;
         public byte MaxPassiveAuraLevel;
-        public uint SpellID;
+        [NonInlineRelation(typeof(uint))]
+        public int SpellID;
     }
 }

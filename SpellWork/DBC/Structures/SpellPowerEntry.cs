@@ -1,11 +1,11 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
     public sealed class SpellPowerEntry
     {
         [Index(false)]
-        public int ID;
+        public uint ID;
         public byte OrderIndex;
         public int ManaCost;
         public int ManaCostPerLevel;
@@ -18,6 +18,7 @@ namespace SpellWork.DBC.Structures
         public sbyte PowerType;
         public int RequiredAuraSpellID;
         public uint OptionalCost;
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 using System;
 
 namespace SpellWork.DBC.Structures
@@ -16,7 +16,8 @@ namespace SpellWork.DBC.Structures
         public byte ResetInterval;
         public byte MaxPlayers;
         public byte Flags;
-        public uint MapID;
+        [NonInlineRelation(typeof(uint))]
+        public int MapID;
 
         public int CompareTo(object obj)
         {

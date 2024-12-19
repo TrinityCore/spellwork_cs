@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace SpellWork.Forms
 {
@@ -22,6 +23,7 @@ namespace SpellWork.Forms
             _cbTarget2.SetEnumValues<Targets>("Target B");
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public SpellInfo Spell { get; private set; }
 
         private void IdNameKeyDown(object sender, KeyEventArgs e)

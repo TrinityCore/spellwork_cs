@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -11,6 +11,7 @@ namespace SpellWork.DBC.Structures
         public int RecoveryTime;
         public int StartRecoveryTime;
         public int AuraSpellID;
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

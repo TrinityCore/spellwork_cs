@@ -1,5 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
-using System;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -9,7 +8,7 @@ namespace SpellWork.DBC.Structures
         public uint ID;
         public int DifficultyID;
         public int EffectIndex;
-        public int Effect;
+        public uint Effect;
         public float EffectAmplitude;
         public int EffectAttributes;
         public short EffectAura;
@@ -39,6 +38,7 @@ namespace SpellWork.DBC.Structures
         public int[] EffectSpellClassMask = new int[4];
         [Cardinality(2)]
         public short[] ImplicitTarget = new short[2];
+        [NonInlineRelation(typeof(uint))]
         public int SpellID;
     }
 }

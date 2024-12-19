@@ -19,7 +19,7 @@ namespace SpellWork.DBC
 {
     public static class DBC
     {
-        public const string Version = "SpellWork 4.4.0 (55262)";
+        public const string Version = "SpellWork 4.4.1 (58158)";
         public const uint MaxLevel = 85;
         public const uint MaxItemLevel = 416;
 
@@ -423,14 +423,14 @@ namespace SpellWork.DBC
                     var spellReagentsCurrencies = CreateInstance<Storage<SpellReagentsCurrencyEntry>>("SpellReagentsCurrency", hotfixReader);
                     foreach (var spellReagentsCurrency in spellReagentsCurrencies.Values)
                     {
-                        if (!SpellInfoStore.ContainsKey(spellReagentsCurrency.SpellID))
+                        if (!SpellInfoStore.ContainsKey((int)spellReagentsCurrency.SpellID))
                         {
                             Console.WriteLine(
                                 $"SpellReagentsCurrency: Unknown spell {spellReagentsCurrency.SpellID} referenced, ignoring!");
                             continue;
                         }
 
-                        SpellInfoStore[spellReagentsCurrency.SpellID].ReagentsCurrency.Add(spellReagentsCurrency);
+                        SpellInfoStore[(int)spellReagentsCurrency.SpellID].ReagentsCurrency.Add(spellReagentsCurrency);
                     }
                     progressHandler.IncrementStepsProgress();
                 },

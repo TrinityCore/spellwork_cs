@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -10,8 +10,8 @@ namespace SpellWork.DBC.Structures
         public string DisplayNameShort;
         public byte Flags;
         [Cardinality(2)]
-        public float[] MinRange = new float[2];
+        public float[] RangeMin = new float[2];
         [Cardinality(2)]
-        public float[] MaxRange = new float[2];
+        public float[] RangeMax = new float[2];
     }
 }

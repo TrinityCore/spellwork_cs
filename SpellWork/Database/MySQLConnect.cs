@@ -301,7 +301,7 @@ namespace SpellWork.Database
                             var effect = new SpellEffectEntry()
                             {
                                 EffectIndex = reader.GetInt32(1),
-                                Effect = reader.GetInt32(3),
+                                Effect = reader.GetUInt32(3),
                                 EffectAura = reader.GetInt16(4),
                                 EffectAmplitude = reader.GetFloat(5),
                                 EffectAttributes = reader.GetInt32(6),

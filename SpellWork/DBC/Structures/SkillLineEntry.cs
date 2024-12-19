@@ -1,4 +1,4 @@
-﻿using DBFileReaderLib.Attributes;
+using DBFileReaderLib.Attributes;
 
 namespace SpellWork.DBC.Structures
 {
@@ -8,7 +8,7 @@ namespace SpellWork.DBC.Structures
         public string AlternateVerb;
         public string Description;
         public string HordeDisplayName;
-        public string OverrideSourceInfoDisplayName;
+        public string NeutralDisplayName;
         [Index(false)]
         public uint ID;
         public sbyte CategoryID;
@@ -16,7 +16,7 @@ namespace SpellWork.DBC.Structures
         public sbyte CanLink;
         public uint ParentSkillLineID;
         public int ParentTierIndex;
-        public ushort Flags;
+        public int Flags;
         public int SpellBookSpellID;
     }
 }
