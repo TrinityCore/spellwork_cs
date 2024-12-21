@@ -475,8 +475,8 @@ namespace SpellWork.Spell
             if (Range != null)
             {
                 rtb.AppendFormatLine("SpellRange: (Id {0}) \"{1}\":", RangeIndex, Range.DisplayName);
-                rtb.AppendFormatLine("    MinRangeNegative = {0}, MinRangePositive = {1}", Range.RangeMin[0], Range.RangeMax[1]);
-                rtb.AppendFormatLine("    MaxRangeNegative = {0}, MaxRangePositive = {1}", Range.RangeMin[0], Range.RangeMax[1]);
+                rtb.AppendFormatLine("    MinRangeNegative = {0}, MinRangePositive = {1}", Range.RangeMin[0], Range.RangeMin[1]);
+                rtb.AppendFormatLine("    MaxRangeNegative = {0}, MaxRangePositive = {1}", Range.RangeMax[0], Range.RangeMax[1]);
             }
 
             if (Misc != null)
