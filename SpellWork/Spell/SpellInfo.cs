@@ -96,6 +96,7 @@ namespace SpellWork.Spell
         public uint AttributesEx12 => (uint)(Misc?.Attributes[12] ?? 0);
         public uint AttributesEx13 => (uint)(Misc?.Attributes[13] ?? 0);
         public uint AttributesEx14 => (uint)(Misc?.Attributes[14] ?? 0);
+        public uint AttributesEx15 => (uint)(Misc?.Attributes[15] ?? 0);
         public float Speed => Misc?.Speed ?? 0;
         public int CastingTimeIndex => Misc?.CastingTimeIndex ?? 0;
         public int ActiveIconFileDataID => Misc?.ActiveIconFileDataID ?? 0;
@@ -362,6 +363,8 @@ namespace SpellWork.Spell
                 rtb.AppendFormatLine("AttributesEx13: 0x{0:X8} ({1})", AttributesEx13, (SpellAtributeEx13)AttributesEx13);
             if (AttributesEx14 != 0)
                 rtb.AppendFormatLine("AttributesEx14: 0x{0:X8} ({1})", AttributesEx14, (SpellAtributeEx14)AttributesEx14);
+            if (AttributesEx15 != 0)
+                rtb.AppendFormatLine("AttributesEx15: 0x{0:X8} ({1})", AttributesEx15, (SpellAtributeEx15)AttributesEx15);
 
             rtb.AppendLine(Separator);
             #endregion
