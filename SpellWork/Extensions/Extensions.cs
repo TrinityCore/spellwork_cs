@@ -127,7 +127,7 @@ namespace SpellWork.Extensions
             dt.Rows.Add(-1, noValue);
 
             foreach (var str in Enum.GetValues(typeof(T)))
-                dt.Rows.Add((int)str, "(" + ((int)str).ToString("000") + ") " + str);
+                dt.Rows.Add((int)str, ((int)str).ToString("000") + " - " + str);
 
             cb.DataSource = dt;
             cb.DisplayMember = "NAME";
@@ -168,7 +168,7 @@ namespace SpellWork.Extensions
 
                 var dr = dt.NewRow();
                 dr["ID"] = str;
-                dr["NAME"] = $"({i:000}) {str.Name}";
+                dr["NAME"] = $"{i:000} - {str.Name}";
                 dt.Rows.Add(dr);
                 ++i;
             }
